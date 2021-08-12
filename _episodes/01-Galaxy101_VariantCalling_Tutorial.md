@@ -70,7 +70,7 @@ As you can see, we now know we can find sequencing data related to this study un
 
 > ## "Process and filter SraRunInfo.csv"
 >
-> This is the tool we are going to use <button type="button" class="btn btn-outline-white btn-small" style="pointer-events: none"> <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Select Text </button>
+> This is the tool we are going to use <button type="button" class="btn btn-outline-tool" style="pointer-events: none">  Select Text  </button>
 > ~~~
 > it may include some code
 > ~~~

@@ -5406,6 +5406,20 @@ button.list-group-item {
   font-weight: bold;
   border-radius: 0;
 }
+
+.btn-outline-tool {
+  color: #2F4F4F;
+  background-color: #ffffff;
+  border-color: #2F4F4F;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.btn-outline-tool::before{
+   content: "\e136";
+   font-family: 'Glyphicons Halflings';
+}
+
 .btn-white {
   color: #2F4F4F;
   border-color: #2F4F4F;
