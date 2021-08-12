@@ -30,3 +30,63 @@ As you learned from this week's lectures, variant-calling is the process of iden
 *   lesson objectives
 *   a summary of key points
 
+## Prerequisites
+This tutorial assumes that you have done the following:
+* Signed up for a Galaxy account and can log in 
+* Have taken a look at the Galaxy Environment 101 Tutorial
+
+## Obtaining data from the NCBI Short Read Archive
+
+First we need to identify some samples of interest. The Sequence Read Archive (SRA) is the primary archive of unassembled reads operated by the US National Institutes of Health (NIH). SRA is a great place to get the sequencing data that underlie publications and studies. We know where to find the data because Science (and in fact, most publications) require authors to deposit their data in a public database and give us the information we need to find it on the database. 
+
+The data availability statement can be found in the acknowledgements section of Lemieux et al. 2020: 
+
+<a href="{{ page.root }}/fig/Lemieux_Data_Statement.png">
+  <img src="{{ page.root }}/fig/Lemieux_Data_Statement.png" alt="Data availability statement from Lemieux et al. 2020" />
+</a>
+
+As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622387`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage. 
+
+> ## "Hands-On: Get Metadata from NCBI SRA"
+>
+> This is the body of the challenge.
+>
+> ~~~
+> it may include some code
+> ~~~
+> {: .source}
+>
+> > ## Solution
+> >
+> > This is the body of the solution.
+> >
+> > ~~~
+> > it may also include some code
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+
+> ## "Process and filter SraRunInfo.csv"
+>
+> This is the tool we are going to use <span class = "glyphicon glyphicon-wrench"></span>
+>
+> ~~~
+> it may include some code
+> ~~~
+> {: .source}
+>
+> > ## Solution
+> >
+> > This is the body of the solution.
+> >
+> > ~~~
+> > it may also include some code
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+
+{% include links.md %}
