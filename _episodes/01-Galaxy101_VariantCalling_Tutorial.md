@@ -48,8 +48,8 @@ The data availability statement can be found in the acknowledgements section of 
 As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622387`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage. 
 
 > ## "Hands-On: Get Metadata from NCBI SRA"
->
-> This is the body of the challenge.
+> Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
+> 
 >
 > ~~~
 > it may include some code
@@ -70,8 +70,7 @@ As you can see, we now know we can find sequencing data related to this study un
 
 > ## "Process and filter SraRunInfo.csv"
 >
-> This is the tool we are going to use <span class = "glyphicon glyphicon-wrench"></span>
->
+> This is the tool we are going to use <button type="button" class="btn btn-outline-white btn-small" style="pointer-events: none"> <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Select Text </button>
 > ~~~
 > it may include some code
 > ~~~

@@ -5399,6 +5399,19 @@ button.list-group-item {
   width: 100%;
   text-align: left;
 }
+.btn-outline-white {
+  color: #2F4F4F;
+  background-color: #ffffff;
+  border-color: #2F4F4F;
+  font-weight: bold;
+  border-radius: 0;
+}
+.btn-white {
+  color: #2F4F4F;
+  border-color: #2F4F4F;
+  font-weight: bold;
+  border-radius: 0;
+}
 .list-group-item-success {
   color: #3c763d;
   background-color: #dff0d8;
