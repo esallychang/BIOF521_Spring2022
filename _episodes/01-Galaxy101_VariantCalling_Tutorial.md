@@ -47,6 +47,8 @@ The data availability statement can be found in the acknowledgements section of 
 
 As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622387`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage. 
 
+If you click on the first 
+
 > ## "Hands-On: Get Metadata from NCBI SRA"
 > 1. Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
 > 2. Perform a search using the Bioproject ID from above: `BioProject PRJNA622387`
@@ -67,6 +69,16 @@ As you can see, we now know we can find sequencing data related to this study un
 So, what is in the the SRA Run Info file?
 
 The file we just downloaded is **not** sequencing data itself. Rather, it is **metadata** describing the properties of sequencing reads. We could actually open this file in a program like Excel, and if we did so, we could see columns of information like **Release Date**, **Sequencing Platform**, and **Sample Name** as reported by the researchers. In this study every accession corresponds to an individual patient whose samples were sequenced. We will filter this list down to just a few sequenced samples that will be used in the remainder of this tutorial. 
+
+This is all very valuable information - for example, we can use the **Sample Name** to retrieve information about when the sample was actually collected: 
+
+You can search for a **Sample Name** in the general NCBI database by using the **All Databases** option in the toolbar: 
+
+<img src="{{ page.root }}/fig/NCBI_Sample_SearchBar.png" alt="Searching NCBI By Sample Name">
+
+We can see that the sample that was sequenced to become the SRA sequencing dataset `SRS8612691` was collected on January 4th, 2021 and was collected as part of routine surveillance: 
+
+<img src="{{ page.root }}/fig/NCBI_SampleSearch_Results.png" alt="Results of Searching NCBI By A Sample Name">
 
 > ## Hands-On: Upload `SRARunInfo.csv` onto Galaxy
 > 1. If you haven't already, log in to your Galaxy account. Create a new, empty history called something like "Variant Calling Tutorial".
@@ -91,11 +103,19 @@ The file we just downloaded is **not** sequencing data itself. Rather, it is **m
 > <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking Pencil icon in Galaxy History">
 {: .challenge}
 
-The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples collected from early in the ongoing Covid-19 pandemic, so we will be choosing samples from March of 2020. 
 
-> ## "Hands-On: Upload `SRARunInfo.csv` onto Galaxy"
+
+The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in April of 2020, which I have chosen using the "Collection Date" information retrieved by **Sample Name** as described above. 
+
+
+
+> ## Hands-On: Creating a subset of data
 >
-> This is the tool we are going to use <button type="button" class="btn btn-outline-tool" style="pointer-events: none">  Select Text  </button>
+> 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool in the **Filter and Sort** section of the tool panel. You may find that Galaxy has an overwhelming amount of tools installed. To find a specific tool type the tool name in the tool panel search box to find the tool.
+> 
+> 2. Make sure the SraRunInfo.csv dataset we just uploaded is listed in the <span class="glyphicon glyphicon-file"></span> "_Select lines from_" field of the tool form.
+>
+> 3. In “_the pattern_” field enter the following expression → `SRR12733957|SRR11954102`. These are two accession we want to find separated by the pipe symbol |. The | means or: find lines containing SRR12733957 or SRR11954102.
 > ~~~
 > it may include some code
 > ~~~
