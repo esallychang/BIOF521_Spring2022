@@ -48,23 +48,17 @@ The data availability statement can be found in the acknowledgements section of 
 As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622387`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage. 
 
 > ## "Hands-On: Get Metadata from NCBI SRA"
-> Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
-> 
->
-> ~~~
-> it may include some code
-> ~~~
-> {: .source}
->
-> > ## Solution
-> >
-> > This is the body of the solution.
-> >
-> > ~~~
-> > it may also include some code
-> > ~~~
-> > {: .output}
-> {: .solution}
+> 1. Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
+> 2. Perform a search using the Bioproject ID from above: `BioProject PRJNA622387`
+> <img src="{{ page.root }}/fig/SRA_Bioproject_Search.png" alt="SRA search toolbar filled in with Bioproject ID from above">
+> 3. The web page will show a large number of available SRA datasets related to project described in Lemieux et al. 2020 (at the time of writing there were 3,927). 
+> 4. Download metadata describing these datasets by:
+>   * clicking on **Send to**: dropdown
+>   * Selecting `File`
+>   * Changing **Format** to `RunInfo`
+>   * Clicking **Create file**. The screen should now look like this: 
+> <img src="{{ page.root }}/fig/SRA_Download_RunInfo_Menu.png" alt="SRA Download RunInfo Menu Options">
+> 5. Click "Create File" to download the `SraRunInfo.csv` file to a place on your computer where you will be able to find it easily for the next step.
 {: .challenge}
 
 
