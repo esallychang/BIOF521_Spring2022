@@ -105,9 +105,11 @@ We can see that the sample that was sequenced to become the SRA sequencing datas
 
 
 
-The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in April of 2020, which I have chosen using the "Collection Date" information retrieved by **Sample Name** as described above. 
+The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in March of 2020, which I have chosen using the "Collection Date" information retrieved by as described above. 
 
-
+**We are going to focus on the following two sequencing data sets:** 
+* Run Number `SRR11954281`: A sequencing run from a sample collected on March 9th, 2020.
+* Run Number `SRR11953784`: A sequencing run from a sample collected on March 26th, 2020.
 
 > ## Hands-On: Creating a subset of data
 >
@@ -115,7 +117,7 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 > 
 > 2. Make sure the SraRunInfo.csv dataset we just uploaded is listed in the <span class="glyphicon glyphicon-file"></span> "_Select lines from_" field of the tool form.
 >
-> 3. In “_the pattern_” field enter the following expression → `SRR12733957|SRR11954102`. These are two accession we want to find separated by the pipe symbol |. The | means or: find lines containing SRR12733957 or SRR11954102.
+> 3. In “_the pattern_” field enter the following expression → . These are two accession we want to find separated by the pipe symbol |. The | means or: find lines containing SRR12733957 or SRR11954102.
 > ~~~
 > it may include some code
 > ~~~
