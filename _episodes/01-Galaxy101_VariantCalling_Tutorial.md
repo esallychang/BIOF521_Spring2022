@@ -61,6 +61,10 @@ As you can see, we now know we can find sequencing data related to this study un
 > 5. Click "Create File" to download the `SraRunInfo.csv` file to a place on your computer where you will be able to find it easily for the next step.
 {: .challenge}
 
+> ## So what did we just download?
+> 
+> Note that the file we just downloaded is not sequencing data itself. Rather, it is **metadata** describing the properties of sequencing reads. We could actually open this file in a program like Excel, and if we did so, we could see columns of information like **Release Date**, **Sequencing Platform**, and **Sample Name** as reported by the researchers. We will filter this list down to just a few sequenced samples that will be used in the remainder of this tutorial.
+{: .callout}
 
 > ## "Process and filter SraRunInfo.csv"
 >
