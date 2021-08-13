@@ -61,12 +61,39 @@ As you can see, we now know we can find sequencing data related to this study un
 > 5. Click "Create File" to download the `SraRunInfo.csv` file to a place on your computer where you will be able to find it easily for the next step.
 {: .challenge}
 
-> ## So what did we just download?
-> 
-> Note that the file we just downloaded is not sequencing data itself. Rather, it is **metadata** describing the properties of sequencing reads. We could actually open this file in a program like Excel, and if we did so, we could see columns of information like **Release Date**, **Sequencing Platform**, and **Sample Name** as reported by the researchers. We will filter this list down to just a few sequenced samples that will be used in the remainder of this tutorial.
-{: .callout}
 
-> ## "Process and filter SraRunInfo.csv"
+## Process and filter `SraRunInfo.csv` file in Galaxy
+
+So, what is in the the SRA Run Info file?
+
+The file we just downloaded is **not** sequencing data itself. Rather, it is **metadata** describing the properties of sequencing reads. We could actually open this file in a program like Excel, and if we did so, we could see columns of information like **Release Date**, **Sequencing Platform**, and **Sample Name** as reported by the researchers. In this study every accession corresponds to an individual patient whose samples were sequenced. We will filter this list down to just a few sequenced samples that will be used in the remainder of this tutorial. 
+
+> ## Hands-On: Upload `SRARunInfo.csv` onto Galaxy
+> 1. If you haven't already, log in to your Galaxy account. Create a new, empty history called something like "Variant Calling Tutorial".
+> 2. In the tools panel, click the **Upload Data** button: 
+>
+> <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">
+> 
+> 3. Find `SRARunInfo.csv` on your computer, and drag it into the "Drop Files Here" space in the dialog box that pops up.
+> 4. Click the **Start** button to begin the upload. 
+> 5. At this point, you can press the **Close** button. In a several seconds, `SRARunInfo.csv` should be ready to look at in the History panel. 
+> 6. You can now look at the content of this file by clicking on the eye icon <span class="glyphicon glyphicon-eye-open"></span>. You will see that this file contains a lot of information about individual SRA accessions.
+> 
+> How large is the sequencing file associated with the accession number `SRR14114810`? 
+> 
+> > ## Solution
+> >
+> > 272 MB. If you open the file by clicking the eye icon, you should be able to find `SRR14114810` in the **Run** column, and then look over to see 272 in the **size_MB** column. 
+> >
+> {: .solution}
+> **Note:** If you ever want a smaller summary of the data, you can also click the Pencil icon <span class="glyphicon glyphicon-pencil"></span>, which should produce something like this: 
+> 
+> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking Pencil icon in Galaxy History">
+{: .challenge}
+
+The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples collected from early in the ongoing Covid-19 pandemic, so we will be choosing samples from March of 2020. 
+
+> ## "Hands-On: Upload `SRARunInfo.csv` onto Galaxy"
 >
 > This is the tool we are going to use <button type="button" class="btn btn-outline-tool" style="pointer-events: none">  Select Text  </button>
 > ~~~
@@ -84,6 +111,5 @@ As you can see, we now know we can find sequencing data related to this study un
 > > {: .output}
 > {: .solution}
 {: .challenge}
-
 
 {% include links.md %}
