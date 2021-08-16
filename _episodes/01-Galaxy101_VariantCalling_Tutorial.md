@@ -295,4 +295,17 @@ What are some of the main things we can learn from this plot of the quality of t
 
 ## Getting the SARS-CoV-2 Reference Genome
 
+In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated relative to the original strain isolated from patients from Wuhan, China, we are going to map our filtered sequencing data to the full assembled genome of one of the original SARS-CoV-2 isolates, `Wuhan-Hu-1`. It has an accession ID of `NC_045512.2`, which you can search for on NCBI much like we did for the Boston samples to get more information. 
+
+> ## Hands-On: Importing the reference genome from NCBI
+> 1. Click the **Upload Data** button in the toolbar.
+> 2. In the menu that pops up, click on **Paste/Fetch Data** 
+> 3. Copy and paste this address in the box: `https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz`
+> <img src="{{ page.root }}/fig/paste_fetch_data_box.png" alt="Galaxy fetch data window with address in the box">
+> 4. Replace `New File` with something sensible, like `Reference Genome`, and press `Start`. You can close the window now.
+{: .challenge}
+
+Assembled genomes are often stored as `FASTA` files, which can store any type of sequence data, as long as each sequence is stored with a header line, which are denoted with a 
+
+
 {% include links.md %}
