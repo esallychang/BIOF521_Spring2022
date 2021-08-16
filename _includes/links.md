@@ -5,6 +5,7 @@
 [ci]: http://communityin.org/
 [coc-reporting]: https://docs.carpentries.org/topic_folders/policies/incident-reporting.html
 [coc]: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+[collections-tutorial]: https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/collections/tutorial.html
 [concept-maps]: https://carpentries.github.io/instructor-training/05-memory/
 [contrib-covenant]: https://contributor-covenant.org/
 [contributing]: {{ repo_url }}/blob/{{ source_branch }}/CONTRIBUTING.md
@@ -13,6 +14,7 @@
 [cran-stringr]: https://cran.r-project.org/package=stringr
 [dc-lessons]: http://www.datacarpentry.org/lessons/
 [email]: mailto:team@carpentries.org
+[galaxy-videos]: https://www.youtube.com/playlist?list=PLNFLKDpdM3B9UaxWEXgziHXO3k-003FzE
 [github-importer]: https://import2.github.com/
 [importer]: https://github.com/new/import
 [jekyll-collection]: https://jekyllrb.com/docs/collections/

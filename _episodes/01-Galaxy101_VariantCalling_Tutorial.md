@@ -124,8 +124,8 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 > <span class="glyphicon glyphicon-warning-sign"></span> WARNING: There are two cut tools in Galaxy due to historical reasons. For this tutorial we are assuming you are using the one described above. The other tool follows a similar logic but with a different interface. <span class="glyphicon glyphicon-warning-sign"></span> 
 > 7. Make sure the dataset produced by the previous step is selected in the **File to cut** field of the tool form.
 > 8. Change **Delimited by** to `Comma`.
-> 9. In **List of fields** select `Column: 1`. This is telling the tool to only return the first column of our data.
-> 10. Hit Execute This will produce a text file with just two lines:
+> 9. In **List of fields** drop-down menu select `Column: 1`. This is telling the tool to only return the first column of our data.
+> 10. Hit `Execute`.  This will produce a text file with just two lines:
 > ```
 > SRR12733957
 > SRR11954102
@@ -137,7 +137,28 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 So, now we have a file that contains just the two accession numbers for the sequencing data sets that we want. This is the perfect input for tools in Galaxy that can use this information to download big sequencing data sets straight from the NCBI SRA directly into your Galaxy environment without ever putting the big files on your computer. 
 
 > ## Hands-On: Getting data from SRA
-
+> 1. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> with the following parameters: 
+> - **Select Input Type**: `List of SRA Accession, one per line`. 
+> - The input parameter <span class="glyphicon glyphicon-file"></span> **select input type** should point the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button>. 
+> 2. Click the `Execute` button. This will run the tool, which retrieves the sequence read read datasets and places them into your Galaxy environment. <span class="glyphicon glyphicon-time"></span> Note that this step can take a few minutes, so this might be a good time get get a fresh cup of coffee!
+> 3. <span class="glyphicon glyphicon-eye-open"></span> Take a look at the entries that were created in your history panel: 
+> - `Pair-end data (fasterq-dump)`: Contains Paired-end datasets (if available)
+> - `Single-end data (fasterq-dump)`:  Contains Single-end datasets (if available)
+> - `Other data (fasterq-dump)`:  Contains Unpaired datasets (if available)
+> - `fasterq-dump log`: Contains Information about the tool execution
+>
+> Is the data we downloaded **single-end** or **paired-end** data? 
+> > ## Solution
+> > Our data is **paired-end**! If you click each of the data files generated that are now in your history, you will see that `Single-end data (fasterq-dump)` is an empty list, meaning that the tool did not download any files of that type. On the other hand, `Pair-end data (fasterq-dump)` is a "list of pairs with 2 items", each of which is a FASTQ-formatted file if you look inside: 
+> > <img src="{{ page.root }}/fig/List_of_Pairs.png" alt="Preview of paired-end data downloaded by fasterq-dump tool">
+> > 
+> {: .solution}
 {: .challenge}
+
+`Pair-end data (fasterq-dump)`, `Single-end data (fasterq-dump)` and `Other data (fasterq-dump)` are actually collections of datasets. Collections in Galaxy are logical groupings of datasets that reflect the semantic relationships between them in the experiment / analysis. In this case the tool creates separate collections for paired-end reads, single reads, and other (any other type of file). See the [Galaxy Collections tutorial][collections-tutorial] and watch [Galaxy tutorial videos][galaxy-videos] (with names beginning with “Dataset Collections”) for more information.
+
+## A quick aside: What is **paired-end** data? 
+
+
 
 {% include links.md %}
