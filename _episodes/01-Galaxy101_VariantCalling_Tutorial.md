@@ -158,6 +158,10 @@ So, now we have a file that contains just the two accession numbers for the sequ
 
 `Pair-end data (fasterq-dump)`, `Single-end data (fasterq-dump)` and `Other data (fasterq-dump)` are actually collections of datasets. Collections in Galaxy are logical groupings of datasets that reflect the semantic relationships between them in the experiment / analysis. In this case the tool creates separate collections for paired-end reads, single reads, and other (any other type of file). See the [Galaxy Collections tutorial][collections-tutorial] and watch [Galaxy tutorial videos][galaxy-videos] (with names beginning with “Dataset Collections”) for more information.
 
+Explore the collections by first clicking on the collection name in the history panel. This takes you inside the collection and shows you the datasets in it. You can then navigate back to the outer level of your history.
+
+Once `fasterq` finishes transferring data (all boxes are green / done), we are ready to analyze it.
+
 ## A quick aside: What is **paired-end** data? 
 
 It is common to prepare pair-end and mate-pair sequencing libraries. This is highly beneficial for a number of applications discussed, such as those discussed in Week 2's **Genome Assembly** module. For now let’s just briefly discuss what these are and how they manifest themselves in FASTQ form.
@@ -200,5 +204,19 @@ FF:FFFFFFFFFFFFFFFFFF:FFFFFFFFF:FFFF:FFFFFFFFFFF:FFFFFFFFFFFFFFFFFF:FFFFFFFFFFFF
 > Note that read IDs (i.e. `@SRR11954102.1`) are identical in two files and that they are listed in the same order. In some cases read IDs in the first and second file may be appended with /1 and /2 tags, respectively. 
 > Nearly all downstream analyses with these pairs of paired-end files assume that the reads are in the same order in both the Forward and Reverse files, which can be a source of frustration if they accidentally get mixed up!
 {: .callout}
+
+## Adapter trimming with **fastp**
+
+Many sequencing technologies, such as the short-read Illumina data we are working with today, require adapter sequences to be added to the pieces of DNA we want to sequence in order to prime the sequencing reaction(s) that will be taking place on those pieces of DNA. For a **paired-end** library that we are working with, there will be an adapter attached to each end of each DNA molecule, like this: 
+
+<img src="{{ page.root }}/fig/read_through_adapter.png" alt="Diagram of what adapter read-through looks like">
+
+In certain circumstances, the adapters themselves will be sequenced. One such situation is if some pieces of the actual DNA to be sequenced are shorter than the chosen read length of the sequencing run. For example, if we were targeting 100bp reads, but some of the DNA was very fragmentary and only 80bp long, these sequences would have about 20bp each of "_adapter read-through_" (pictured in red above). 
+
+In the most extreme case, if the input DNA is very low concentration and/or small, the sequencing adapters (and/or the sequencing primers) will anneal directly to one another instead of any target sequence during preparation of the sequencing library and then get sequenced. These are called "adapter dimers" and "primer dimers", respectively. 
+
+No matter where they come from, removing sequencing adapters from the raw sequencing data improves alignments and variant calling, so we are going to make sure they get removed from our data in this step: 
+
+
 
 {% include links.md %}
