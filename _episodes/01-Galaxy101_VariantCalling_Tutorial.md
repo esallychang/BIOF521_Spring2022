@@ -236,7 +236,9 @@ More information can be found on the Fastp website: `https://github.com/OpenGene
 
 ## Examining the **fastp** results
 
-The HTML reports from filtering these data sets are full of information about the quality of these sequencing data sets. For example, what percentage of the reads from `SRR11954102` passed all of the filters of the **fastp** tool and remain in our data set? What about `SRR12733957`?
+The HTML reports from filtering these data sets are **FULL** of information about the quality of these sequencing data sets. 
+
+For example, what percentage of the reads from `SRR11954102` passed all of the filters of the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> fastp - fast all-in-one preprocessing for FASTQ files </button> tool and remain in our data set? What about `SRR12733957`?
 
 > ## Solution
 > About 90% and 67%, respectively. 
@@ -260,11 +262,14 @@ The HTML reports from filtering these data sets are full of information about th
 > {: .output}
 {: .solution}
 
-Of the reads that were filtered
+Of the 10% of reads that were filtered from the data set `SRR11955102`, why were most of them filtered? 
 
-It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 32). Keep scrolling through the HTML reports to see other diagnostic figures and tables.
+> ## Solution 
+> It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 32). 
+> We can tell this by looking again at the `Filtering Result` section, and seeing that about 9.2% out of the roughly 10% of the reads removed were removed as `Reads with low quality`. 
+{: .solution}
 
-What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` BEFORE they were filtered? 
+What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` **BEFORE** they were filtered? 
 
 <img src="{{ page.root }}/fig/SRR11954102_before.png" alt="Fastp graph of pre-filtered read quality along the length of a read for SRR11954102">
 
@@ -276,9 +281,18 @@ What are some of the main things we can learn from this plot of the quality of t
 > + What else do you notice? 
 {: .solution}
 
-What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` AFTER they were filtered? 
+What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` **AFTER** they were filtered? 
 
 <img src="{{ page.root }}/fig/SRR11954102_after.png" alt="Fastp graph of post-filtering read quality along the length of a read for SRR11954102">
 
+> ## Solution
+> A few of the things that I noticed are: 
+> + The reads are still about 100bp long (see Position x-axis).
+> + The quality of the reads still declines along their lengths.
+> + However, all bases along the length of the read are now over the `Phred > 32` read-quality cutoff. 
+> + What else do you notice? 
+{: .solution}
+
 ## Getting the SARS-CoV-2 Reference Genome
+
 {% include links.md %}
