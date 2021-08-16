@@ -126,10 +126,11 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 > 8. Change **Delimited by** to `Comma`.
 > 9. In **List of fields** drop-down menu select `Column: 1`. This is telling the tool to only return the first column of our data.
 > 10. Hit `Execute`.  This will produce a text file with just two lines:
-> ```
+> ~~~
 > SRR12733957
 > SRR11954102
-> ```
+> ~~~
+> {: .output}
 {: .challenge}
 
 ## Downloading the actual sequence data
@@ -159,6 +160,45 @@ So, now we have a file that contains just the two accession numbers for the sequ
 
 ## A quick aside: What is **paired-end** data? 
 
+It is common to prepare pair-end and mate-pair sequencing libraries. This is highly beneficial for a number of applications discussed, such as those discussed in Week 2's **Genome Assembly** module. For now let’s just briefly discuss what these are and how they manifest themselves in FASTQ form.
 
+<img src="{{ page.root }}/fig/pairedend_matepair.png" alt="Diagram of paired-end and mate-pair sequencing data">
+
+In **paired-end** sequencing (left) the actual ends of rather short DNA molecules (less than 1kb) are determined, while for **mate-pair** sequencing (right) the ends of long molecules are joined and prepared in special sequencing libraries. In these mate pair protocols, the ends of long, size-selected molecules are connected with an internal adapter sequence (i.e. linker, yellow) in a circularization reaction. The circular molecule is then processed using restriction enzymes or fragmentation. Fragments are enriched for the linker and outer library adapters are added around the two combined molecule ends. The internal adapter can then be used as a second priming site for an additional sequencing reaction in the same orientation or sequencing can be performed from the second adapter, from the reverse strand. (From “Understanding and improving high-throughput sequencing data production and analysis”, Ph.D. dissertation by Martin Kircher)
+
+**Thus in both cases (paired-end and mate-pair) a single physical piece of DNA (or RNA in the case of RNA-seq) is sequenced from two ends and so generates two reads**. These can be represented as separate files (two FASTQ files with first and second reads) or a single file were reads for each end are interleaved (discussed later). Each of our data sets is a pair of FASTQ files, with each data set having a file for "Forward" read and "Reverse" reads. 
+
+For example, the first two reads of the `SRR11954102` data set are: 
+
+**Forward** 
+~~~
+@SRR11954102.1 1 length=101
+ACGGGGGGGCTTACCATCTGGCCCCAGTGCTGCAATGATACCGCGAGACCCACGCTCACCGGCTCCAGATTTATCAGCAATAAACCAGCCAGCCGGAAGGG
++SRR11954102.1 1 length=101
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+@SRR11954102.2 2 length=101
+GCATTAAGCGCGGCGGGTGTGGTGGTTACGCGCAGCGTGACCGCTACACTTGCCAGCGCCCTAGCGCCCGCTCCTTTCGCTGTCTTCCCTTCCTTTCTCGC
++SRR11954102.2 2 length=101
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF,FFFFFFFFFFFFFFFFFFF
+~~~ 
+{: .output}
+
+**Reverse** 
+~~~
+@SRR11954102.1 1 length=101
+AACTCGCCTTGATCGTTGGGAACCGGAGCTGAATGAAGCCATACCAAACGACGAGCGTGACACCACGATGCCTGTAGCAATGGCAACAACGTTGCGCAAAC
++SRR11954102.1 1 length=101
+FFFFFFF:FFFFFFFFFFFFF:FFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFF
+@SRR11954102.2 2 length=101
+CCCTTTAGGGTTCCGATTTAGTGCTTTACGGGGAAAGCCGGCGAACGTGGCGAGAAAGGAAGGGAAGAAAGCGAAAGGAGCGGGCGCTAGGGCGCTGGCAA
++SRR11954102.2 2 length=101
+FF:FFFFFFFFFFFFFFFFFF:FFFFFFFFF:FFFF:FFFFFFFFFFF:FFFFFFFFFFFFFFFFFF:FFFFFFFFFFFFFFFFFFFFFF:FFFFFFFFFF
+~~~
+{: .output}
+
+> ## Read order is important.
+> Note that read IDs (i.e. `@SRR11954102.1`) are identical in two files and that they are listed in the same order. In some cases read IDs in the first and second file may be appended with /1 and /2 tags, respectively. 
+> Nearly all downstream analyses with these pairs of paired-end files assume that the reads are in the same order in both the Forward and Reverse files, which can be a source of frustration if they accidentally get mixed up!
+{: .callout}
 
 {% include links.md %}
