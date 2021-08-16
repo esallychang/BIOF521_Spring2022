@@ -231,29 +231,54 @@ More information can be found on the Fastp website: `https://github.com/OpenGene
 > 2. Set **single or paired reads** to `Paired Collection`. 
 > 3. Make sure <span class="glyphicon glyphicon-file"></span> **Select paired collection(s)** set to `list paired`, and make sure that you have selected the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button>.
 > 4. Under **Output Options**, set **Output JSON report** to `Yes`. This will create a nice, human-readable report about the quality of our input data sets that we will examine below. (MIGHT NEED TO REMOVE). 
-> 5. Press `Execute`. When that has finished: What percentage of the reads from `SRR11954102` passed all of the filters of the **fastp** tool and remain in our data set? What about `SRR12733957`?
-> 
-> > ## Solution
-> > About 90% and 67%, respectively. 
-> > To figure this out, first click on **fastp on collection: HTML Report**. Then, look into each of the data sets <span class="glyphicon glyphicon-eye-open"></span>, and find the `Filtering Result` result section. 
-> > For the `SRR12733957` data set, this should roughly look like: 
-> > ~~~
-> > Filtering result
-> > reads passed filters:	592.644000 K (67.755212%)
-> > reads with low quality:	279.816000 K (31.990525%)
-> > reads with too many N:	132 (0.015091%)
-> > reads too short:	2.092000 K (0.239172%)
-> > ~~~
-> > {: .output}
-> > For the `SRR11955102` data set, this should roughly look like: 
-> > ~~~
-> > reads passed filters:	2.650592 M (90.679913%)
-> > reads with low quality:	270.274000 K (9.246396%)
-> > reads with too many N:	2.154000 K (0.073691%)
-> > reads too short:	0 (0.000000%)
-> > ~~~
-> > {: .output}
-> {: .solution}
-> It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 30.). 
+> 5. Press `Execute`. 
 {: .challenge}
+
+## Examining the **fastp** results
+
+The HTML reports from filtering these data sets are full of information about the quality of these sequencing data sets. For example, what percentage of the reads from `SRR11954102` passed all of the filters of the **fastp** tool and remain in our data set? What about `SRR12733957`?
+
+> ## Solution
+> About 90% and 67%, respectively. 
+> To figure this out, first click on **fastp on collection: HTML Report**. Then, look into each of the data sets <span class="glyphicon glyphicon-eye-open"></span>, and find the `Filtering Result` result section. 
+> For the `SRR12733957` data set, this should roughly look like: 
+> ~~~
+> Filtering result
+> reads passed filters:	592.644000 K (67.755212%)
+> reads with low quality:	279.816000 K (31.990525%)
+> reads with too many N:	132 (0.015091%)
+> reads too short:	2.092000 K (0.239172%)
+> ~~~
+> {: .output}
+> For the `SRR11955102` data set, this should roughly look like: 
+> ~~~
+> reads passed filters:	2.650592 M (90.679913%)
+> reads with low quality:	270.274000 K (9.246396%)
+> reads with too many N:	2.154000 K (0.073691%)
+> reads too short:	0 (0.000000%)
+> ~~~
+> {: .output}
+{: .solution}
+
+Of the reads that were filtered
+
+It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 32). Keep scrolling through the HTML reports to see other diagnostic figures and tables.
+
+What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` BEFORE they were filtered? 
+
+<img src="{{ page.root }}/fig/SRR11954102_before.png" alt="Fastp graph of pre-filtered read quality along the length of a read for SRR11954102">
+
+> ## Solution
+> A few of the things that I noticed are as follows.
+> + The reads are about 100bp long (see Position x-axis).
+> + The quality of the reads declines along their lengths, similar to the patterns described in the "Read Quality" lecture. 
+> + Some bases towards the end of the read are lower than the cutoff quality score (Phred > 32), especially for the any bases called as a G. 
+> + What else do you notice? 
+{: .solution}
+
+What are some of the main things we can learn from this plot of the quality of the **Forward** reads of the `SRR11954102` AFTER they were filtered? 
+
+<img src="{{ page.root }}/fig/SRR11954102_after.png" alt="Fastp graph of post-filtering read quality along the length of a read for SRR11954102">
+
+## Getting the SARS-CoV-2 Reference Genome
 {% include links.md %}
