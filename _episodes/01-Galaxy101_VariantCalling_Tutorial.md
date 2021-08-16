@@ -205,7 +205,7 @@ FF:FFFFFFFFFFFFFFFFFF:FFFFFFFFF:FFFF:FFFFFFFFFFF:FFFFFFFFFFFFFFFFFF:FFFFFFFFFFFF
 > Nearly all downstream analyses with these pairs of paired-end files assume that the reads are in the same order in both the Forward and Reverse files, which can be a source of frustration if they accidentally get mixed up!
 {: .callout}
 
-## Adapter trimming with **fastp**
+## Removing adapters and low-quality reads with **fastp**
 
 Many sequencing technologies, such as the short-read Illumina data we are working with today, require adapter sequences to be added to the pieces of DNA we want to sequence in order to prime the sequencing reaction(s) that will be taking place on those pieces of DNA. For a **paired-end** library that we are working with, there will be an adapter attached to each end of each DNA molecule, like this: 
 
@@ -215,8 +215,45 @@ In certain circumstances, the adapters themselves will be sequenced. One such si
 
 In the most extreme case, if the input DNA is very low concentration and/or small, the sequencing adapters (and/or the sequencing primers) will anneal directly to one another instead of any target sequence during preparation of the sequencing library and then get sequenced. These are called "adapter dimers" and "primer dimers", respectively. 
 
-No matter where they come from, removing sequencing adapters from the raw sequencing data improves alignments and variant calling, so we are going to make sure they get removed from our data in this step: 
+No matter where they come from, removing sequencing adapters from the raw sequencing data improves alignments and variant calling, so we are going to make sure they get removed from our data in this step. 
 
+**Fastp does the following to our data** : 
+- Filter out bad reads (too low quality, too short, etc.). The default sequence quality filter for **Fastp** is a Phred score of 30. Check back in your slides to see what base-calling accuracy this corresponds to! 
+- Cut low quality bases for per read from their 5' and 3' ends
+- Cut adapters. Adapter sequences can be automatically detected, which means you don't have to input the adapter sequences to trim them.
+- Correct mismatched base pairs in overlapped regions of paired end reads, if one base is with high quality while the other is with ultra-low quality
+- Several other filtering steps specific to different types of sequencing data. 
 
+More information can be found on the Fastp website: `https://github.com/OpenGene/fastp`
 
+> ## Hands-On: Running `fastp`
+> 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> fastp - fast all-in-one preprocessing for FASTQ files </button> tool. 
+> 2. Set **single or paired reads** to `Paired Collection`. 
+> 3. Make sure <span class="glyphicon glyphicon-file"></span> **Select paired collection(s)** set to `list paired`, and make sure that you have selected the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button>.
+> 4. Under **Output Options**, set **Output JSON report** to `Yes`. This will create a nice, human-readable report about the quality of our input data sets that we will examine below. (MIGHT NEED TO REMOVE). 
+> 5. Press `Execute`. When that has finished: What percentage of the reads from `SRR11954102` passed all of the filters of the **fastp** tool and remain in our data set? What about `SRR12733957`?
+> 
+> > ## Solution
+> > About 90% and 67%, respectively. 
+> > To figure this out, first click on **fastp on collection: HTML Report**. Then, look into each of the data sets <span class="glyphicon glyphicon-eye-open"></span>, and find the `Filtering Result` result section. 
+> > For the `SRR12733957` data set, this should roughly look like: 
+> > ~~~
+> > Filtering result
+> > reads passed filters:	592.644000 K (67.755212%)
+> > reads with low quality:	279.816000 K (31.990525%)
+> > reads with too many N:	132 (0.015091%)
+> > reads too short:	2.092000 K (0.239172%)
+> > ~~~
+> > {: .output}
+> > For the `SRR11955102` data set, this should roughly look like: 
+> > ~~~
+> > reads passed filters:	2.650592 M (90.679913%)
+> > reads with low quality:	270.274000 K (9.246396%)
+> > reads with too many N:	2.154000 K (0.073691%)
+> > reads too short:	0 (0.000000%)
+> > ~~~
+> > {: .output}
+> {: .solution}
+> It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 30.). 
+{: .challenge}
 {% include links.md %}
