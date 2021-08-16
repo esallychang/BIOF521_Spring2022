@@ -105,33 +105,39 @@ We can see that the sample that was sequenced to become the SRA sequencing datas
 
 
 
-The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in March of 2020, which I have chosen using the "Collection Date" information retrieved by as described above. 
+The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in April and May of 2020, which I have chosen using the "Collection Date" information retrieved by as described above. 
 
 **We are going to focus on the following two sequencing data sets:** 
-* Run Number `SRR11954281`: A sequencing run from a sample collected on March 9th, 2020.
-* Run Number `SRR11953784`: A sequencing run from a sample collected on March 26th, 2020.
+* Run Number `SRR12733957`: A sequencing run from a sample collected on April 6th, 2020.
+* Run Number `SRR11954102`: A sequencing run from a sample collected on May 2nd, 2020.
 
 > ## Hands-On: Creating a subset of data
 >
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool in the **Filter and Sort** section of the tool panel. You may find that Galaxy has an overwhelming amount of tools installed. To find a specific tool type the tool name in the tool panel search box to find the tool.
 > 
-> 2. Make sure the SraRunInfo.csv dataset we just uploaded is listed in the <span class="glyphicon glyphicon-file"></span> "_Select lines from_" field of the tool form.
+> 2. Make sure the SraRunInfo.csv dataset we just uploaded is listed in the <span class="glyphicon glyphicon-file"></span> **Select lines from** field of the tool form.
 >
-> 3. In “_the pattern_” field enter the following expression → . These are two accession we want to find separated by the pipe symbol |. The | means or: find lines containing SRR12733957 or SRR11954102.
-> ~~~
-> it may include some code
-> ~~~
-> {: .source}
->
-> > ## Solution
-> >
-> > This is the body of the solution.
-> >
-> > ~~~
-> > it may also include some code
-> > ~~~
-> > {: .output}
-> {: .solution}
+> 3. In the **Pattern** field enter the following expression: `SRR12733957|SRR11954102`. The "&#124;" symbol (called a "pipe") means "or". So we are telling this tool to find lines containing `SRR12733957` OR `SRR11954102`.
+> 4. Click the `Execute` button.
+> 5. Once the this has been executed, you should have a file with a total of three lines. If you look at the file (<span class="glyphicon glyphicon-eye-open"></span>), you will see that one of the two lines has been duplicated to take the place of the "header" line (which is fine for now). 
+> 6. Cut the first column from the file using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button>  tool, which you will find in **Text Manipulation** section of the tool pane. 
+> <span class="glyphicon glyphicon-warning-sign"></span> WARNING: There are two cut tools in Galaxy due to historical reasons. For this tutorial we are assuming you are using the one described above. The other tool follows a similar logic but with a different interface. <span class="glyphicon glyphicon-warning-sign"></span> 
+> 7. Make sure the dataset produced by the previous step is selected in the **File to cut** field of the tool form.
+> 8. Change **Delimited by** to `Comma`.
+> 9. In **List of fields** select `Column: 1`. This is telling the tool to only return the first column of our data.
+> 10. Hit Execute This will produce a text file with just two lines:
+> ```
+> SRR12733957
+> SRR11954102
+> ```
+{: .challenge}
+
+## Downloading the actual sequence data
+
+So, now we have a file that contains just the two accession numbers for the sequencing data sets that we want. This is the perfect input for tools in Galaxy that can use this information to download big sequencing data sets straight from the NCBI SRA directly into your Galaxy environment without ever putting the big files on your computer. 
+
+> ## Hands-On: Getting data from SRA
+
 {: .challenge}
 
 {% include links.md %}
