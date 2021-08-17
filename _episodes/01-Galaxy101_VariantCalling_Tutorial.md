@@ -295,7 +295,7 @@ What are some of the main things we can learn from this plot of the quality of t
 
 ## Getting the SARS-CoV-2 Reference Genome
 
-In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated relative to the original strain isolated from patients from Wuhan, China, we are going to map our filtered sequencing data to the full assembled genome of one of the original SARS-CoV-2 isolates, `Wuhan-Hu-1`. It has an accession ID of `NC_045512.2`, which you can search for on NCBI much like we did for the Boston samples to get more information. 
+In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated relative to the original strain isolated from patients from Wuhan, China, we are going to map our filtered sequencing data to the full assembled genome of one of the original SARS-CoV-2 isolates, `Wuhan-Hu-1`. It has an accession ID of `NC_045512.2`, which you can search for on NCBI much like we did for the Boston samples to get more information. The `Wuhan-Hu-1` reference genome is stored as a compressed `FASTA` file, which we will discuss in much greater detail in Week 2. 
 
 > ## Hands-On: Importing the reference genome from NCBI
 > 1. Click the **Upload Data** button in the toolbar.
@@ -305,7 +305,29 @@ In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated
 > 4. Replace `New File` with something sensible, like `Reference Genome`, and press `Start`. You can close the window now.
 {: .challenge}
 
-Assembled genomes are often stored as `FASTA` files, which can store any type of sequence data, as long as each sequence is stored with a header line, which are denoted with a 
+## Mapping short-reads to the reference genome with **BWA-MEM** 
+
+As you learned in the slides about **Read-Mapping and the SAM/BAM format**, sequencing produces a collection of sequences without genomic context. We do not know to which part of the genome the sequences correspond to. Mapping the reads of an experiment to a reference genome is a key step in modern genomic data analysis. With the mapping the reads are assigned to a specific location in the genome and insights like the expression level of genes can be gained.
+
+Read mapping is the process to align the reads on a reference genomes. A mapper takes as input a reference genome and a set of reads. Its aim is to align each read in the set of reads on the reference genome, allowing mismatches, indels and clipping of some short fragments on the two ends of the reads:
+
+<img src="{{ page.root }}/fig/read_mapping.png" alt="Theoretical diagram of several short reads mapping to a reference genome">
+
+**Figure Legend**: Illustration of the mapping process. The input consists of a set of reads and a reference genome. In the middle, it gives the results of mapping: the locations of the reads on the reference genome. The first read is aligned at position 100 and the alignment has two mismatches. The second read is aligned at position 114. It is a local alignment with clippings on the left and right. The third read is aligned at position 123. It consists of a 2-base insertion and a 1-base deletion.
+
+**Mapping against a pre-computed genome index:** 
+
+Mappers usually compare reads against a reference sequence that has been transformed into a highly accessible data structure called genome index. Such indexes should be generated before mapping begins. Galaxy instances typically store indexes for a number of publicly available genome builds:
+
+<img src="{{ page.root }}/fig/cached_genome.png" alt="Example of selected a pre-indexed version of the human genome available on Galaxy">
+
+For example, the image above shows indexes for hg38 version of the human genome. You can see that there are actually three choices: (1) `hg38`, (2) `hg38 canonical` and (3) `hg38 canonical female`. The `hg38` contains all chromosomes as well as all unplaced contigs. The `hg38 canonical` does not contain unplaced sequences and only consists of chromosomes 1 through 22, X, Y, and mitochondria. The `hg38 canonical` female contains everything from the canonical set with the exception of chromosome Y.
+
+**What if the pre-computed index does not exist?**
+
+If Galaxy does not have a genome you need to map against, you can upload your genome sequence as a FASTA file and use it in the mapper directly as shown below (Load reference genome is set to History). **This is what we will need to do to use the `Wuhan-Hu-1`reference genome we just downloaded.**
+
+
 
 
 {% include links.md %}
