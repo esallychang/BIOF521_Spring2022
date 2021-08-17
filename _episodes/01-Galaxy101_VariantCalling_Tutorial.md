@@ -302,7 +302,7 @@ In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated
 > 2. In the menu that pops up, click on **Paste/Fetch Data** 
 > 3. Copy and paste this address in the box: `https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz`
 > <img src="{{ page.root }}/fig/paste_fetch_data_box.png" alt="Galaxy fetch data window with address in the box">
-> 4. Replace `New File` with something sensible, like `Reference Genome`, and press `Start`. You can close the window now.
+> 4.Press `Start`. You can close the window now.
 {: .challenge}
 
 ## Mapping short-reads to the reference genome with **BWA-MEM** 
@@ -327,7 +327,18 @@ For example, the image above shows indexes for hg38 version of the human genome.
 
 If Galaxy does not have a genome you need to map against, you can upload your genome sequence as a FASTA file and use it in the mapper directly as shown below (Load reference genome is set to History). **This is what we will need to do to use the `Wuhan-Hu-1`reference genome we just downloaded.**
 
-
+> ## Hands-On: Map sequencing reads to reference genome
+> **BWA-MEM** is a widely used sequence aligner for short-read sequencing datasets such as those we are analysing in this tutorial.
+> 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Map with BWA-MEM </button> tool in the Tools panel.
+> 2. For the **Will you select a reference genome from your history or use a built-in index?** parameter, choose `Use a genome from history and build index`. 
+> 3. For the <span class="glyphicon glyphicon-file"></span> **Use the following dataset as the reference sequence** select the output from importing the reference genome in the last hands-on step. 
+> 4. For **Single or Paired-End Reads** select `Paired Collection`, and for <span class="glyphicon glyphicon-file"></span> **Select a paired collection** choose the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> fastp - fast all-in-one preprocessing for FASTQ files </button>. Your window should now look something like this: 
+> <img src="{{ page.root }}/fig/BWAMEM_Input_Screen.png" alt="Tool parameter screen for BWA MEM tool with inputs and settings">
+> 5. **Set read groups information?**: `Do not set`
+> 6. **Select analysis mode** : `1. Simple Illumina Mode`. 
+> 7. Click `Execute`! 
+> <span class="glyphicon glyphicon-time"></span> This may take a few minutes to run. <span class="glyphicon glyphicon-time"></span>. 
+{: .challenge}
 
 
 {% include links.md %}
