@@ -349,7 +349,7 @@ In the next few steps, we will be processing the output from <button type="butto
 
 We will be feeding the output of one step right into the next one as input, which is very common for multi-step bioinformatics analyses. 
 
-**Step 1: Removing duplicates**:
+## Process Mapping Results Step 1: Removing duplicates
 
 As you can probably guess from the name of this step, this removes duplicate sequences originating from library preparation artifacts and sequencing artifacts. It is important to remove this artifactual sequences to avoid artificial sequences to avoid artificial overrepresentation of particular single molecules.
 
@@ -377,12 +377,15 @@ What percentage of reads were duplicated in the raw `SRR11954102`? What about in
 > + **If true do not write duplicates to the output file instead of writing them with appropriate flags set** set to `Yes`. This switch tells **Mark Duplicates** to not only mark which short reads are duplicates of one another, but to also remove them from the output file.  
 {: .challenge}
 
-**Step 2: Realigning Reads**
+## Process Mapping Results Step 2: Re-aligning Reads
 
-Next, we will run corrects misalignments around insertions and deletions. This is required in order to accurately detect variants.
+Next, we will run tool that re-aligns read to the reference genome, while correcting for misalignments around insertions and deletions. This is required in order to accurately detect variants.
 
 > ## Hands-On: Re-aligning Reads
->
+> Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Realign reads with LoFreq viterbi </button> tool. Run with the following parameters:
+> + <span class="glyphicon glyphicon-folder-close"></span> **Reads to re-align** should be set to the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Mark Duplicates </button>. 
+> + **Choose the source for the reference genome**: `History`, and the **Reference** should be the same input reference genome as for the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BWA-MEM </button> step. 
+> + Check that **Advanced Options**: "_How to handle base qualities of 2?_" is set to `Keep Unchanged`. 
 {: .challenge}
  
 {% include links.md %}
