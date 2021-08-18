@@ -401,6 +401,27 @@ This step adds indel qualities into our alignment file. These are a measurement 
 
 Now we are ready to actually call our variants!
 
-
+## The Actual Variant-Calling
  
+Add more details here about what variant-calling actually does! 
+
+> ## Hands On: Call variants using lofreq
+> Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Call variants with LoFreq </button> with the following parameters: 
+> +  <span class="glyphicon glyphicon-folder-close"></span> **Input reads in BAM format**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Insert indel qualities </button>. 
+> + **Choose the source for the reference genome**: `History`, and the **Reference** should be the same input reference genome as for the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BWA-MEM </button> step. 
+> + **Call variants across**: `Whole reference`
+> + **Types of variants to call**: `SNVs and indels`
+> + Go into **Variant calling parameters**: Configure settings
+> + In **Coverage**:
+>   + _Minimal coverage_: `50`
+> + In **Base-calling quality**:
+>   + _Minimum baseQ_: `30`
+>   + _Minimum baseQ for alternate bases_: `30`
+> + In **Mapping quality**:
+>   + _Minimum mapping quality_: `20`
+> + **Variant filter parameters**: Preset filtering on QUAL score + coverage + strand bias (lofreq call default)
+>
+> Once those are all set, click `Execute`!
+{: .challenge}
+
 {% include links.md %}
