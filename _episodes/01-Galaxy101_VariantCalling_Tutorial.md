@@ -438,13 +438,40 @@ Once this has run, we have now found many places in the genome where your sample
 
 ## Getting ready to interpret our variant-calling results
 
-So, we have variant-calling results, but they are not particular useful, for us as humans, to look at yet. So, we are going to add information about the biological relevance of variants by **annotating variant effects**, and then creating an organized table of variants by **extracting fields** from the table of annotation information. 
+So, we have variant-calling results, but they are not particular useful, for us as humans, to look at yet. So, we are going to add information about the biological relevance of variants by **annotating variant effects**, and then creating an organized table of variants by **extracting fields** from the table of annotation information. Finally, we will **collapse the collection** of final, annotated results for the two datasets we originally downloaded from NCBI SRA to make them even easier for us to use. 
 
 To annotate variant effects, we are using software called **SnpEff** (i.e. "SNP effects"), which annotates and predicts the effects of genetic variants (such as amino acid changes). Using our variant-calling, we now have a list of genetic variants in our Boston SARS-CoV-2 samples as compared with the `Wuhan-Hu-1` reference genome. But say want to know more about these variants than just their genetic coordinates. E.g.: Are they in a gene? In an exon? Do they change protein coding? Do they cause premature stop codons? SnpEff can help you answer all these questions. The process of adding this information about the variants is called "Annotation".
 
 **SnpEff** provides several degrees of annotations, from simple (e.g. which gene is each variant affecting) to extremely complex annotations (e.g. will this non-coding variant affect the expression of a gene?). 
 
+Conveniently, there is a special version of **SnpEff** that is specifically calibrated for and connected to a database of known variant effects in SARS-CoV-2 genomes, which we will be using below. 
+
 > ## Hands-On: Annotate variant effects with SnpEff
-> 
+> Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> SnpEff eff: annotate variants for SARS-CoV-2 </button> and modify the following parameters:
+> +  <span class="glyphicon glyphicon-folder-close"></span> **Input reads in BAM format**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Insert indel qualities </button>. 
+> + **Select annotated Coronavirus Genome** is `NC045512.2`, which is the annotated version of the reference genome we have been using throughout. 
+> + **Output format**: `VCF (only if input is VCF)`.
+> + **Create CSV report Useful for downstream analysis (-csvStats)**: `Yes`
+> + “Filter out specific Effects”: `No`.
+{: .challenge}
+
+> ## Hands-On: Create human-readable table of variants with SnpSift
+> Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> SnpSift Extract Fields </button> and modify following the parameters:
+> +  <span class="glyphicon glyphicon-folder-close"></span> **Variant input file in VCF Format**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> SnpEff </button>. 
+> +  Make sure **Fields to Extract** is as follows: `CHROM POS REF ALT QUAL DP AF SB DP4 EFF[*].IMPACT EFF[*].FUNCLASS EFF[*].EFFECT EFF[*].GENE EFF[*].CODON` Feel free to copy and paste! 
+> + **One effect per line**: `Yes`. 
+> + **empty text field**: `.` (just a period). 
+{: .challenge}
+
+> ## Hands-On: Collapse data into a single dataset
+> Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse Collection into Single Dataset </button> and modify following the parameters:
+> + <span class="glyphicon glyphicon-folder-close"></span> **Collection of files to collapse**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Extract Fields </button>. 
+> + **Keep one header line**: `Yes`
+> + **Prepend File name**: `Yes`
+> + **Where to add dataset name**: `Same line and each line in dataset`.
+{: .challenge}
+
+## Characterizing our results 
+
 
 {% include links.md %}
