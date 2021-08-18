@@ -387,5 +387,20 @@ Next, we will run tool that re-aligns read to the reference genome, while correc
 > + **Choose the source for the reference genome**: `History`, and the **Reference** should be the same input reference genome as for the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BWA-MEM </button> step. 
 > + Check that **Advanced Options**: "_How to handle base qualities of 2?_" is set to `Keep Unchanged`. 
 {: .challenge}
+
+## Process Mapping Results Step 3: Adding Indel Qualities
+
+This step adds indel qualities into our alignment file. These are a measurement of how certain lofreq is that an insertion or deletion is "real", and not just an artifact of sequencing or mapping. This is necessary in order to call variants. 
+
+> ## Hands-On: Add indel qualities with lofreq
+> Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Insert indel qualities into a BAM file </button> tool. Run with the following parameters:
+> +  <span class="glyphicon glyphicon-folder-close"></span> **Reads**: `realigned`, and select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Realign reads </button>. 
+> + **Indel calculation approach**: `Dindel`. 
+> + **Choose the source for the reference genome**: `History`, and the **Reference** should be the same input reference genome as for the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BWA-MEM </button> step. 
+{: .challenge}
+
+Now we are ready to actually call our variants!
+
+
  
 {% include links.md %}
