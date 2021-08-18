@@ -424,4 +424,27 @@ Add more details here about what variant-calling actually does!
 > Once those are all set, click `Execute`!
 {: .challenge}
 
+Once this has run, we have now found many places in the genome where your sample differs from the reference genome - this is where we are right now after calling variants. Variants can be categorized as follows:
+
++ SNP (Single-Nucleotide Polymorphism) Reference = 'A', Sample = 'C'
++ Ins (Insertion) Reference = 'A', Sample = 'AGT'
++ Del (Deletion) Reference = 'AC', Sample = 'C'
++ MNP (Multiple-nucleotide polymorphism) Reference = 'ATA', Sample = 'GTC'
++ MIXED (Multiple-nucleotide and an InDel) Reference = 'ATA', Sample = 'GTCAGT'
+
+<img src="{{ page.root }}/fig/Types-of-Genetic-Variations.png" alt="Cartoon diagram of different types of genetic variants using the sentence 'The Sky is Blue' ">
+
+**Figure Caption**: Examples of types of sequence variants. For now, we are not looking specifically for tandem repeats and copy number variants. From Philibert et al. 2014.
+
+## Getting ready to interpret our variant-calling results
+
+So, we have variant-calling results, but they are not particular useful, for us as humans, to look at yet. So, we are going to add information about the biological relevance of variants by **annotating variant effects**, and then creating an organized table of variants by **extracting fields** from the table of annotation information. 
+
+To annotate variant effects, we are using software called **SnpEff** (i.e. "SNP effects"), which annotates and predicts the effects of genetic variants (such as amino acid changes). Using our variant-calling, we now have a list of genetic variants in our Boston SARS-CoV-2 samples as compared with the `Wuhan-Hu-1` reference genome. But say want to know more about these variants than just their genetic coordinates. E.g.: Are they in a gene? In an exon? Do they change protein coding? Do they cause premature stop codons? SnpEff can help you answer all these questions. The process of adding this information about the variants is called "Annotation".
+
+**SnpEff** provides several degrees of annotations, from simple (e.g. which gene is each variant affecting) to extremely complex annotations (e.g. will this non-coding variant affect the expression of a gene?). 
+
+> ## Hands-On: Annotate variant effects with SnpEff
+> 
+
 {% include links.md %}
