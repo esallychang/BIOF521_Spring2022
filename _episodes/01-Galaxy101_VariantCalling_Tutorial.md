@@ -471,7 +471,35 @@ Conveniently, there is a special version of **SnpEff** that is specifically cali
 > + **Where to add dataset name**: `Same line and each line in dataset`.
 {: .challenge}
 
+You can see that this tool takes lines from all collection elements (in our case we have two), add element name as the first column, and pastes everything together. So if we have a collection as an input:
+
+> ## Example of Collapse: 
+> Let's say our collection element for `SRR11954102` is the following: 
+> ~~~
+> NC_045512.2  84 PASS  C T  960.0  28  1.0       0 0,0,15,13 MODIFIER  NONE  INTERGENIC
+> NC_045512.2 241 PASS  C T 2394.0  69  0.971014  0 0,0,39,29 MODIFIER  NONE  INTERGENIC
+> ~~~
+> {: .output}
+> And that our item for `SRR12733957`, we had: 
+> ~~~
+> NC_045512.2 241 PASS  C T 1954.0  63  0.888889  0 0,0,42,21 MODIFIER  NONE  INTERGENIC
+> NC_045512.2 823 PASS  C T 1199.0  50  0.76      3 5,6,13,26 LOW       LOW   LOW
+> ~~~
+> {: .output}
+> We will have a single dataset as the output, with an added containing the dataset ID taken from the collection element names.
+> ~~~
+> SRR11954102 NC_045512.2  84 PASS  C T  960.0  28  1.0       0 0,0,15,13 MODIFIER  NONE  INTERGENIC
+> SRR11954102 NC_045512.2 241 PASS  C T 2394.0  69  0.971014  0 0,0,39,29 MODIFIER  NONE  INTERGENIC
+> SRR12733957 NC_045512.2 241 PASS  C T 1954.0  63  0.888889  0 0,0,42,21 MODIFIER  NONE  INTERGENIC
+> SRR12733957 NC_045512.2 823 PASS  C T 1199.0  50  0.76      3 5,6,13,26 LOW       LOW   LOW
+> ~~~
+> {: .output}
+> 
+{: .discussion}
+
 ## Characterizing our results 
+
+So, now we have a file containing our called variants, and their potential biological significance, for both of our input data sets, `SRR12733957` a sequencing run from a sample collected from Boston in April 2020, and `SRR11954102`, collected from Boston in May 2020. 
 
 
 {% include links.md %}
