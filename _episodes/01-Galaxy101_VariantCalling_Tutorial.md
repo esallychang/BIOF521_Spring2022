@@ -486,7 +486,7 @@ You can see that this tool takes lines from all collection elements (in our case
 > NC_045512.2 823 PASS  C T 1199.0  50  0.76      3 5,6,13,26 LOW       LOW   LOW
 > ~~~
 > {: .output}
-> We will have a single dataset as the output, with an added containing the dataset ID taken from the collection element names.
+> We will have a single dataset as the output, with an added column containing the dataset ID taken from the collection element names.
 > ~~~
 > SRR11954102 NC_045512.2  84 PASS  C T  960.0  28  1.0       0 0,0,15,13 MODIFIER  NONE  INTERGENIC
 > SRR11954102 NC_045512.2 241 PASS  C T 2394.0  69  0.971014  0 0,0,39,29 MODIFIER  NONE  INTERGENIC
@@ -499,7 +499,47 @@ You can see that this tool takes lines from all collection elements (in our case
 
 ## Characterizing our results 
 
-So, now we have a file containing our called variants, and their potential biological significance, for both of our input data sets, `SRR12733957` a sequencing run from a sample collected from Boston in April 2020, and `SRR11954102`, collected from Boston in May 2020. 
+So, now we have a file containing our called variants, and their potential biological significance, for both of our input data sets, `SRR12733957` a sequencing run from a sample collected from Boston in April 2020, and `SRR11954102`, collected from Boston in May 2020. This is a file that you could manipulate in Excel or R if you already use one of those programs for statistics, but for this exercise, we are going to continue to work in Galaxy for the sake of consistency. 
+
+Here are the columns of information that are present in our final output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse Collection </button>. 
+
+This is what the first two lines of our actual output datat set looks like: 
+~~~ 
+Sample	CHROM	POS	REF	ALT	QUAL	DP	AF	SB	DP4	EFF[*].IMPACT	EFF[*].FUNCLASS	EFF[*].EFFECT	EFF[*].GENE	EFF[*].CODON
+SRR11954102	NC_045512.2	84	C	T	7114.0	208	0.975962	0	0,1,102,105	MODIFIER	NONE	intergenic_region	CHR_START-ORF1ab	n.84C>T
+SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	intergenic_region	CHR_START-ORF1ab	n.160G>T
+~~~ 
+
+**The first six columns are standard for variant-call-format files (VCFs):** 
+
+| Column      | Description |
+| ----------- | ----------- |
+| Sample      | Sample Name      |
+| CHROM       | Chromosome of reference, not really applicable for viral genomes        |
+| POS         | Base pair position in reference genome  | 
+| REF         | The reference allele (what the reference genome has at this position) |
+| ALT         | The alternate allele (what this sample has at this position) | 
+| QUAL        | Phred quality score for confidence in the variant call  | 
+| DP          | Combined depth across samples | 
+| AF          | Allele frequency for each ALT allele  | 
+| SB          | Strand bias at position |                           
+| DP4         | Depth of the reference forward, reference reverse, alternate forward, alternate reverse bases | 
+
+**The rest of the columns contain information given to us by the SnpEff annotation process:**
+
+| Column      | Description |
+| ----------- | ----------- |
+| EFF[*].IMPACT | Estimate of how likely it is that a variant will have a high impact on protein function.| 
+| EFF[*].FUNCLASS | Type of mutation: NONE, SILENT, MISSENSE, NONSENSE | 
+| EFF[*].EFFECT | Actual effect of this variant on protein coding (i.e. frameshift or misssense) |
+| EFF[*].GENE | Gene name if in coding region.  |
+| EFF[*].CODON | Codon change: old_codon > new_codon | 
+ 
+> ## Notes about some categories
+> EFF.IMPACT `MODIFIER` alleles: Usually non-coding variants or variants affecting non-coding genes, where predictions are difficult or there is no evidence of impact.
+>
+> EFF.GENE names: Most genes in this SARS-CoV-2 reference genome are named simply as open reading frames (ORFs)
+{: .callout}
 
 
 {% include links.md %}
