@@ -541,5 +541,23 @@ SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	
 > EFF.GENE names: Most genes in this SARS-CoV-2 reference genome are named simply as open reading frames (ORFs)
 {: .callout}
 
+** Let's answer some questions about our data using Galaxy ** 
+
+We are going to be using Galaxy utilities to do some tabulating and counting. 
+
+> ## Hands on: How many variants were found in each sample?  
+> We could look back at the uncollapsed files of each sample and see how many line they have, but we can also perform a single operation on the final file to get the results. 
+> Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> and modify following the parameters:
+> +  <span class="glyphicon glyphicon-file"></span> **From Dataset**: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
+> + **Count occurrences of values in column(s)**: `Column 1`. 
+> + Leave **Delimited By** and **How should the results be sorted** as is right now.
+> Viewing the small output file, you should see that there are two 
+> ## Solution: How many variants are associated with each gene?
+> ## Solution: How many variants in each data set have a HIGH impact?  
+
+## Hands-on: How many variants fall in the Spike Protein? 
+## Solution: How many variants fall into the Spike Protein in each genotype? 
+
+## Solution: What about finding one particular mutation? 
 
 {% include links.md %}

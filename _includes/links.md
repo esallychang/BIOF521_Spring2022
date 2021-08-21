@@ -48,5 +48,6 @@
 [swc-lessons]: https://software-carpentry.org/lessons/
 [swc-releases]: https://github.com/swcarpentry/swc-releases
 [training]: https://carpentries.github.io/instructor-training/
+[variant-of-concern]: https://www.cdc.gov/coronavirus/2019-ncov/variants/variant-info.html#Concern
 [workshop-repo]: {{ site.workshop_repo }}
 [yaml]: http://yaml.org/
