@@ -497,7 +497,7 @@ You can see that this tool takes lines from all collection elements (in our case
 > 
 {: .discussion}
 
-## Characterizing our results 
+## What is in our final, collapsed result file?
 
 So, now we have a file containing our called variants, and their potential biological significance, for both of our input data sets, `SRR12733957` a sequencing run from a sample collected from Boston in April 2020, and `SRR11954102`, collected from Boston in May 2020. This is a file that you could manipulate in Excel or R if you already use one of those programs for statistics, but for this exercise, we are going to continue to work in Galaxy for the sake of consistency. 
 
@@ -541,12 +541,12 @@ SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	
 > EFF.GENE names: Most genes in this SARS-CoV-2 reference genome are named simply as open reading frames (ORFs)
 {: .callout}
 
-** Let's answer some questions about our data using Galaxy ** 
+## Let's answer some questions about our data using Galaxy!
 
 We are going to be using Galaxy utilities to do some tabulating and counting. 
 
 > ## Hands-On: Using the **Count** tool
-> Suppose we want to know: How many variants were found in each sample?  
+> **Suppose we want to know: How many variants were found in each sample?**  
 > We could look back at the uncollapsed files of each sample and see how many line they have, but we can also perform a single operation on the final file to get the results. 
 > Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> and modify following the parameters:
 > +  <span class="glyphicon glyphicon-file"></span> **From Dataset**: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
@@ -569,14 +569,35 @@ We are going to be using Galaxy utilities to do some tabulating and counting.
 {: .challenge}
 
 > ## Hands-on: Using the **Filter** tool
-> Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants? 
+> **Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants?** 
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Filter data on any column using simple expressions </button> tool. 
 > 2. Set the <span class="glyphicon glyphicon-file"></span> **Filter** input: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
-> 3. Set **With following 
-> ## How many `HIGH` impact mutations are there in ORF8 in each sample? 
+> 3. Set **With following condition** : `c14=='S'`. 
+> + This is telling the tool to only return rows where the 14th column of our collapsed data set, `EFF[*].GENE` equals `"S"`, the shorthand name for the Spike protein. 
+> + The double equal sign `==` is necessary to specify that we want this code to test whether two values are equal. You will learn more about `logical operators` when we look at data in RStudio in a future lesson. 
+> 4. Set **Number of Header Lines to Skip** to `1`, since our data set has one line of column names. 
+> 5. Take a look at the output file <span class="glyphicon glyphicon-eye-open"></span>. It should have the same columns as the input, but limited to rows where the value of `EFF[*].GENE` is `S`. 
+> 6. The helpful summary of the output file tells us the following: `Filtering with c14=='S', kept 4.04% of 1187 valid lines (1187 total lines)`, and that the file is **48 lines long**. Because this 48 includes the header, we know that there are **47 Spike protein mutations** in our data set!
+> 
+> > ## How many of these Spike protein variants can be found in each sample? 
+> > There are several ways to do this, but one way uses the same <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> tool as above.
+> >
+> > This time, make sure that the <span class="glyphicon glyphicon-file"></span> **From Dataset** variable is set to the output of **Filter** that we just generated. 
+> >
+> > As before, we will count occurrences in `Column 1`.
+> >
+> > The output should have just two lines with the number Spike protein mutations in each of the two input sequencing data sets: 
+> > ~~~
+> > 29	SRR11954102
+> > 18	SRR12733957
+> > ~~~
+> > {: .output}
+> {: .solution}
 {: .challenge}
-## Hands on: Compare two samples
 
-## Solution: What about finding one particular mutation? 
+> ## Hands on: Compare two samples
+> > **Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants?** 
+
+> ## Solution: What about finding one particular mutation? 
 
 {% include links.md %}
