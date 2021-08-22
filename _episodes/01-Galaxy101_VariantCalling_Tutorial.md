@@ -529,7 +529,7 @@ SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	
 
 | Column      | Description |
 | ----------- | ----------- |
-| EFF[*].IMPACT | Estimate of how likely it is that a variant will have a high impact on protein function.| 
+| EFF[*].IMPACT | Estimate of how strong of an impact this variant is predicted to have on on protein function.| 
 | EFF[*].FUNCLASS | Type of mutation: NONE, SILENT, MISSENSE, NONSENSE | 
 | EFF[*].EFFECT | Actual effect of this variant on protein coding (i.e. frameshift or misssense) |
 | EFF[*].GENE | Gene name if in coding region.  |
@@ -545,18 +545,37 @@ SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	
 
 We are going to be using Galaxy utilities to do some tabulating and counting. 
 
-> ## Hands on: How many variants were found in each sample?  
+> ## Hands-On: Using the **Count** tool
+> Suppose we want to know: How many variants were found in each sample?  
 > We could look back at the uncollapsed files of each sample and see how many line they have, but we can also perform a single operation on the final file to get the results. 
 > Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> and modify following the parameters:
 > +  <span class="glyphicon glyphicon-file"></span> **From Dataset**: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
 > + **Count occurrences of values in column(s)**: `Column 1`. 
 > + Leave **Delimited By** and **How should the results be sorted** as is right now.
-> Viewing the small output file, you should see that there are two 
-> ## Solution: How many variants are associated with each gene?
-> ## Solution: How many variants in each data set have a HIGH impact?  
+>
+> Viewing the small output file, you should see that there are two lines, which represent the number of times either of the SRA IDs appear in the first column. 
+>  <img src="{{ page.root }}/fig/Count_Sample_Results.png" width="300" alt="Output of counting number of variants per sample">
+> From this output, we can see that there are 759 variants found in	`SRR11954102`and 427	in `SRR12733957`. 
+> 
+>  
+> 
+> > ## **How many variants in each data set are predicted to have a HIGH impact?**  
+> > Run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> again on the same input file as above, but this time, add the column containing the `EFF[*].IMPACT` information (should be `column 11`) as a column for counting occurrences. 
+> >  <img src="{{ page.root }}/fig/Count_Two_Columns.png" width="750" alt="Example of selecting two columns in Count tool">
+> >  <span class="glyphicon glyphicon-eye-open"></span> Look at the output file. This time it has counted occurrences of each unique pairing of a Sample ID and a `EFF[*].IMPACT` level: 
+> >  <img src="{{ page.root }}/fig/Count_Impact_Sampl_Results.png" width="400" alt="Output of counting number of variants per sample and per Impact level">
+> > If we look just at the rows where `EFF[*].IMPACT = HIGH`, we can see that  `SRR11954102` has 97 of these variants, and `SRR12733957` has 49. 
+> {: .solution}
+{: .challenge}
 
-## Hands-on: How many variants fall in the Spike Protein? 
-## Solution: How many variants fall into the Spike Protein in each genotype? 
+> ## Hands-on: Using the **Filter** tool
+> Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants? 
+> 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Filter data on any column using simple expressions </button> tool. 
+> 2. Set the <span class="glyphicon glyphicon-file"></span> **Filter** input: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
+> 3. Set **With following 
+> ## How many `HIGH` impact mutations are there in ORF8 in each sample? 
+{: .challenge}
+## Hands on: Compare two samples
 
 ## Solution: What about finding one particular mutation? 
 

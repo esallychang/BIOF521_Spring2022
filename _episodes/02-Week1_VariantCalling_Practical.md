@@ -8,7 +8,6 @@ objectives:
 - "Manage a Galaxy history in order to keep data organized for an analysis"
 - "Load data from the NCBI SRA into the environment"
 - "Identify major steps in a variant-calling workflow and their associated file types"
-
 ---
 
 ## Background
