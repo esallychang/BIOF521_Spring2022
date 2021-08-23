@@ -13,11 +13,17 @@ keypoints:
 - "FASTQ files generally store raw sequencing data"
 ---
 
-## This week's data set
+> ## Prerequisites
+> This tutorial assumes that you have done the following: 
+> * Signed up for a Galaxy account and can log in.
+> * Have taken a look at the Galaxy Environment 101 Tutorial and are familiar with the concepts therein. 
+> * Have familiarized yourself with the steps of variant-calling and related file-formats (you can always do this as you progress through the tutorial as needed!). 
+{: .prereq}
 
-We are going to be 
 
-## Steps in Variant Calling
+## About our Input Data Set
+
+## Tutorial Preview: Steps in Variant Calling
 
 As you learned from this week's lectures, variant-calling is the process of identifying small variations in the sequence data of one sample compared to another, generally a standard reference that we can compare to multiple samples. We are now going to be doing some variant-calling ourselves to answer the questions posed in the section above.
 
@@ -25,15 +31,16 @@ As you learned from this week's lectures, variant-calling is the process of iden
   + Identifying samples of interest from their metadata
   + Using the Galaxy interface to load the sequence data from these samples into your workspace
 *   Pre-processing the data. 
-  + Run FASTQC to diagnose any major issues
-*   motivating questions
-*   lesson objectives
-*   a summary of key points
-
-## Prerequisites
-This tutorial assumes that you have done the following:
-* Signed up for a Galaxy account and can log in 
-* Have taken a look at the Galaxy Environment 101 Tutorial
+  + Trimming sequencing adapters
+  + Looking at sequence-quality reports
+* Mapping the data to a reference genome and doing quality-control
+  + Removing duplicates
+  + Re-aligning reads and adding indel qualities
+* Calling variants
+* Annotating variants with functional information
+* Post-proccessing data 
+  + Collapsing multiple data sets
+  + Manipulating text files to answer questions
 
 ## Obtaining data from the NCBI Short Read Archive
 
@@ -595,9 +602,21 @@ We are going to be using Galaxy utilities to do some tabulating and counting.
 > {: .solution}
 {: .challenge}
 
-> ## Hands on: Compare two samples
-> > **Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants?** 
-
-> ## Solution: What about finding one particular mutation? 
+> ## Hands-On: Finding one particular mutation using the `Select lines` tool
+> **Suppose we want to know: Do either of our samples have one of the diagnostic sequence changes associated with the more transmissible B.1.1.7 SARS-CoV-2 strain?** 
+> We know the B.1.1.7 lineage contains a nonsense mutation (change for legitimate codon specifying an amino acid to a stop codon) in ORF8a, at nucleotide `27972`. 
+> > ## Do we have any variants called at position `27972` in our data set? 
+> > One solution is to use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression </button> tool with the following parameters: 
+> > + Make sure our final, collapsed is listed in the <span class="glyphicon glyphicon-file"></span> **Select lines from** field of the tool form.
+> > + The expression we are looking for is the nucleotide number, simply `27972`. 
+> > Our output will look like the following: 
+> > ~~~
+> > SRR11954102	NC_045512.2	27972	C	T	226.0	368	0.032609	0	103,252,4,9	HIGH	NONE	stop_gained	ORF8	c.79C>T
+> > SRR12733957	NC_045512.2	27972	C	T	1067.0	253	0.162055	0	37,169,7,40	HIGH	NONE	stop_gained	ORF8	c.79C>T
+> > ~~~
+> > {: .output}
+> > You can see that both of our data sets have a variant at position `27972`, and that both result in a `stop_gained` mutation in `ORF8`, just as in the B.1.1.7 lineage. This is interesting because these datasets were collected well before B.1.1.7 became widely spread, particularly in the United States!
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}
