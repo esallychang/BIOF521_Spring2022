@@ -20,12 +20,25 @@ keypoints:
 > * Have familiarized yourself with the steps of variant-calling and related file-formats (you can always do this as you progress through the tutorial as needed!). 
 {: .prereq}
 
+> ## Where can I get help? 
+>
+> 
+{: .callout}
+
 
 ## About our Input Data Set
 
+In primary analysis we start with raw sequencing data (e.g., fastq reads) and convert them into a dataset for secondary analysis. Such a dataset can be a list of sequence variants, a collection of ChIP-seq peaks, a list of differentially expressed genes and so on. SARS-CoV-2 is undoubtedly the most talked about biological system of the day. We will use SARS-CoV-2 sequencing data to demonstrate how Galaxy handles NGS data. In this case we will go from FASTQ data to a list of variants.
+
+Specifically, this week, we will be working with several samples from [Lemieux et al. 2020][lemieux-paper], which is also available for you in PDF form on our Canvas site. According to the authors, this study was designed to identify potential superspreader events in the Boston metropolitan area: "_We used genomic epidemiology to investigate the introduction and spread of severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) in the Boston area across the first wave of the pandemic, from March through May 2020, including high-density sampling early in this period. Our analysis provides a window into the amplification of transmission in an urban setting, including the impact of superspreading events on local, national, and international spread._"
+
+<img src="{{ page.root }}/fig/Lemieux.F1.large.jpg" alt="Figure 1 from Lemieux et al. 2020">
+
+**Figure Legend**: Illustrated are the numerous introductions of SARS-CoV-2 into the Boston area; the minimal spread of most introductions; and the local, national, and international impact of the amplification of one introduction by a large superspreading event
+
 ## Tutorial Preview: Steps in Variant Calling
 
-As you learned from this week's lectures, variant-calling is the process of identifying small variations in the sequence data of one sample compared to another, generally a standard reference that we can compare to multiple samples. We are now going to be doing some variant-calling ourselves to answer the questions posed in the section above.
+As you learned from this week's lectures, variant-calling is the process of identifying small variations in the sequence data of an individual sample, generally in comparison to a standard reference that we can compare to multiple samples. 
 
 *   Obtaining sequence data.
   + Identifying samples of interest from their metadata
@@ -38,7 +51,7 @@ As you learned from this week's lectures, variant-calling is the process of iden
   + Re-aligning reads and adding indel qualities
 * Calling variants
 * Annotating variants with functional information
-* Post-proccessing data 
+* Post-processing data 
   + Collapsing multiple data sets
   + Manipulating text files to answer questions
 
@@ -105,9 +118,9 @@ We can see that the sample that was sequenced to become the SRA sequencing datas
 > > 272 MB. If you open the file by clicking the eye icon, you should be able to find `SRR14114810` in the **Run** column, and then look over to see 272 in the **size_MB** column. 
 > >
 > {: .solution}
-> **Note:** If you ever want a smaller summary of the data, you can also click the Pencil icon <span class="glyphicon glyphicon-pencil"></span>, which should produce something like this: 
+> **Note:** If you ever want a smaller summary of the data, you can also click the name of of item in your history, which should produce something like this: 
 > 
-> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking Pencil icon in Galaxy History">
+> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking the name of a data set in your in Galaxy History">
 {: .challenge}
 
 
@@ -347,6 +360,69 @@ If Galaxy does not have a genome you need to map against, you can upload your ge
 > <span class="glyphicon glyphicon-time"></span> This may take a few minutes to run. <span class="glyphicon glyphicon-time"></span>. 
 {: .challenge}
 
+## Calculating Mapping Statistics
+
+We often want to see how well our sequencing data mapped to the reference genome, which is useful for doing further troubleshooting and quality-control of our data. For example, if a very low proportion of sequencing reads map to your reference genome, one explanation could be that the sequencing data is not from the organism you thought it was! 
+
+You can also use read-mapping to troubleshoot this issue, by mapping your genome sequencing to the genome of potential contaminant organisms and removing the reads that map confidently to those genomes, OR keeping on those reads that confidently map to your genome of interest. 
+
+For our actual input data set, we are just going to be calculating a few simple statistics about how many reads mapped to the genome. 
+
+> ## Hands-On: Calculating mapping statistics 
+> 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BAM/SAM Mapping Stats </button> tool in the Tools panel.
+> 2. For **Input .bam file** select the folder icon <span class="glyphicon glyphicon-folder-close"></span> and choose the output collection from <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Map with BWA-MEM  </button>.
+> 3. Change **Minimum mapping quality** to `20`, as this is the relevant mapping quality cutoff we will be using for our actual variant-calling step. 
+> 4. Press `Execute`!
+{: .challenge}
+
+Once the tool is done running, you can <span class="glyphicon glyphicon-eye-open"></span> examine the results. The results from calculating mapping statistics for sample `SRR11954102` look like this: 
+
+~~~
+Total records:                          2659376
+
+QC failed:                              0
+Optical/PCR duplicate:                  0
+Non primary hits                        0
+Unmapped reads:                         2524130
+mapq < mapq_cut (non-unique):           142
+mapq >= mapq_cut (unique):              135104
+Read-1:                                 67210
+Read-2:                                 67894
+Reads map to '+':                       59385
+Reads map to '-':                       75719
+Non-splice reads:                       135104
+Splice reads:                           0
+Reads mapped in proper pairs:           133752
+Proper-paired reads map to different chrom:0
+~~~
+{: .output}
+
+**More Output Info:**
++ Total Reads (Total records) = Multiple mapped reads + Uniquely mapped
++ Uniquely mapped Reads = read-1 + read-2 (if paired end)
++ Uniquely mapped Reads = Reads map to '+' + Reads map to '-'
++ Uniquely mapped Reads = Splice reads + Non-splice reads
+
+Although this report gives us a lot of information, for the moment, we are very interested in the number of `Unmapped Reads`. 
+
+> ## What percentage of this data set actually mapped to the SARS-CoV-2 reference genome?
+> Given all of this information in the report, we can do a pretty easy calculation to figure this out. 
+> We simply take `1 - Unmapped Reads/Total records`.
+> For this sample, we calculate `1 - (2524130/2659376)` which ends up being approximately .051 or `5.1%` of this data set. 
+> You would also get the same result by dividing the number of `unique mapped reads (135104)` by the `Total records`. 
+{: .solution}
+
+Perhaps surprisingly, only a few percent of our input data set mapped to the SARS-CoV-2 reference genome. However we are not too worried, given the process to used to collet this sample (nasal swab), and that this still leaves us with over 130k of reads to map to the small Sars-Cov-2 genome. 
+
+> ## Useful Aside: Calculating Genome Coverage Using the Mapping Results
+>
+> We can in fact calculate a quick approximation of the ***coverage** for the mapped portion `SRR11954102` data set, that is, **how many times over does this data cover the `Wuhan-Hu-1` reference genome**? 
+> 
+> We know that there are `135104` uniquely mapped, useable reads, and that after filtering, the mean length of the reads was `86 bp` (see **fastp** report). We multiply these together to get the approximate total number of bases in our data set: `11,618,944 bp`. Then, we divide this by the SARS-Cov-2 genome size, `29,903 bp`. 
+>
+> This gives us a coverage of approximately `388x`, which in words means that our remaining mapped data should cover the reference genome 388 times, which is more than enough to carry out the rest of the variant calling analysis! 
+{: .callout}
+
 ## Preparing the results of read-mapping for variant-calling
 
 In the next few steps, we will be processing the output from <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Map with BWA-MEM </button> in order to make the variant calling step go as smoothly as possible: 
@@ -379,7 +455,7 @@ What percentage of reads were duplicated in the raw `SRR11954102`? What about in
 > ## Hands-On: Removing Duplicates
 > Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Mark Duplicates </button> tool. The full title should be something like `Mark Duplicates examine aligned records in BAM datasets to locate duplicate molecules`. 
 >
-> Run this tool with the following parameters: 
+> Run this tool with the following modified parameters: 
 > + **Select SAM/BAM dataset or dataset collection**: Click the folder icon <span class="glyphicon glyphicon-folder-close"></span> and choose output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Map with BWA-MEM </button>. 
 > + **If true do not write duplicates to the output file instead of writing them with appropriate flags set** set to `Yes`. This switch tells **Mark Duplicates** to not only mark which short reads are duplicates of one another, but to also remove them from the output file.  
 {: .challenge}
