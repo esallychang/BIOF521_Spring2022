@@ -1,9 +1,6 @@
 ---
 title: "Week 1 - Variant Calling in Galaxy (Tutorial)"
-teaching: 90
 exercises: 90
-questions:
-- "How can we best analyze our data?"
 objectives:
 - "Manage a Galaxy history in order to keep data organized for an analysis"
 - "Load data from the NCBI SRA into the environment"
@@ -19,12 +16,6 @@ keypoints:
 > * Have taken a look at the Galaxy Environment 101 Tutorial and are familiar with the concepts therein. 
 > * Have familiarized yourself with the steps of variant-calling and related file-formats (you can always do this as you progress through the tutorial as needed!). 
 {: .prereq}
-
-> ## Where can I get help? 
->
-> 
-{: .callout}
-
 
 ## About our Input Data Set
 
