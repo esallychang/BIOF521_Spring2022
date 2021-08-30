@@ -1,9 +1,6 @@
 ---
 title: "Week 1 - Variant Calling in Galaxy (Practical)"
-teaching: 90
 exercises: 90
-questions:
-- "How can we best analyze our data?"
 objectives:
 - "Manage a Galaxy history in order to keep data organized for an analysis"
 - "Load data from the NCBI SRA into the environment"
@@ -25,41 +22,39 @@ To make this a reasonable-sized practical, we are going to focus on the mutation
 **Image caption:** a: The schematic structure of the S protein. b: The S protein binds to the receptor ACE2. c: The binding and virus–cell fusion process mediated by the S protein. Ref: https://www.nature.com/articles/s41401-020-0485-4/figures/1
 
 
-The Spike protein is the protein encoded by the mRNA in the mRNA-based vaccines for Covid-19. It is thought that certain mutations in the Spike protein may affect the effectiveness of these vaccines. At the time of writing, there are 10 characterized mutations in the Spike protein, of which 8 are found in at least 75% of samples taken. These are pictured in dark purple below:   
+The Spike protein is the protein encoded by the mRNA in the mRNA-based vaccines for Covid-19. It is thought that certain mutations in the Spike protein may affect the effectiveness of these vaccines. At the time of writing, there are 10 characterized mutations in the Spike protein. Those pictured in dark purple below have been found in at least 75% of Delta lineage samples to date. 
 
 
 <img src="{{ page.root }}/fig/Delta_Spike_Mutations.png" alt="Diagnostic spike protein mutations of the SARS-Cov-2 Delta variant"> 
 
-And characterized in this table. 
+The six highest-frequency (and therefore most diagnostic) mutations associated with the Delta variant are found below: 
 
 | Nucleotide Change    | Resultant Change|
 | ----------- | ----------- |
 | C21987A | G142D |
 | C21618G | T19R |
-| 22029-22034 Deletion | E156G/157-158 deletion | 
 | T22917G | L452R |
 | C22995A | T478K |
 | A23403G | D614G |
 | C23604G | P681R |
-| G224410A | D950N |
 
-The nomenclature is as follows. C21987A means that there is a change in nucleotides from a C (in the reference) to an A (in the sample) in nucleotide 21987 in the reference genome. This change results in an amino acid substitution in position 142 of the protein from a G (Glycine) to a D (Aspartic Acid). 
+The nomenclature is as follows:  C21987A means that there is a change in nucleotides from a C (in the reference) to an A (in the sample) in nucleotide 21987 in the reference genome. This change results in an amino acid substitution in position 142 of the protein from a G (Glycine) to a D (Aspartic Acid). 
 
 ## Your task
 
-You task this week is to employ the variant-calling pipeline you used in the tutorial on a  a set of three sequencing runs from much more recently collected samples. Using the resulting output, you will assess whether any of these samples represent the Delta variant by seeing which, if any, of the eight Spike protein mutations they possess relative to the original reference genome. **I would highly recommend that you start a clean Galaxy History for this exercise to help keep things organized!**
+You task this week is to employ the variant-calling pipeline you used in the tutorial on a  a set of three sequencing runs from much more recently collected samples. Using the resulting output, you will assess whether any of these samples represent the Delta variant by seeing which, if any, of the six Spike protein mutations above they possess relative to the original reference genome. **I would highly recommend that you start a clean Galaxy History for this exercise to help keep things organized!**
 
 **SRA Sequencing Run Accession Numbers:** 
-+ SRR15328723 (NYC breakthrough case)
++ SRR15328719 (NYC breakthrough case)
 + SRR15315457 (Recent sample from ongoing monitoring in Bostoon)
-+ SRR15364212 (Recently collected from Tennessee) 
++ SRR15363477 (Recently collected from California) 
 
 **Reference genome:** 
 + Use the same `Wuhan-Hu-1` reference genome as for the tutorial. This can be copied into the new History you set up for this exercise. 
 
 **Other Materials on Canvas** 
 + `SRARunInfo_Practical.csv`: Spreadsheet of run data from a number of recent samples. This will allow you to begin at the `Hands-On: Creating a subset of data` step of the tutorial. 
-+ `Week1-Variant-Calling_Worksheet.docx` or `.pdf`: An assignment sheet to fill out as you progress which you will be submitting. 
++ `BIOF521_Week1_Practical_Assignment.docx`: An assignment sheet to fill out as you progress which you will be submitting. 
 
 **Good luck and don't hesitate to reach out with questions and use all available resources!** 
 
