@@ -159,10 +159,9 @@ So, now we have a file that contains just the two accession numbers for the sequ
 > - `Other data (fasterq-dump)`:  Contains Unpaired datasets (if available)
 > - `fasterq-dump log`: Contains Information about the tool execution
 >
-> Is the data we downloaded **single-end** or **paired-end** data? 
-> > ## Solution
+> > ## Is the data we downloaded **single-end** or **paired-end** data? 
 > > Our data is **paired-end**! If you click each of the data files generated that are now in your history, you will see that `Single-end data (fasterq-dump)` is an empty list, meaning that the tool did not download any files of that type. On the other hand, `Pair-end data (fasterq-dump)` is a "list of pairs with 2 items", each of which is a FASTQ-formatted file if you look inside: 
-> > <img src="{{ page.root }}/fig/List_of_Pairs.png" alt="Preview of paired-end data downloaded by fasterq-dump tool">
+> > <img src="../fig/List_of_Pairs.png" alt="Preview of paired-end data downloaded by fasterq-dump tool">
 > > 
 > {: .solution}
 {: .challenge}
