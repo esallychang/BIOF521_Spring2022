@@ -17,9 +17,24 @@ keypoints:
 {: .prereq}
 
 
-## Tutorial Outline
+## What is Read-Mapping?
 
-Mapping has a few distinctive sets 
+As you learned in the slides about **Read-Mapping and the SAM/BAM format**, sequencing produces a collection of sequences without genomic context. We do not know to which part of the genome the sequences correspond to. Mapping the reads of an experiment to a reference genome is a key step in modern genomic data analysis. With the mapping the reads are assigned to a specific location in the genome and insights like the expression level of genes can be gained.
+
+Read mapping is the process to align the reads on a reference genomes. A mapper takes as input a reference genome and a set of reads. Its aim is to align each read in the set of reads on the reference genome, allowing mismatches, indels and clipping of some short fragments on the two ends of the reads:
+
+<img src="{{ page.root }}/fig/read_mapping.png" alt="Theoretical diagram of several short reads mapping to a reference genome">
+
+**Figure Legend**: Illustration of the mapping process. The input consists of a set of reads and a reference genome. In the middle, it gives the results of mapping: the locations of the reads on the reference genome. The first read is aligned at position 100 and the alignment has two mismatches. The second read is aligned at position 114. It is a local alignment with clippings on the left and right. The third read is aligned at position 123. It consists of a 2-base insertion and a 1-base deletion.
+
+## Tutorial Outline: 
+
+Read mapping has a few distinctive steps: 
+
+1. Trimming and filtering the input reads
+2. Finding the appropriate reference genome
+3. Actually mapping the reads
+4. Calculating key statistics and summarizing the results
 
 ## Removing adapters and low-quality reads with **fastp**
 
@@ -112,14 +127,6 @@ In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated
 {: .challenge}
 
 ## Mapping short-reads to the reference genome with **BWA-MEM** 
-
-As you learned in the slides about **Read-Mapping and the SAM/BAM format**, sequencing produces a collection of sequences without genomic context. We do not know to which part of the genome the sequences correspond to. Mapping the reads of an experiment to a reference genome is a key step in modern genomic data analysis. With the mapping the reads are assigned to a specific location in the genome and insights like the expression level of genes can be gained.
-
-Read mapping is the process to align the reads on a reference genomes. A mapper takes as input a reference genome and a set of reads. Its aim is to align each read in the set of reads on the reference genome, allowing mismatches, indels and clipping of some short fragments on the two ends of the reads:
-
-<img src="{{ page.root }}/fig/read_mapping.png" alt="Theoretical diagram of several short reads mapping to a reference genome">
-
-**Figure Legend**: Illustration of the mapping process. The input consists of a set of reads and a reference genome. In the middle, it gives the results of mapping: the locations of the reads on the reference genome. The first read is aligned at position 100 and the alignment has two mismatches. The second read is aligned at position 114. It is a local alignment with clippings on the left and right. The third read is aligned at position 123. It consists of a 2-base insertion and a 1-base deletion.
 
 **Mapping against a pre-computed genome index:** 
 
