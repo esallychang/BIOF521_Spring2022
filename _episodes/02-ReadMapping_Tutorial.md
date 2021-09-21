@@ -1,5 +1,5 @@
 ---
-title: "Week 1 - Variant Calling in Galaxy (Tutorial)"
+title: "Hands-On: Mapping Our Short Read Data to a Reference Genome"
 exercises: 90
 objectives:
 - Students will use their knowledge of quality control to clean the input data sets
