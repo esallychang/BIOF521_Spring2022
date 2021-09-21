@@ -155,11 +155,20 @@ If Galaxy does not have a genome you need to map against, you can upload your ge
 
 ## Calculating Mapping Statistics
 
-We often want to see how well our sequencing data mapped to the reference genome, which is useful for doing further troubleshooting and quality-control of our data. For example, if a very low proportion of sequencing reads map to your reference genome, one explanation could be that the sequencing data is not from the organism you thought it was! 
+We often want to see how well our sequencing data mapped to the reference genome, which is useful for doing further troubleshooting and quality-control of our data. For example, if a very low proportion of sequencing reads map to your reference genome, one explanation could be that the sequencing data is not from the organism you thought it was! BWA-MEM technically outputs a Collection of BAM files, one for each sample. As we saw in the lecture on the SAM/BAM format, these are pretty big, complicated files. Luckily, there are utilities that can summrize the results!
 
-You can also use read-mapping to troubleshoot this issue, by mapping your genome sequencing to the genome of potential contaminant organisms and removing the reads that map confidently to those genomes, OR keeping on those reads that confidently map to your genome of interest. 
+> ## What SAM alignment field would be used to help count up properly mapped reads? 
+> Looking back on our notes about the SAM/BAM format, we see that the `**FLAG**` alignment field contains information about the read's mapping properties stored as bitwise flags. 
+> <img src="{{ page.root }}/fig/Sam_Flags.png" alt="SAM Flag field table">
+> 
+> For a program to count all of the reads that were **Paired, mapped in a proper pair, and the R1 (first) read in the pair**, the program would count up all instances of `SAM Flag 67`, or the the total decimal value of those conditions (1 + 2 + 64). 
+> 
+> Several utilities exist online to help calculate and interpret these flags, such as: http://broadinstitute.github.io/picard/explain-flags.html. 
+> <img src="{{ page.root }}/fig/Decoding_Sam_Flags.png" alt="The Broad Institute Explain Flags interface with example calculation for SAM Flag 67">
+{: .solution}
 
-For our actual input data set, we are just going to be calculating a few simple statistics about how many reads mapped to the genome. 
+
+You can also use read-mapping to troubleshoot this issue, by mapping your genome sequencing to the genome of potential contaminant organisms and removing the reads that map confidently to those genomes, OR keeping only those reads that confidently map to your genome of interest. For our actual input data set, we are just going to be calculating a few simple statistics about how many reads mapped to the genome. 
 
 > ## Hands-On: Calculating mapping statistics 
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BAM/SAM Mapping Stats </button> tool in the Tools panel.
@@ -205,9 +214,9 @@ Although this report gives us a lot of information, for the moment, we are very 
 > You would also get the same result by dividing the number of `unique mapped reads (135104)` by the `Total records`. 
 {: .solution}
 
-Perhaps surprisingly, only a few percent of our input data set mapped to the SARS-CoV-2 reference genome. However we are not too worried, given the process to used to collet this sample (nasal swab), and that this still leaves us with over 130k of reads to map to the small Sars-Cov-2 genome. 
+**Perhaps surprisingly, only a few percent of our input data set mapped to the SARS-CoV-2 reference genome. However we are not too worried, given the process to used to collet this sample (nasal swab), and that this still leaves us with over 130k reads to map to the small Sars-Cov-2 genome**
 
-> ## Useful Aside: Calculating Genome Coverage Using the Mapping Results
+> ## Calculating Genome Coverage Using the Mapping Results: Do we have enough mapped data?
 >
 > We can in fact calculate a quick approximation of the ***coverage** for the mapped portion `SRR11954102` data set, that is, **how many times over does this data cover the `Wuhan-Hu-1` reference genome**? 
 > 
@@ -215,6 +224,7 @@ Perhaps surprisingly, only a few percent of our input data set mapped to the SAR
 >
 > This gives us a coverage of approximately `388x`, which in words means that our remaining mapped data should cover the reference genome 388 times, which is more than enough to carry out the rest of the variant calling analysis! 
 {: .callout}
+
 
 
 {% include links.md %}
