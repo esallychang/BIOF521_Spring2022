@@ -4,6 +4,7 @@ exercises: 30
 objectives:
 - "Make use of Galaxy Collections for a tidy analysis"
 - "Generate interactive reports to summarise QC information from a collection of files with MultiQC"
+- "Use a splice-aware aligner to map RNAseq data to a reference"
 keypoints:
 - "PLEASE EDIT ME"
 ---
@@ -159,6 +160,8 @@ Therefore they cannot be simply mapped back to the genome as we normally do for 
 > 3. Add a tag `#hisat` to the `Webpage` output from MultiQC and inspect the webpage
 > 
 {: .challenge} 
+
+
 
 > ## Note: Mapping for Paired-end or stranded reads
 > - If you have **paired-end** reads
