@@ -1,0 +1,1039 @@
+﻿1
+00:00:00,000 --> 00:00:00,940
+So
+
+2
+00:00:00,970 --> 00:00:05,480
+this week before we dive into any actual
+analysis of any real hands on data,
+
+3
+00:00:05,510 --> 00:00:09,680
+we're going to stop for a second and think
+about what you need to think about before
+
+4
+00:00:09,710 --> 00:00:13,960
+you even analyze your data or even
+send it off to the sequencer.
+
+5
+00:00:13,960 --> 00:00:15,960
+So this is all about the planning stage,
+
+6
+00:00:15,990 --> 00:00:19,600
+and we're going to be working through
+a scenario together right now now,
+
+7
+00:00:19,630 --> 00:00:23,800
+which will hopefully happen to you
+at some point during your career.
+
+8
+00:00:23,830 --> 00:00:25,760
+Perhaps you will get exciting news
+
+9
+00:00:25,760 --> 00:00:29,000
+from a colleague that a big grant has been
+funded and they want to sequence ten
+
+10
+00:00:29,030 --> 00:00:31,960
+samples for project you
+are working on together.
+
+11
+00:00:31,960 --> 00:00:34,560
+And with the expertise that you gained
+during this class,
+
+12
+00:00:34,590 --> 00:00:38,600
+you agree to do the post-sequencing
+bioinformatic analyses for them.
+
+13
+00:00:38,630 --> 00:00:40,900
+You are so excited to get started
+
+14
+00:00:40,930 --> 00:00:45,280
+with this project, but maybe we
+should do some planning first.
+
+15
+00:00:45,310 --> 00:00:51,120
+So take 30 seconds right now to write down
+a few topics you'll want to talk with your
+
+16
+00:00:51,150 --> 00:00:53,660
+colleague about before
+any of the work begins.
+
+17
+00:00:53,680 --> 00:00:58,340
+I mean, you're gonna submit one
+of those to me as a question right now.
+
+18
+00:00:58,370 --> 00:00:59,460
+Okay.
+
+19
+00:00:59,490 --> 00:01:03,800
+So we're back from you writing down a few
+suggestions, and now take a second
+
+20
+00:01:03,830 --> 00:01:08,440
+to compare what you wrote down to some
+of the considerations that I thought of,
+
+21
+00:01:08,470 --> 00:01:11,660
+which is by no means inclusive
+of absolutely everything.
+
+22
+00:01:11,680 --> 00:01:14,620
+And I'm really excited to see the other
+suggestions that you might have.
+
+23
+00:01:14,650 --> 00:01:18,480
+So what came to my mind right away? What
+
+24
+00:01:18,510 --> 00:01:23,120
+type of sequencing are we going to even
+do? How much data are you going to need
+
+25
+00:01:23,120 --> 00:01:26,930
+to collect from each individual as far as
+the actual material needed for sequencing,
+
+26
+00:01:26,960 --> 00:01:32,000
+how many replicates for your experiment?
+Where will these samples actually be
+
+27
+00:01:32,030 --> 00:01:36,570
+sequenced at your University or your
+collaborators University? Maybe that will
+
+28
+00:01:36,600 --> 00:01:39,260
+come down to the cost of doing
+it at one of those places.
+
+29
+00:01:39,290 --> 00:01:44,740
+So there are a lot of decisions to be
+made before any sequencing even begins.
+
+30
+00:01:44,760 --> 00:01:46,210
+Those are just a few of them.
+
+31
+00:01:46,240 --> 00:01:50,900
+So let's say that you've Dove
+in and you've made a plan
+
+32
+00:01:50,930 --> 00:01:54,880
+and you have an experimental design
+for maybe an RNA see experiment,
+
+33
+00:01:54,910 --> 00:01:58,680
+and you've chosen how you're going
+to sequence and where you're going
+
+34
+00:01:58,710 --> 00:02:02,930
+to sequence your data and that you're
+going to do the analysis, of course.
+
+35
+00:02:02,960 --> 00:02:07,280
+So now we're going to pause again and have
+you take 30 seconds and again submit one
+
+36
+00:02:07,310 --> 00:02:11,760
+of these suggestions to me
+and think of the types of data that you're
+
+37
+00:02:11,790 --> 00:02:14,730
+going to need for your analysis
+that you're calling.
+
+38
+00:02:14,760 --> 00:02:17,340
+I need to record about these samples
+
+39
+00:02:17,370 --> 00:02:20,020
+before they are even
+sent to the sequencer.
+
+40
+00:02:20,050 --> 00:02:26,120
+So what should they be keeping in mind if
+they're the person who's actually getting
+
+41
+00:02:26,150 --> 00:02:30,600
+the material from the mice or
+whatever you're experimenting upon?
+
+42
+00:02:31,480 --> 00:02:32,540
+Okay.
+
+43
+00:02:32,570 --> 00:02:34,360
+And again, let's compare.
+
+44
+00:02:34,390 --> 00:02:36,760
+You might have written down to some
+
+45
+00:02:36,790 --> 00:02:40,960
+examples that again,
+I've had experience with in the past or
+
+46
+00:02:40,990 --> 00:02:44,720
+just now came to my mind again,
+not totally inclusive.
+
+47
+00:02:44,720 --> 00:02:47,640
+And again, very excited to see if
+you thought of something I didn't.
+
+48
+00:02:47,670 --> 00:02:49,820
+Of course, you're going to want to note,
+
+49
+00:02:49,850 --> 00:02:54,640
+however, you're keeping track of your
+sample IDs for each of your samples,
+
+50
+00:02:54,670 --> 00:02:59,400
+whether they're individual tissue samples
+or samples taken from different genotypes
+
+51
+00:02:59,430 --> 00:03:02,280
+of mice, whatever is relevant
+for your study, basically.
+
+52
+00:03:02,310 --> 00:03:04,960
+So that would just be any characteristics
+
+53
+00:03:04,990 --> 00:03:10,200
+of the input material itself from DNA
+concentration, the sequencing barcode.
+
+54
+00:03:10,230 --> 00:03:14,520
+You're giving it things that we'll be
+talking about later in the course.
+
+55
+00:03:14,550 --> 00:03:18,580
+And then, as I mentioned, details
+about the sample itself, of course.
+
+56
+00:03:18,610 --> 00:03:21,660
+So if it's relevant to you to know,
+
+57
+00:03:21,690 --> 00:03:25,480
+for example,
+if the samples come from a male or female,
+
+58
+00:03:25,480 --> 00:03:27,780
+you're going to want
+to collect that information.
+
+59
+00:03:27,800 --> 00:03:29,360
+If it's really important to know exactly
+
+60
+00:03:29,390 --> 00:03:34,340
+what tissue it came from for your
+experiment, you will also record that.
+
+61
+00:03:34,370 --> 00:03:37,220
+So these details about the sample itself
+
+62
+00:03:37,250 --> 00:03:42,160
+are really dependent on exactly what
+your variables of interest are.
+
+63
+00:03:42,160 --> 00:03:45,360
+But I would always recommend jotting down
+probably more than you think,
+
+64
+00:03:45,390 --> 00:03:50,400
+especially if it's data you're not
+going to be able to recreate later.
+
+65
+00:03:50,430 --> 00:03:52,460
+And we're going to talk about sort of
+
+66
+00:03:52,490 --> 00:03:56,400
+minimal reporting of different types
+of this data for different types
+
+67
+00:03:56,430 --> 00:04:01,460
+of projects in the upcoming weeks as we
+go through different types of fencing.
+
+68
+00:04:01,490 --> 00:04:06,740
+And so all of this type of data that's not
+the actual sequencing data itself
+
+69
+00:04:06,770 --> 00:04:13,380
+or the experimental actual data
+points is called metadata,
+
+70
+00:04:13,410 --> 00:04:17,380
+or, as we call it,
+basically data about the data.
+
+71
+00:04:17,410 --> 00:04:19,420
+So here is data, the cat,
+
+72
+00:04:19,450 --> 00:04:22,620
+and perhaps some metadata that we
+could collect about data.
+
+73
+00:04:22,650 --> 00:04:28,000
+The cat are things like, where was
+this photo of this adorable cat taken?
+
+74
+00:04:28,030 --> 00:04:31,000
+And on what date?
+Maybe that's going to help help us seek
+
+75
+00:04:31,030 --> 00:04:34,720
+out where this adorable cat is
+living and pet it for ourselves.
+
+76
+00:04:34,750 --> 00:04:37,500
+And PS data would be
+an excellent name for a cat.
+
+77
+00:04:37,530 --> 00:04:41,900
+So it's the data about the data,
+and metadata is super important
+
+78
+00:04:41,920 --> 00:04:44,900
+for reasons that we will discover
+together through this course.
+
+79
+00:04:44,920 --> 00:04:48,400
+I mean, ultimately, data is not
+meaningful without metadata.
+
+80
+00:04:48,420 --> 00:04:50,160
+If you just have random sequencing
+
+81
+00:04:50,190 --> 00:04:54,100
+but didn't record which experimental
+treatment it came from,
+
+82
+00:04:54,130 --> 00:04:58,300
+how you prepared the DNA for sequencing,
+et cetera, et cetera.
+
+83
+00:04:58,320 --> 00:05:01,200
+You're not going to be able to sort
+of link it back to the question
+
+84
+00:05:01,200 --> 00:05:03,400
+that you're trying to answer
+by doing the sequencing.
+
+85
+00:05:03,420 --> 00:05:06,720
+So metadata
+we can think of is the link between your
+
+86
+00:05:06,750 --> 00:05:11,980
+data and your original biological question
+or the biological system at hand.
+
+87
+00:05:12,010 --> 00:05:14,100
+And in fact, organizations
+
+88
+00:05:14,130 --> 00:05:18,600
+have or in the process of establishing
+standards for the type of metadata
+
+89
+00:05:18,630 --> 00:05:23,300
+that need to be included
+with different types of sequencing.
+
+90
+00:05:23,320 --> 00:05:25,160
+So we'll talk about later in this course.
+
+91
+00:05:25,160 --> 00:05:28,280
+But when you submit your data as you
+should to a public database,
+
+92
+00:05:28,280 --> 00:05:31,740
+when you're done with your project,
+you really need to be careful about what
+
+93
+00:05:31,770 --> 00:05:37,060
+type of info they expect you
+to submit with that data.
+
+94
+00:05:37,090 --> 00:05:38,100
+Okay.
+
+95
+00:05:38,130 --> 00:05:41,880
+So the moment has happened,
+you are about to get your data back.
+
+96
+00:05:41,910 --> 00:05:44,860
+All that metadata has been collected,
+
+97
+00:05:44,890 --> 00:05:48,800
+but now there are a few
+other things to consider.
+
+98
+00:05:48,800 --> 00:05:51,980
+So you know, you're about to get your
+sequencing data in a couple of weeks.
+
+99
+00:05:52,010 --> 00:05:53,740
+It's in the sequencing queue.
+
+100
+00:05:53,770 --> 00:05:57,280
+Again, let's take a few seconds and think
+
+101
+00:05:57,300 --> 00:06:01,480
+of what things come to mind as
+you prepare to receive the data.
+
+102
+00:06:01,510 --> 00:06:06,620
+That's going to save you big headaches
+later as you are doing the analysis.
+
+103
+00:06:06,640 --> 00:06:07,760
+So
+
+104
+00:06:09,720 --> 00:06:13,860
+I'm just going to suggest a few whole
+categories of things that I would
+
+105
+00:06:13,890 --> 00:06:20,220
+personally already be thinking about when
+I know my data is on the way to coming
+
+106
+00:06:20,250 --> 00:06:24,480
+to me and for me to work on and again,
+compare this to what you got.
+
+107
+00:06:24,510 --> 00:06:28,720
+I'm sure that some of these things are
+things that you definitely thought of,
+
+108
+00:06:28,750 --> 00:06:32,660
+and perhaps some of them will be
+new to you to be kind of exciting.
+
+109
+00:06:32,680 --> 00:06:33,800
+So
+
+110
+00:06:33,880 --> 00:06:37,600
+one big question is, where is
+this data going to to get stored?
+
+111
+00:06:37,630 --> 00:06:39,680
+You'll see working through this course
+
+112
+00:06:39,710 --> 00:06:43,340
+that the sequencing files and all
+of the intermediate files you generate
+
+113
+00:06:43,360 --> 00:06:49,320
+while working through a bioinformatics
+pipeline are huge and quite plentiful.
+
+114
+00:06:49,350 --> 00:06:51,700
+So please note that all of the sizes
+
+115
+00:06:51,730 --> 00:06:56,860
+in this table are, in fact,
+in gigabytes so they can fill up even big
+
+116
+00:06:56,890 --> 00:06:59,520
+terabyte size hard drives
+in absolutely no time.
+
+117
+00:06:59,520 --> 00:07:01,580
+So might be by some
+of those ahead of time.
+
+118
+00:07:01,600 --> 00:07:06,460
+Make sure your University's serve has
+room for you, et cetera, et cetera.
+
+119
+00:07:06,480 --> 00:07:10,560
+On a similar note, where are
+we going to analyze this data?
+
+120
+00:07:10,590 --> 00:07:13,820
+Many applications that are for processing
+
+121
+00:07:13,850 --> 00:07:21,780
+big data sets of sequencing data require
+significant memory and or require parallel
+
+122
+00:07:21,800 --> 00:07:25,360
+processing processing,
+meaning we need multiple processors
+
+123
+00:07:25,390 --> 00:07:30,840
+working in parallel to get the job done
+in any sort of reasonable amount of time.
+
+124
+00:07:30,840 --> 00:07:33,360
+As we'll talk about,
+this is something that's particularly
+
+125
+00:07:33,390 --> 00:07:37,580
+of a concern when doing things like
+assembling whole Genome Gnomes.
+
+126
+00:07:37,600 --> 00:07:42,040
+So for the most part, we can't
+run these directly on the laptop.
+
+127
+00:07:42,040 --> 00:07:43,680
+So you might want to start looking at,
+
+128
+00:07:43,710 --> 00:07:48,700
+for example, does your institution have
+a computer cluster here at the NIH?
+
+129
+00:07:48,730 --> 00:07:50,760
+A huge part of my job is communicating
+
+130
+00:07:50,790 --> 00:07:55,420
+with a big super computer
+that we call Bio Wolf.
+
+131
+00:07:55,450 --> 00:07:56,400
+During this course,
+
+132
+00:07:56,420 --> 00:08:01,460
+we're going to work on a public
+server called the Galaxy Project.
+
+133
+00:08:01,480 --> 00:08:03,240
+You're going to be super
+familiar with that.
+
+134
+00:08:03,240 --> 00:08:04,520
+And then there are things like
+
+135
+00:08:04,540 --> 00:08:08,760
+Amazon Web Services, which I'm sure
+you've heard of that you can set up to.
+
+136
+00:08:08,790 --> 00:08:11,940
+Also do buyer Informatics on if your local
+
+137
+00:08:11,970 --> 00:08:17,320
+computing is not sufficient, but again,
+totally planning this ahead of time.
+
+138
+00:08:17,360 --> 00:08:21,140
+Additionally, it's not enough to just be
+like, okay, I'm going to use the server.
+
+139
+00:08:21,170 --> 00:08:26,240
+You also need to make sure of things like
+is the software that I will need to get
+
+140
+00:08:26,270 --> 00:08:31,540
+my expected outputs from this data
+even available on my University's server?
+
+141
+00:08:31,570 --> 00:08:33,980
+Do I need them to
+
+142
+00:08:34,010 --> 00:08:39,000
+install a bunch of things for me
+been through that where software expected
+
+143
+00:08:39,030 --> 00:08:42,900
+was not actually there or not installed
+properly or the most updated version.
+
+144
+00:08:42,930 --> 00:08:48,220
+You can also, for example,
+decide what software to use by reading
+
+145
+00:08:48,250 --> 00:08:51,920
+studies that use similar data
+to answer similar questions.
+
+146
+00:08:51,920 --> 00:08:53,680
+This is a huge part of preparing to do
+
+147
+00:08:53,680 --> 00:08:57,100
+an analysis, and we're going to read some
+of those examples during this course
+
+148
+00:08:57,130 --> 00:09:01,660
+and also just starting to think about can
+the software be chained together
+
+149
+00:09:01,690 --> 00:09:05,960
+in a pipeline
+like this one that takes a certain input
+
+150
+00:09:05,990 --> 00:09:10,700
+data does a bunch of steps without you
+needing to do any manual
+
+151
+00:09:10,730 --> 00:09:14,180
+input in the middle and then
+produces an expected output.
+
+152
+00:09:14,200 --> 00:09:17,460
+And again, that's something
+we will practice together.
+
+153
+00:09:17,480 --> 00:09:18,600
+So
+
+154
+00:09:19,800 --> 00:09:22,720
+one thing that's going to be key
+to planning and analysis,
+
+155
+00:09:22,750 --> 00:09:28,140
+and that much detail is finding relevant
+sequencing data that you can perhaps
+
+156
+00:09:28,170 --> 00:09:33,480
+practice on, or at least it'll provide
+a backbone of building your own pipeline.
+
+157
+00:09:33,510 --> 00:09:35,320
+And perhaps I'll actually be good
+
+158
+00:09:35,350 --> 00:09:39,340
+to compare your results
+to their findings to see if what you're
+
+159
+00:09:39,370 --> 00:09:43,260
+getting is reasonable
+and sort of build upon that.
+
+160
+00:09:43,290 --> 00:09:48,200
+And luckily, it's pretty easy
+to find relevant sequencing data.
+
+161
+00:09:48,230 --> 00:09:51,260
+So here is a paper
+by some of my colleagues.
+
+162
+00:09:51,290 --> 00:09:53,400
+It is a very cool paper about single cell
+
+163
+00:09:53,430 --> 00:09:58,420
+sequencing in an invertebrate called
+Hydra, and it's super cool study.
+
+164
+00:09:58,440 --> 00:10:02,640
+And so perhaps I want to compare it
+to a project that I'm working on right now
+
+165
+00:10:02,670 --> 00:10:06,460
+that's working on single cell sequencing
+and a relative of this organism.
+
+166
+00:10:06,490 --> 00:10:07,620
+So very cool.
+
+167
+00:10:07,650 --> 00:10:13,100
+But where can I find the raw data to
+compare to my own organism of interest?
+
+168
+00:10:13,130 --> 00:10:18,620
+Luckily, most papers have what's called
+a data statement in the side of them,
+
+169
+00:10:18,650 --> 00:10:23,280
+as required by different federal
+and otherwise granting agencies.
+
+170
+00:10:23,280 --> 00:10:24,920
+Many things actually require this.
+
+171
+00:10:24,940 --> 00:10:28,020
+Many publications actually
+require this as well.
+
+172
+00:10:28,040 --> 00:10:29,560
+And so you can scroll down to this.
+
+173
+00:10:29,580 --> 00:10:31,960
+This is often near the
+
+174
+00:10:32,040 --> 00:10:36,920
+acknowledgement section and find some
+little, very helpful numbers here.
+
+175
+00:10:36,940 --> 00:10:42,740
+And we're going to focus on this bio
+project number I put in a box right here.
+
+176
+00:10:42,770 --> 00:10:48,100
+So we're going to do this in practice
+in one of the next tutorials.
+
+177
+00:10:48,130 --> 00:10:51,420
+But just as an example, you can search
+
+178
+00:10:51,440 --> 00:10:57,180
+this number on the NCBI website,
+and it'll take you to this whole page
+
+179
+00:10:57,210 --> 00:11:01,080
+about this project,
+and we can retrieve in absolutely tons
+
+180
+00:11:01,110 --> 00:11:05,920
+of information and the structure of one
+of these bio projects as we'll go
+
+181
+00:11:05,950 --> 00:11:08,800
+into more depth about essentially,
+it looks like this.
+
+182
+00:11:08,830 --> 00:11:14,340
+So we have our overarching project that
+has an ID number that looks like this.
+
+183
+00:11:14,370 --> 00:11:18,900
+It contains information about individual
+
+184
+00:11:18,920 --> 00:11:20,620
+samples that are within this study.
+
+185
+00:11:20,650 --> 00:11:25,060
+So perhaps these are two different
+whole samples of that Hydro organism.
+
+186
+00:11:25,080 --> 00:11:28,260
+And then perhaps those biosamples,
+
+187
+00:11:28,290 --> 00:11:32,340
+one of them was used to generate
+some short sequencing reads.
+
+188
+00:11:32,360 --> 00:11:33,820
+And perhaps those are the ones we're
+
+189
+00:11:33,840 --> 00:11:36,460
+interested in for our single
+cell sequencing analysis.
+
+190
+00:11:36,490 --> 00:11:44,420
+And perhaps another sample was used
+to generate a genome sequence that we can
+
+191
+00:11:44,450 --> 00:11:50,600
+use in conjunction with the short read
+data of whatever type that it is.
+
+192
+00:11:52,040 --> 00:11:57,240
+Of course, project structures can be a bit
+more complicated, because if you probably
+
+193
+00:11:57,270 --> 00:12:00,500
+imagine,
+you can have sub projects where maybe
+
+194
+00:12:00,530 --> 00:12:04,580
+you're very focused on the transcriptome
+of certain samples for a while.
+
+195
+00:12:04,610 --> 00:12:05,640
+And also, of course,
+
+196
+00:12:05,640 --> 00:12:08,780
+you might imagine that individual
+samples are the same genotype.
+
+197
+00:12:08,800 --> 00:12:10,700
+You probably want to get a transcriptome
+
+198
+00:12:10,730 --> 00:12:15,600
+in a genome from the same organism to make
+down Stanly is as easy as possible.
+
+199
+00:12:15,630 --> 00:12:17,300
+So in reality,
+
+200
+00:12:17,330 --> 00:12:21,000
+more than an organized hierarchy,
+sometimes it looks kind of like a web,
+
+201
+00:12:21,030 --> 00:12:25,460
+but we're going to practice navigating
+this web together in this week and pretty
+
+202
+00:12:25,490 --> 00:12:29,640
+much in every future week as a way
+of getting publicly available data
+
+203
+00:12:29,670 --> 00:12:32,100
+that we're going to use
+throughout this course.
+
+204
+00:12:32,130 --> 00:12:35,000
+What you'll find if you click through
+
+205
+00:12:35,030 --> 00:12:39,660
+enough links as we will do that we're
+in the NCBI short Read Archive, or SRA,
+
+206
+00:12:39,690 --> 00:12:43,460
+and what this is the raw data
+associated sequencing projects.
+
+207
+00:12:43,490 --> 00:12:45,460
+So, for example, for this one,
+
+208
+00:12:45,490 --> 00:12:50,540
+it'll get you to a list of a bunch
+of different luminous sequence sing runs
+
+209
+00:12:50,570 --> 00:12:56,160
+of different tissue types from that same
+Hydra sequencing project.
+
+210
+00:12:56,190 --> 00:13:00,580
+And again, we're going to get plenty
+of practice finding and downloading data
+
+211
+00:13:00,610 --> 00:13:07,300
+from the SRA during this course as early
+as pretty much the first tutorial here.
+
+212
+00:13:07,330 --> 00:13:08,440
+So to summarize,
+
+213
+00:13:08,470 --> 00:13:13,800
+there is plenty to consider before
+the analysis, even beacons so, of course,
+
+214
+00:13:13,830 --> 00:13:18,220
+experimental design and other
+pre sequencing concerns.
+
+215
+00:13:18,250 --> 00:13:22,300
+What metadata are we gonna to make sure
+to get before it goes to the sequencer?
+
+216
+00:13:22,330 --> 00:13:24,960
+Where to store the data,
+where to analyze the data?
+
+217
+00:13:24,990 --> 00:13:27,120
+What software do we need? And of course,
+
+218
+00:13:27,150 --> 00:13:31,580
+is there similar data out there
+to practice on and compare our results to
+
+219
+00:13:31,600 --> 00:13:34,760
+thanks so much for listening and good
+luck with this week's projects.
+

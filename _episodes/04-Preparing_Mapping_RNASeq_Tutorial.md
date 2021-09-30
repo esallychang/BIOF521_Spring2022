@@ -25,7 +25,7 @@ This study examined the expression profiles of basal and luminal cells in the ma
 
 <img src="{{ page.root }}/fig/mouse_exp.png" alt="Fu et al. 2015 RNAseq sampling scheme">
 
-For this hands-on tutorial, we are going to focus on the **basal cell** samples. 
+For this hands-on tutorial, we are going to focus on the **basal cell** samples, specifically the **pregnant vs. lactating** comparison. 
 
 > ## Heads up: Results may vary!
 > It is possible that your results may be **slightly** different from the ones presented in this tutorial due to differing versions of tools, reference data, external databases, or because of stochastic processes in the algorithms.
@@ -36,8 +36,8 @@ For this hands-on tutorial, we are going to focus on the **basal cell** samples.
 
 All of the data for this experiment can be found under [BioProject PRJNA258286](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA258286), which contains [twelve SRA Experiments](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=258286). For this section of the exercise, use your knowledge of the NCBI SRA and Galaxy uploading options to load the six basal cell sample Fastqs into your new Galaxy history. 
 
-> ## Which SRAs contain the basal cell samples? What type of mice did each come from?
-> 1. You can start by downloading SRARunTable.csv file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
+> ## Which SRAs contain the samples we are interested in? 
+> 1. You can start by downloading `SRARunTable_Fu2015.tsv` file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
 > 2. Next, open the file in Excel or similar and look at the `Immunophenotype` - six of them should say `basal cell population`. 
 > 3. The SRA Run Numbers associated with those samples and their `Developmental_Stage` are: 
 > 
@@ -49,6 +49,8 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 > SRR1552454 lactating
 > SRR1552455 lactating
 > ~~~
+> 
+> So for our comparison of the basal cells of pregnant vs. lactating mice, we will want to look at `SRR1552452 - SRR1552455`. 
 > {: .output}
 {: .solution} 
 
@@ -57,21 +59,24 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 > 2. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool to select the relevant lines using the correct **Pattern**. 
 > 3. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button> tool just to select the SRA ID column. 
 > 4. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> with the `List of SRA accession, one per line` option.
+> 5. You should end up with four files inside your single-ended output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button>. It will look roughly like below: 
+> 
+> <img src="{{ page.root }}/fig/Single_End_BasalCell.png" width="400" alt="Single End Input in Galaxy History">
+> 
 {: .challenge}
 
-## Creating a Collection to Hold Our Data
+## Keeping our data organized
 
-As we started to learn last week, being able to process multiple files at once as a collection is going to save us a lot of time! This time, there will be six files to work with at once, and we are going to want to keep track of which samples they each came from.
+As we started to learn last week, being able to process multiple files at once as a collection is going to save us a lot of time! This time, there will be four files to work with at once, and we are going to want to keep track of which samples they each came from.
 
+The SRA Numbers will not be important now that we have downloaded the files into Galaxy, so I highly recommend re-naming the samples witin the collection of paired-end output based on the scheme below. This will allow us to keep track of which file is which in any output reports. I also went ahead and named the collection of single-end reads output from <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Fasterq </button> `Input Reads` and added `Raw` and `Fastq` tags to the collection.
 
 | SampleID | Group    | SRA|
-| ----------- | ----------- | ------------- | 
-| MCL1-DG	| basalvirgin | 	SRR1552450 | 
-| MCL1-DH	| basalvirgin | 	SRR1552451 | 
-| MCL1-DI | basalpregnant | SRR1552452 |
-| MCL1-DJ | basalpregnant | SRR1552453 |
-| MCL1-DK | basallactate | SRR1552454 |
-| MCL1-DL | basallactate | SRR1552455 |
+| BasalPreg_1 | basalpregnant | SRR1552452 |
+| BasalPreg_2 | basalpregnant | SRR1552453 |
+| BasalLac_1 | basallactate | SRR1552454 |
+| BasalLac_2 | basallactate | SRR1552455 |
+
 
 
 ## Quality Control of Raw Reads
@@ -80,7 +85,7 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 
 > ## Hands-On: FastQC + MultiQC 
 > 1. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> with the following parameters: 
-> 	* **Short Read Data from your current history**: `fastqs`.
+> 	* **Short Read Data from your current history**: `Input Data`.
 > 2. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the following parameters: 
 > 	* **Which tool was used to generate logs?**: `FastQC`. 
 > 	* **Type of FASTQC output?** `Raw data`. 
@@ -88,21 +93,22 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 > 3. Add a tag `#fastqc-raw` to the `Webpage` output from MultiQC and inspect the webpage. 
 {: .challenge} 
 
-> ## What do you think of the overall quality of the sequences? 
+> ## Did any of the samples fail any of the their QC checks?
+> MultiQC helps us answer this question super quickly with one the final summary plot it produces: 
 > 
-> data data data
+> <img src="{{ page.root }}/fig/MultiQC_CheckSummary.png" width="400" alt="MultiQC FastQC Checks Summary">
 > 
+> We can see that all four of our samples failed the `Sequence Duplication` and `Per Base Sequence Composition` checks
 > 
+> This seems concerning, but not unexpected for RNAseq data, since, as we will see, there are some genes that are very highly expressed (and therefore present in those copies in our sequencing data). We will learn how to deal with widely varying expression levels during later steps of this tutorial.
 {: .solution} 
 
-Much like in the first week of class, we will use Cutadapt to trim the reads to remove the Illumina adapter and any low quality bases at the ends (quality score < 20). We will discard any sequences that are too short (< 20bp) after trimming. We will also output the Cutadapt report for summarising with MultiQC.
-
-The Cutadapt tool Help section provides the sequence we can use to trim this standard Illumina adapter `AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC`, as given on the [Cutadapt website](https://cutadapt.readthedocs.io/en/stable/guide.html#illumina-truseq). For trimming paired-end data see the Cutadapt Help section. Other Illumina adapter sequences (e.g. Nextera) can be found at the [Illumina website](http://sapac.support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html). Note that Cutadapt requires at least three bases to match between adapter and read to reduce the number of falsely trimmed bases, which can be changed in the Cutadapt options if desired.
+Much like in the first week of class, we will use Cutadapt to trim the reads to remove the Illumina adapter and any low quality bases at the ends (quality score < 20). We will discard any sequences that are too short (< 20bp) after trimming. The Cutadapt tool Help section provides the sequence we can use to trim this standard Illumina adapter `AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC`, as given on the [Cutadapt website](https://cutadapt.readthedocs.io/en/stable/guide.html#illumina-truseq). For trimming paired-end data see the Cutadapt Help section. Other Illumina adapter sequences (e.g. Nextera) can be found at the [Illumina website](http://sapac.support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html). Note that Cutadapt requires at least three bases to match between adapter and read to reduce the number of falsely trimmed bases, which can be changed in the Cutadapt options if desired.
 
 > ## Hands-On: Trimming with CutAdapt
 > Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> CutAdapt </button> with the following parameters: 
 > + *"Single-end or Paired-end reads?"*: `Single-end`.
-> + *"FASTQ/A file"*: `fastqs` (Input dataset collection).
+> + *"FASTQ/A file"*: `Input Data` (Input dataset collection).
 > + In *"Read 1 Options"*:
 > 	- In *"3' (End) Adapters"*:
 > 	- Click on *"Insert 3' (End) Adapters"*:
@@ -118,10 +124,16 @@ The Cutadapt tool Help section provides the sequence we can use to trim this sta
 > 	- *"Report"*: `Yes`. 
 {: .challenge} 
 
+> ## What percentage of the reads from the `BasalLac_1` sample were retained?
+> Looking at the CutAdapt report for the relevant sample, we can see the result line: 
+> ~~~
+> Total written (filtered):  2,678,580,453 bp (98.4%)
+> ~~~
+> {: .output}
+> After trimming, very few reads were filtered for being too short or too low quality.
+{: .solution}
 
-If you would like, you can run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> and <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> again now to confirm that the adaptors have been removed and that the reads are trimmed (check the sequence length distribution - the reads should no longer all be the same length!). 
-
-Otherwise, we are ready to move on to the next step - mapping these trimmed reads to a reference genome and then counting up the number of reads per gene. 
+If you would like, you can run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> and <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> again now to confirm that the adaptors have been removed and that the reads are trimmed (check the sequence length distribution - the reads should no longer all be the same length!). Otherwise, we are ready to move on to the next step - mapping these trimmed reads to a reference genome and then counting up the number of reads per gene. 
 
 ## Mapping reads to the mouse reference genome
 
@@ -149,7 +161,7 @@ Therefore they cannot be simply mapped back to the genome as we normally do for 
 > + *"Source for the reference genome"*: `Use a built-in genome`. 
 > 	- *"Select a reference genome"*: `mm10`. 
 > + *"Is this a single or paired library?"*: `Single-end`. 
->	- *"FASTA/Q file"*: `Read 1 Output` (output of **CutAdapt**). 
+>	- *"FASTA/Q file"*: `Read 1 Output Collection` (output of **CutAdapt**). 
 > + In *"Summary Options"*:
 > 	- *"Output alignment summary in a more machine-friendly style."*: `Yes`. 
 > 	- *"Print alignment summary to a file."*: `Yes`. 
@@ -157,12 +169,16 @@ Therefore they cannot be simply mapped back to the genome as we normally do for 
 > + In *"Results"*: 
 > 	- *"Which tool was used generate logs?"*: `HISAT2`. 
 > 	- *"Output of HISAT2"*: `Mapping summary` (output of **HISAT2**). 
-> 3. Add a tag `#hisat` to the `Webpage` output from MultiQC and inspect the webpage
+> 3. Add a tag `#hisat` to the `Webpage` output from MultiQC and inspect the webpage.
 > 
+> > ## What file type will the mapping results be?
+> > A **BAM** (Binary Sequence Alignment Matrix)! 
+> > We have told **HISAT2** to `Output alignment summary in a more machine-friendly style`, as opposed to a human-friendly alignment summary, which would be a SAM file. Look at last week's material if need a refresher on mapping outputs.
+> > {: .solution}
+>
 {: .challenge} 
 
-
-
+ 
 > ## Note: Mapping for Paired-end or stranded reads
 > - If you have **paired-end** reads
 >     - Select *"Is this a single or paired library"* `Paired-end` or `Paired-end Dataset Collection` or `Paired-end data from single interleaved dataset`
