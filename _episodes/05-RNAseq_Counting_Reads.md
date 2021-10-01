@@ -84,7 +84,7 @@ There are several additional QCs we can perform to better understand the data, t
 
 We’ll use a prepared workflow to run the first few of the QCs below. This will also demonstrate how you can make use of Galaxy workflows to easily run and reuse multiple analysis steps. The workflow will run the first three tools: Infer Experiment, MarkDuplicates and IdxStats and generate a MultiQC report. You can then edit the workflow if you’d like to add other steps.
 
-> ### {% icon hands_on %} Hands-on: Run QC report workflow
+> ### Hands-on: Run QC report workflow
 >
 > 1. **Import the workflow** into Galaxy
 >    - Copy the URL (e.g. via right-click) of [this workflow](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/rna-seq-reads-to-counts/workflows/qc_report.ga) or download it to your computer.
@@ -94,13 +94,11 @@ We’ll use a prepared workflow to run the first few of the QCs below. This will
 >    ```
 >    https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/mm10_RefSeq.bed.gz/download
 >    ```
->    {% snippet faqs/galaxy/datasets_import_via_link.md %}
 >
-> 3. Run **Workflow QC Report** {% icon workflow %} using the following parameters:
->    - *"Send results to a new history"*: `No`
->    - {% icon param-file %} *"1: Reference genes"*: the imported RefSeq BED file
->    - {% icon param-collection %} *"2: BAM files"*: `aligned reads (BAM)` (output of **HISAT2** {% icon tool %})
+> 3. Run **Workflow QC Report** using the following parameters:
+>    - *"Send results to a new history"*: `No`. 
+>    - {% icon param-file %} *"1: Reference genes"*: the imported RefSeq BED file. 
+>    - {% icon param-collection %} *"2: BAM files"*: `aligned reads (BAM)`. 
 >
->    {% snippet faqs/galaxy/workflows_run.md %}
 > 4. Inspect the `Webpage` output from MultiQC
-{: .hands_on}
+{: .challenge}
