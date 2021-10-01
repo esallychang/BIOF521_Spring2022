@@ -31,6 +31,11 @@ Reads that map to exons of genes are added together to obtain the count for each
 > In this example we have kept many of the default settings, which are typically optimised to work well under a variety of situations. **For example, the default setting for featureCounts is that it only keeps reads that uniquely map to the reference genome. For testing differential expression of genes, this is preferred, as the reads are unambigously assigned to one place in the genome** allowing for easier interpretation of the results. Understanding all the different parameters you can change involves doing a lot of reading about the tool that you are using, and can take a lot of time to understand! We won’t be going into the details of the parameters you can change here, but you can get more information from looking at the tool help.
 {: .callout}
 
+
+<img src="{{ page.root }}/fig/FeatureCount_MultiQC.png" alt="Summary table FeatureCounts">
+
+We can see from the summary that about 65% of each data set was able to be assigned uniquely to actual coding regions of the genome (exons). 
+
 The counts for the samples are output as tabular files. Take a look at one. The numbers in the first column of the counts file represent the Entrez gene identifiers for each gene, while the second column contains the counts for each gene for the sample.
 
 More about Entrez Gene IDs here: 
@@ -45,3 +50,57 @@ More about Entrez Gene IDs here:
 > 
 > <img src="{{ page.root }}/fig/NCBI_Gene_497097.png" alt="Gene Page for Entrez ID 497097">
 {: .challenge} 
+
+## Create Count Matrix
+
+The counts files are currently in the format of one file per sample. However, it is often convenient to have a count matrix. A count matrix is a single table containing the counts for all samples, with the genes in rows and the samples in columns. The counts files are all within a collection so we can use the Galaxy Column Join on multiple datasets tool to easily create a count matrix from the single counts files.
+
+> ## Hands-on: Create count matrix with **Column Join on multiple datasets**
+>
+> <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Column Join on Multiple Data Sets </button>} with the following parameters:
+>    - {% icon param-collection %} *"Tabular files"*: `Counts` (output of **featureCounts** {% icon tool %})
+>    - {% icon param-text %} *"Identifier column"*: `1`
+>    - {% icon param-text %} *"Number of header lines in each input file"*: `1`
+>    - {% icon param-check %} *"Add column name to header"*: `No`
+>
+{: .challenge}
+
+The Count Matrix should look something like this, and have approximately 21,000 lines of data. 
+
+<img src="{{ page.root }}/fig/CountMatrix_Sample.png" alt="First Lines of Gene Matrix">
+
+> ## How do we interpret the counts for gene `100012`? 
+> As you can see from the screenshot above, the read counts for each sample for this gene are 0,0,0 and 0, respectively. 
+> This means that in our analysis, there are no reads associated with this particular gene in the mouse genome for any of our samples. 
+> This gene will essentially be out of consideration for downstream analyses because it has no expression level (0) for all of the samples. 
+{:. solution}
+
+
+## Doing QC of the Read Counts
+
+**Generating a QC summary report** 
+
+There are several additional QCs we can perform to better understand the data, to see if it’s good quality. These can also help determine if changes could be made in the lab to improve the quality of future datasets.
+
+We’ll use a prepared workflow to run the first few of the QCs below. This will also demonstrate how you can make use of Galaxy workflows to easily run and reuse multiple analysis steps. The workflow will run the first three tools: Infer Experiment, MarkDuplicates and IdxStats and generate a MultiQC report. You can then edit the workflow if you’d like to add other steps.
+
+> ### {% icon hands_on %} Hands-on: Run QC report workflow
+>
+> 1. **Import the workflow** into Galaxy
+>    - Copy the URL (e.g. via right-click) of [this workflow](https://training.galaxyproject.org/training-material/topics/transcriptomics/tutorials/rna-seq-reads-to-counts/workflows/qc_report.ga) or download it to your computer.
+>    - Import the workflow into Galaxy
+>
+> 2. Import this file as type BED file:
+>    ```
+>    https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/mm10_RefSeq.bed.gz/download
+>    ```
+>    {% snippet faqs/galaxy/datasets_import_via_link.md %}
+>
+> 3. Run **Workflow QC Report** {% icon workflow %} using the following parameters:
+>    - *"Send results to a new history"*: `No`
+>    - {% icon param-file %} *"1: Reference genes"*: the imported RefSeq BED file
+>    - {% icon param-collection %} *"2: BAM files"*: `aligned reads (BAM)` (output of **HISAT2** {% icon tool %})
+>
+>    {% snippet faqs/galaxy/workflows_run.md %}
+> 4. Inspect the `Webpage` output from MultiQC
+{: .hands_on}
