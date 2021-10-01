@@ -58,10 +58,10 @@ The counts files are currently in the format of one file per sample. However, it
 > ## Hands-on: Create count matrix with **Column Join on multiple datasets**
 >
 > <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Column Join on Multiple Data Sets </button>} with the following parameters:
->    - {% icon param-collection %} *"Tabular files"*: `Counts` (output of **featureCounts** {% icon tool %})
->    - {% icon param-text %} *"Identifier column"*: `1`
->    - {% icon param-text %} *"Number of header lines in each input file"*: `1`
->    - {% icon param-check %} *"Add column name to header"*: `No`
+>    - *"Tabular files"*: `Counts` (output of **featureCounts**.
+>    - *"Identifier column"*: `1`.
+>    - *"Number of header lines in each input file"*: `1`.
+>    - *"Add column name to header"*: `No`.
 >
 {: .challenge}
 
@@ -97,8 +97,8 @@ We’ll use a prepared workflow to run the first few of the QCs below. This will
 >
 > 3. Run **Workflow QC Report** using the following parameters:
 >    - *"Send results to a new history"*: `No`. 
->    - {% icon param-file %} *"1: Reference genes"*: the imported RefSeq BED file. 
->    - {% icon param-collection %} *"2: BAM files"*: `aligned reads (BAM)`. 
+>    - *"1: Reference genes"*: the imported RefSeq BED file. 
+>    - *"2: BAM files"*: `aligned reads (BAM)`. 
 >
 > 4. Inspect the `Webpage` output from MultiQC
 {: .challenge}
