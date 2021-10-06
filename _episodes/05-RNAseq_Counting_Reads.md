@@ -65,9 +65,11 @@ The counts files are currently in the format of one file per sample. However, it
 >
 {: .challenge}
 
+
+
 The Count Matrix should look something like this, and have approximately 21,000 lines of data. 
 
-<img src="{{ page.root }}/fig/CountMatrix_Sample.png" alt="First Lines of Gene Matrix">
+<img src="{{ page.root }}/fig/CountMatrix_Sample.png" width="300" alt="First Lines of Gene Matrix">. 
 
 > ## How do we interpret the counts for gene `100012`? 
 > As you can see from the screenshot above, the read counts for each sample for this gene are 0,0,0 and 0, respectively. 
