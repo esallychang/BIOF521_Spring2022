@@ -1,0 +1,178 @@
+﻿1
+00:00:01,460 --> 00:00:05,160
+So last week you gained experience with
+two steps that are gonna be in common
+
+2
+00:00:05,161 --> 00:00:10,160
+with pretty much every sequencing analysis
+we do in this course. Um, so namely,
+
+3
+00:00:10,680 --> 00:00:14,440
+um, that is getting sequencing
+reads from a source,
+
+4
+00:00:14,540 --> 00:00:19,480
+so publicly available databases in
+our case, um, and then performing, um,
+
+5
+00:00:19,590 --> 00:00:22,270
+quality troll on them. Um,
+
+6
+00:00:22,410 --> 00:00:25,110
+and so this week we are gonna
+build on that knowledge, um,
+
+7
+00:00:25,170 --> 00:00:28,550
+to see how to use a
+polished set of reads, um,
+
+8
+00:00:28,551 --> 00:00:31,070
+such as the ones we
+generated last week, um,
+
+9
+00:00:31,250 --> 00:00:35,350
+to answer an actual biological
+question this time. Um,
+
+10
+00:00:35,351 --> 00:00:38,270
+and the first thing we're gonna
+learn about and do this week, um,
+
+11
+00:00:38,490 --> 00:00:42,500
+is all about the process of
+mapping, read to a reference genome,
+
+12
+00:00:43,020 --> 00:00:46,820
+a process that we will also be doing
+repeatedly throughout the course. Um,
+
+13
+00:00:46,821 --> 00:00:50,700
+and this will also entail us
+learning about a new file format, um,
+
+14
+00:00:50,701 --> 00:00:55,580
+that holds this mapping and
+alignment information. Then,
+
+15
+00:00:55,860 --> 00:00:55,861
+uh,
+
+16
+00:00:55,861 --> 00:00:59,820
+we're gonna explore one of
+the many possible downstream
+applications of quality,
+
+17
+00:01:00,220 --> 00:01:05,210
+the control and mapping that is
+variant calling or finding out,
+
+18
+00:01:05,730 --> 00:01:09,570
+um, places where your sample
+differs from that reference genome.
+
+19
+00:01:09,750 --> 00:01:12,290
+You did the alignment too. Um, and again,
+
+20
+00:01:12,291 --> 00:01:15,970
+this process is called variant calling
+and you can use it for a number of very
+
+21
+00:01:16,250 --> 00:01:20,530
+interesting, important
+applications, um, in particular, uh,
+
+22
+00:01:20,590 --> 00:01:24,160
+you will be using it to look at, um,
+
+23
+00:01:24,270 --> 00:01:27,680
+some samples of SARS
+Cove, two genomes, um,
+
+24
+00:01:27,790 --> 00:01:30,960
+from around the Boston
+area and beyond, um,
+
+25
+00:01:30,980 --> 00:01:34,880
+and check whether or not they have
+diagnostic mutations associated with the
+
+26
+00:01:34,881 --> 00:01:39,080
+Delta variant. Um, so very hands on
+and very, um, sort of, of the moment,
+
+27
+00:01:39,620 --> 00:01:41,840
+highly relevant dataset, um,
+
+28
+00:01:41,841 --> 00:01:45,630
+and to support you towards that
+independent analysis of the SARS Cove,
+
+29
+00:01:45,650 --> 00:01:48,350
+two genomes and their variants, um,
+
+30
+00:01:48,480 --> 00:01:51,710
+there will be several
+lectures and tutorials, um,
+
+31
+00:01:52,050 --> 00:01:54,430
+and then our weekly assignments, um,
+
+32
+00:01:54,530 --> 00:01:58,150
+are some of those knowledge check
+quizzes to help you along the way, um,
+
+33
+00:01:58,270 --> 00:02:01,670
+a weekly discussion, um,
+about variant calling, um,
+
+34
+00:02:01,671 --> 00:02:05,660
+and finally a major assignment and it's
+accompanying a peer reviewed writing
+
+35
+00:02:05,661 --> 00:02:09,620
+assignment, um, just like
+last week and as always, um,
+
+36
+00:02:09,920 --> 00:02:14,140
+my office hours are open as is the
+weekly help discussion board. Uh,
+
+37
+00:02:14,141 --> 00:02:15,380
+good luck this week, everyone.
+
