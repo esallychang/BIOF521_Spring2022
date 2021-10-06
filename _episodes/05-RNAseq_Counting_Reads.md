@@ -62,20 +62,17 @@ The counts files are currently in the format of one file per sample. However, it
 >    - *"Identifier column"*: `1`.
 >    - *"Number of header lines in each input file"*: `1`.
 >    - *"Add column name to header"*: `No`.
->
+> The Count Matrix should look something like this, and have approximately 21,000 lines of data: 
+> <img src="{{ page.root }}/fig/CountMatrix_Sample.png" width="600" alt="First Lines of Gene Matrix">. 
 {: .challenge}
 
 
-
-The Count Matrix should look something like this, and have approximately 21,000 lines of data. 
-
-<img src="{{ page.root }}/fig/CountMatrix_Sample.png" width="300" alt="First Lines of Gene Matrix">. 
 
 > ## How do we interpret the counts for gene `100012`? 
 > As you can see from the screenshot above, the read counts for each sample for this gene are 0,0,0 and 0, respectively. 
 > This means that in our analysis, there are no reads associated with this particular gene in the mouse genome for any of our samples. 
 > This gene will essentially be out of consideration for downstream analyses because it has no expression level (0) for all of the samples. 
-{:. solution}
+{: .solution}
 
 
 ## Doing QC of the Read Counts Using an Imported Workflow
