@@ -77,13 +77,11 @@ The counts files are currently in the format of one file per sample. However, it
 
 ## Doing QC of the Read Counts Using an Imported Workflow
 
-**Generating a QC summary report** 
-
 There are several additional QCs we can perform to better understand the data, to see if it’s good quality. These can also help determine if changes could be made in the lab to improve the quality of future datasets.
 
 We’ll use a prepared workflow to run the first few of the QCs below. This will also demonstrate how you can make use of Galaxy workflows to easily run and reuse multiple analysis steps. 
 
-The imported workflow will do the following automatically: 
+**The imported workflow will do the following automatically**: 
 + Run the Infer Experiment tool
 + Run the MarkDuplicates tool (we used this tool during variant-calling). 
 + Run the IdxStats tool.
@@ -91,7 +89,9 @@ The imported workflow will do the following automatically:
 
 Galaxy Workflows can be imported to your history directy from a URL if you know the right URL. We are going to use this option right now. You can then edit the workflow if you’d like to add other steps.
 
-This workflow will also involve uploading a BED file associated with the `mm10` mouse genome that we have been using. We will not be using this format in other tutorials so we will not need to go into much depth about what they contain. The BED format (Browser Extensible Data format) provides a flexible way to encode gene regions. Lines in a BED file have three required fields:
+This workflow will also involve uploading a BED file associated with the `mm10` mouse genome that we have been using. We will not be using this format in other tutorials so we will not need to go into much depth about what they contain. 
+
+**The BED format (Browser Extensible Data format) provides a flexible way to encode gene regions. Lines in a BED file have three required fields**:
 
 * chromosome ID
 * start position (0-based)
@@ -125,8 +125,46 @@ This workflow will also involve uploading a BED file associated with the `mm10` 
 >    - *"2: BAM files"*: The `aligned reads (BAM)` created by <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> HISAT2 </button>. 
 > For reference, my workflow page looked like this when I was ready to run the workflow (Your History Item numbers will likely differ):
 > 
-> <img src="{{ page.root }}/fig/RNAQC_Workflow_Params.png" alt="Correct parameters for running the RNAseq QC workflow">
+> <img src="{{ page.root }}/fig/RNAQC_Workflow_Params.png" width="600" alt="Correct parameters for running the RNAseq QC workflow">
 > 
 > 5. Click the **Run Workflow** button at the top-right of the screen. You may have to refresh your history to see the queued jobs. 
 > 4. Inspect the `Webpage` output from MultiQC once all of the jobs are done running. 
 {: .challenge}
+
+## Interpreting the QC Report output
+
+> ## Now what?
+> You **do not need to run the hands-on steps below**. They are just to show how you could run the tools individually and how we can use the output to learn more about our mapping and count results. If the imported workflow ran correctly, you should see all of the figures you discussed in the final output MultiQC report! Just one of the many reasons that using reproducible workflows in Galaxy is awesome. 
+{: .callout}
+
+### **Strandedness**  
+
+RNAs that are typically targeted in RNA-Seq experiments are single stranded (e.g., mRNAs) and thus have polarity (5’ and 3’ ends that are functionally distinct). During a typical RNA-Seq experiment the information about strandness is lost after both strands of cDNA are synthesized, size selected, and converted into a sequencing library. However, this information can be quite useful for the read counting step, especially for reads located on the overlap of 2 genes that are on different strands. As far as we know this data is unstranded, but as a sanity check you can check the strandness. This information should be provided with your FASTQ files, ask your sequencing facility! If not, try to find it on the site where you downloaded the data or in the corresponding publication.
+
+<img src="{{ page.root }}/fig/strandness_why.png" alt="why strandedness info is useful">
+**Figure**: Read1 will be assigned to gene1 located on the forward strand but Read2 could be assigned to gene1 (forward strand) or gene2 (reverse strand) depending if the strandness information is conserved. 
+
+
+This workflow uses the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> RSeQC Infer Experiment </button>  tool to “guess” the strandness. This tool takes the BAM files from the mapping, selects a subsample of the reads and compares their genome coordinates and strands with those of the reference gene model (from an annotation file). Based on the strand of the genes, it can gauge whether sequencing is strand-specific, and if so, how reads are stranded (forward or reverse):
+
+<img src="{{ page.root }}/fig/strandness_cases.png" alt="possible types of strandness">
+**Figure**: In a stranded forward library, reads map mostly on the genes located on forward strand (here gene1). With stranded reverse library, reads map mostly on genes on the reverse strand (here gene2). With unstranded library, reads maps on genes on both strands.
+
+<button type="button" class="btn btn-outline-tool" style="pointer-events: none"> RSeQC Infer Experiment </button> tool generates a file with information on: 
+
+- Paired-end or single-end library.
+- Fraction of reads failed to determine.
+- 2 lines: 
+    - For single-end:
+        - `Fraction of reads explained by "++,--"`: the fraction of reads that assigned to forward strand.
+        - `Fraction of reads explained by "+-,-+"`: the fraction of reads that assigned to reverse strand.
+    - For paired-end: 
+        - `Fraction of reads explained by "1++,1--,2+-,2-+"`: the fraction of reads that assigned to forward strand. 
+        - `Fraction of reads explained by "1+-,1-+,2++,2--"`: the fraction of reads that assigned to reverse strand. 
+
+**If the two "Fraction of reads explained by" numbers are close to each other, we conclude that the library is not a strand-specific dataset (or unstranded).**
+
+> ## Do you think the data is stranded or unstranded? 
+> It is unstranded as approximately equal numbers of reads have aligned to the sense and antisense strands.
+{: .solution}
+       
