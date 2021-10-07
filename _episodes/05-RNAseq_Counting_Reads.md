@@ -5,7 +5,10 @@ objectives:
 - "Learn how RNA-seq reads are converted into counts"
 - "Create a Galaxy Workflow that converts RNA-seq reads into counts"
 keypoints:
-- "PLEASE EDIT ME"
+- In RNA-seq, reads (FASTQs) are mapped to a reference genome with a spliced aligner (e.g HISAT2, STAR)
+- The aligned reads (BAMs) can then be converted to counts
+- Many QC steps can be performed to help check the quality of the data
+- MultiQC can be used to create a nice summary report of QC information
 ---
 
 ## Counting
@@ -64,6 +67,7 @@ The counts files are currently in the format of one file per sample. However, it
 >    - *"Add column name to header"*: `No`.
 > The Count Matrix should look something like this, and have approximately 21,000 lines of data: 
 > <img src="{{ page.root }}/fig/CountMatrix_Sample.png" width="600" alt="First Lines of Gene Matrix">. 
+> **For the sake of downstream analyses, rename this output file `countdata` as a shorthand.** 
 {: .challenge}
 
 
@@ -164,7 +168,95 @@ This workflow uses the <button type="button" class="btn btn-outline-tool" style=
 
 **If the two "Fraction of reads explained by" numbers are close to each other, we conclude that the library is not a strand-specific dataset (or unstranded).**
 
+<img src="{{ page.root }}/fig/rseqc_infer_experiment_plot.png" alt="rseqc infer experiment plot">
+**Figure**: Infer Experiment Summary Plot for our four samples.
+
 > ## Do you think the data is stranded or unstranded? 
-> It is unstranded as approximately equal numbers of reads have aligned to the sense and antisense strands.
+> It is unstranded as approximately equal numbers of reads have aligned to the sense and antisense strands. 
 {: .solution}
-       
+
+### Read Duplication
+
+Duplicate reads are usually kept in RNA-seq differential expression analysis as they can come from highly-expressed genes but it is still a good metric to check. A high percentage of duplicates can indicate a problem with the sample, for example, PCR amplification of a low complexity library (not many transcripts) due to not enough RNA used as input. FastQC gives us an idea of duplicates in the reads before mapping (note that it just takes a sample of the data). We can assess the numbers of duplicates in all mapped reads using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Picard MarkDuplicates </button> tool. Picard considers duplicates to be reads that map to the same location, based on the start position of where the read maps. In general, we can consider it normal in an RNAseq library to obtain up to 50% of duplication.
+
+<img src="{{ page.root }}/fig/picard_deduplication.png" alt="picard deduplication plot">
+
+> ## Which two samples have the most duplicates detected?
+> It is hard to tell looking at the summary figure alone. Looking at the raw MultiQC Stats output, samples `SRR1552452` and `SRR1552453`(both from pregnant mice) have slightly higher level of duplication than the samples from lactating mice. 
+{: .solution}
+
+### Reads Mapped Per Chromosome
+
+You can check the numbers of reads mapped to each chromosome with the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Samtools IdxStats </button> tool. This can help assess the sample quality, for example, if there is an excess of mitochondrial contamination. It could also help to check the sex of the sample through the numbers of reads mapping to the X or Y or to see if any chromosomes have highly expressed genes.
+
+<img src="{{ page.root }}/fig/samtools-idxstats-mapped-reads-plot.png" alt="mapped reads per chromosome idxstats plot">
+**Figure**: IdxStats Chromosome Mappings, per chromosome for all chromosomes. 
+
+<img src="{{ page.root }}/fig/samtools-idxstats-xy-plot.png" alt="samtools idxstats plot of reads mapped to XY chromosomes">
+**Figure**: IdxStats XY Mappings.
+
+> ## Interpreting Per-Chromosome Plots
+> 1. What do you notice aboutg the overall distribution of reads mapped to each chromosome? 
+> 2. Are the samples male or female? (If a sample is not in the XY plot it means no reads mapped to Y). 
+> > ## Solution
+> > 1. Samples appear to have roughly the same pattern of distribution across the chromosomes, and no particular chromosome has a MUCH higher number of reads mapping than any other. It would be more concerning if all your reads were mapped to just one chromosome, unless you were specifically enriching for a gene from that chromosome. 
+> > 2. The samples appear to be all female as there are few reads mapping to the Y chromosome. As this is a experiment specifically studying pregnant and lactating mice if we saw large numbers of reads mapping to the Y chromosome in a sample it would be unexpected and a probable cause for concern. The few reads that do map to the Y chromosome are likely spurious mappings due to highly sequence similarity between portions of the Y and other chromosomes.
+> {: .solution}
+{: .challenge}
+
+## Assessing other aspects of mapping: Gene Body Coverage and Read Distribution Across Features
+
+> ## Running more tools 
+> The following two tools were NOT included in the workflow we just ran, but as part of this week's tutorials you will be adding it to a reproducible workflow that you can run on your own samples. For now, you will need to run each of these tools separately by hand to get the output plots. 
+{: .callout}
+
+### Gene Body Coverage (5'-3')
+
+The coverage of reads along gene bodies can be assessed to check if there is any bias in coverage. For example, a bias towards the 3’ end of genes could indicate degradation of the RNA. Alternatively, a 3’ bias could indicate that the data is from a 3’ assay (e.g. oligodT-primed, 3’RNA-seq). You can use the **RSeQC Gene Body Coverage (BAM)** tool to assess gene body coverage in the BAM files.
+
+> ## Hands-on: Check coverage of genes with **Gene Body Coverage (BAM)**
+>
+> 1. Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Gene Body Coverage (BAM) </button> with the following parameters modified:
+>    - *"Run each sample separately, or combine mutiple samples into one plot"*: `Run each sample separately`. 
+>        - *"Input .bam file"*: **Collection of files**:`aligned reads (BAM)` (output of **HISAT2**). 
+>    - *"Reference gene model"*: `downloaded bed file`.  
+> 2. **MultiQC** with the following parameters:
+>       - In *"1: Results"*:
+>           - *"Which tool was used generate logs?"*: `RSeQC`. 
+>               - *"Type of RSeQC output?"*: `gene_body_coverage`. 
+>                   - *"RSeQC gene_body_coverage output"*: `Gene Body Coverage (BAM) (text)` (output of **Gene Body Coverage**). 
+> 3. Inspect the `Webpage` output from MultiQC. 
+>
+{: .challenge}
+
+### Read Distribution Across Features (exons, introns, intergenic...)
+
+
+We can also check the distribution of reads across known gene features, such as exons (CDS, 5'UTR, 3'UTR), introns and intergenic regions. In RNA-seq we expect most reads to map to exons rather than introns or intergenic regions. It is also the reads mapped to exons that will be counted so it is good to check what proportions of reads have mapped to those. High numbers of reads mapping to intergenic regions could indicate the presence of DNA contamination.
+
+> ## Hands-on: Check distribution of reads with **Read Distribution**
+>
+> 1. Run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Read Distribution </button> with the following parameters:
+>    - *"Input .bam/.sam file"*: **Collection of files**:`aligned reads (BAM)` (output of **HISAT2**). 
+>    - *"Reference gene model"*: `downloaded bed file`.  
+> 2. **MultiQC** with the following parameters:
+>       - In *"1: Results"*:
+>           - *"Which tool was used generate logs?"*: `RSeQC`.
+>               - *"Type of RSeQC output?"*: `read_distribution`.
+>                   - *"RSeQC read_distribution output"*: `Read Distribution output` (output of **Read Distribution**). 
+> 3. Inspect the `Webpage` output from MultiQC.
+>
+{: .challenge}
+
+## Conclusions 
+
+In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data. A follow-on tutorial, **RNA-seq counts to genes**, shows how to perform differential expression and QC on the counts for this dataset. 
+
+> ## What other aspects of Quality Control could we look at for our RNAseq reads? 
+> The reads could be checked for:
+> * Ribosomal contamination.
+> * Contamination with other species e.g. bacteria.
+> * GC bias of the mapped reads.
+> * This is single-end data but paired-end mapped reads could be checked for fragment size (distance between the read pairs).
+> Anything else? 
+{: .solution}
