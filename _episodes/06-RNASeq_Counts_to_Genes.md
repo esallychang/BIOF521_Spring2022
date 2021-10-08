@@ -42,11 +42,21 @@ In this tutorial, we will deal with:
 
 **We will use three files for this analysis:**
 	+ Count matrix (genes in rows, samples in columns) - we created this in the previous tutorial. 
-	+ Sample information file (sample id, group).
+	+ Sample information file (sample id, group) - we will upload this. 
 	+ Gene annotation file (gene id, symbol, description).
 
 > ## Hands-On: Import the sample information file 
 > 1. Import this file as a `tabular` file using the <span class="glyphicon glyphicon-open"></span> **Upload Data** tool. 
 >    ```
->    https://sourceforge.net/projects/rseqc/files/BED/Mouse_Mus_musculus/mm10_RefSeq.bed.gz/download
+>    https://esallychang.github.io/BIOF521_Fall2021/data/SampleInfo.txt
 >    ```
+> 2. Check that the datatype is `tabular`. If the datatype is not `tabular`, please change the file type to `tabular`.
+> 3. Rename the counts dataset as `countdata` and the sample information dataset as `factordata` using the <span class="glyphicon glyphicon-pencil"></span> icon next to each data set.
+> 4. The `factordata` file contains basic information about the samples that we will need for the analysis. Note that the Sample IDs must match exactly with the sample names in the counts file: 
+> <img src="{{ page.root }}/fig/factor_data.png" alt="screenshot of factordata table">
+{: .challenge}
+
+### Get Gene Annotations 
+
+Gene annotations can be provided to the **limma-voom** tool and if provided the annotation will be available in the output files. This will give us more context about the potentially interesting functions of the differentially expressed genes than a list of relatively anonymous Entrez gene IDs would otherwise gives us. We’ll get gene symbols and descriptions for these genes using the Galaxy <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> annotateMyIDs </button> tool, which can provide annotations for human, mouse, fruitfly and zebrafish.
+
