@@ -140,7 +140,7 @@ This Galaxy <button type="button" class="btn btn-outline-tool" style="pointer-ev
 
 These are displayed in the `Report` along with a link to a PDF version (MDSPlot_extra.pdf). Selecting the `Glimma Interactive Plots` will generate an interactive version of the MDS plot, see the plots section of the report below. If outlier samples are detected you may decide to remove them. Alternatively, you could downweight them by choosing the option in the limma tool *Apply voom with sample quality weights?*. The voom sample quality weighting is described in the paper *Why weight? Modelling sample and observational level variability improves power in RNA-seq analyses (Liu et al. 2015)*.
 
-<img src="{{ page.root }}/fig/mdsscree_pregnant_lactate.png" width="600" alt="MDS and Scree Plot for basallactate vs. basalpregnant">
+<img src="{{ page.root }}/fig/mdsscree_pregnant_lactate.png" width="800" alt="MDS and Scree Plot for basallactate vs. basalpregnant">
 
 > ## What proportion of variation can be explained by the pregnant vs. lactating condition? 
 > Looking at the plot, we can see that the samples of the two colors (our two groups - pregnant vs. lactating), are on different sides of the MDS plot with respect to the horizontal plot axis (Dimension 1). Looking at the x-axis label, we see that this explains 82% of the variation. Looking at the `Dimension 1` on the **Scree Plot** also confirms that about 0.8 (80%) of the variance is explained by Dimension 1. 
@@ -151,10 +151,10 @@ These are displayed in the `Report` along with a link to a PDF version (MDSPlot_
 
 Next, scroll down the `Report` to take a look at the **Additional information** and **Summary of experimental data** sections near the bottom. It should look similar to below. Here you can check that the correct samples have been assigned to the correct groups, what settings were used (e.g. filters, normalization method) and also how many genes were filtered out due to low expression.
 
-<img src="{{ page.root }}/fig/Experimental_Additional_Limma.png" alt="Experimental and additional information from limma report">
+<img src="{{ page.root }}/fig/Experimental_Additional_Limma.png" width="700" alt="Experimental and additional information from limma report">
 
 > ## How many genes have been filtered out for low expression? 
-> **12992 (47.8%) of genes were filtered out as insignificant as they were without more than 0.5 CPM in at least 2 samples.
+> **12992 (47.8%)** of genes were filtered out as insignificant as they did not have CPM greater than 0.5 in at least 2 samples, as we specified when we ran the **limma** tool. 
 > 
 {: .solution}
 
@@ -205,15 +205,11 @@ If we didn’t filter this dataset for the lowly expressed genes the variance pl
 
 More examples of the variation this plot can show can be seen in Figure 1 from the limma-voom paper (Law et al. 2014), shown below.
 
-<img src="{{ page.root }}/fig/voom_variance_examples.png" alt="voom variance examples from Law et al. 2014">
+<img src="{{ page.root }}/fig/voom_variance_examples.jpeg" alt="voom variance examples from Law et al. 2014">
 
  *Figure 1: Mean-variance relationships. Gene-wise means and variances of RNA-seq data are represented by black points with a LOWESS trend. Plots are ordered by increasing levels of biological variation in datasets. (a) voom trend for HBRR and UHRR genes for Samples A, B, C and D of the SEQC project; technical variation only. (b) C57BL/6J and DBA mouse experiment; low-level biological variation. (c) Simulation study in the presence of 100 upregulating genes and 100 downregulating genes; moderate-level biological variation. (d) Nigerian lymphoblastoid cell lines; high-level biological variation. (e) Drosophila melanogaster embryonic developmental stages; very high biological variation due to systematic differences between samples. (f) LOWESS voom trends for datasets (a)–(e). HBRR, Ambion’s Human Brain Reference RNA; LOWESS, locally weighted regression; UHRR, Stratagene’s Universal Human Reference RNA*.
  
 ## Looking at the actual Differential Expression Results 
-
-Okay, so we have lear
-
-### 
 
 ### Volcano Plots for Differential Expression 
 
@@ -238,3 +234,108 @@ Volcano plots are commonly used to display the results of RNA-seq or other -omic
 >
 {: .solution} 
 
+
+### **limma-voom** tabular output
+
+Although the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> limma-voom </button> tool produces a lot of really helpful diagnostic plots if we tell it to, the core output of this tool is a tabular file of differentially expressed genes. This tabular format can allow us to filter the data in different ways and is very useful input for further downstream tools for visualization and analysis. 
+
+To access this file, click on the **`limma on data...:DE tables`** object in your history. Then, click on the object called **`limma-voom_basalpregnant-basallactate`**. You should have an output file that looks like below (only first lines shown for brevity): 
+
+<img src="{{ page.root }}/fig/limma_voom_table.png" alt="first lines of limma-voom DE genes table">
+
+
+**The columns of the limma-voom table can be interpreted as below:** 
+
+| **Limma-voom output column**| **Explanation** | 
+| ENTREZID | NCBI Entrez ID for this differentially expressed gene | 
+| SYMBOL | Abbreviated gene name | 
+| GENENAME | Full gene name | 
+| logFC | log(2) fold change between the two experimental conditions (basalpregnant vs. basallactate) |
+| AveExpr | Average log(2)fold change across all samples in comparison | 
+| t | moderated t-statistic: t-statistic like those for a normal t-test, adjusted for aspects of the experiment | 
+| P.value | P-value associated with the above t-statistic | 
+| adj.P.value | p-value adjusted for multiple testing | 
+| B | B-statistic is the log-odds that the gene is differentially expressed. For reference, a B-statistic of 0 corresponds to a 50-50 chance that the gene is differentially expressed. | 
+
+> ## How is this table sorted by default?
+> Scanning across the columns, we can see that the table appears to be by default sorted by the `adj.P.value` column. This means that the most significantly differentially expressed genes (after correcting for multing testing, see below) are at the top of the table.
+{: .solution} 
+
+This output table should have the same number of data-containing rows as the total of the **`Differential Expression Counts`** table in the HTML report: 
+
+<img src="{{ page.root }}/fig/limma_DE_counts.png" alt="limma-voom differential expression counts">
+
+> ## A note about deciding how many genes are significant
+> In order to decide which genes are differentially expressed, we usually take a cut-off (e.g. 0.05 or 0.01) on the adjusted p-value, NOT the raw p-value. This is because we are testing many thousands of genes in our experiment, and the chances of finding differentially expressed genes is very high when you do that many tests. Hence we need to control the false discovery rate, which is the adjusted p-value column in the results table. What this means is that, **if we choose an adjusted p-value cut-off of 0.05, and if 100 genes are significant at a 5% false discovery rate, we are willing to accept that 5 will be false positives.**
+> 
+{: .callout}
+
+## Testing relative to a threshhold (TREAT) 
+
+When there is a lot of differential expression, sometimes we may want to cut-off on a fold change threshold, as well as a p-value threshold, so that we follow up on the most biologically significant genes. However, it is not recommended to simply rank by p-value and then discard genes with small logFC’s, as this has been shown to increase the false discovery rate. In other words, you are not controlling the false discovery rate at 5% any more. There is a function called `treat` in limma that performs this style of analysis correctly (McCarthy et al. 2009). TREAT will simply take a user-specified log fold change cut-off and recalculate the moderated t-statistics and p-values with the new information about logFC. There are thousands of genes differentially expressed in this `basalpregnant-basallactate` comparison, so let's rerun the analysis applying TREAT and similar thresholds to what was used in the Fu paper: **an adjusted P value of 0.01 (1% false discovery rate) and a log-fold-change cutoff of 0.58 (equivalent to a fold change of 1.5).**
+
+> ## Hands-on: Testing relative to a threshold (TREAT)
+>
+> 1. Use the **Rerun** <span class="glyphicon glyphicon-reload"></span> button on one of the **limma** output objects in the History to rerun <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> limma-voom </button> with the following parameters modified. Leave all the other options the same as when we ran the tool before: 
+>      - *"**Advanced Options**"*
+>          - *"Minimum Log2 Fold Change"*: `0.58`
+>          - *"P-Value Adjusted Threshold"*: `0.01`
+>          - *"Test significance relative to a fold-change threshold (TREAT)"*: `Yes`
+> 2. Add a tag `#treat` to the `Report` output and inspect the report. 
+>
+{: .challenge}
+
+
+We can see that much fewer genes are now highlighted in the MD plot and identified as differentially expressed now that we have applied more stringent conditions for something to be considered differetially expressed:
+
+
+<img src="{{ page.root }}/fig/treat_volcano_plot.png" alt="limma-voom differential expression counts">
+
+<img src="{{ page.root }}/fig/treat_DE_counts.png" alt="limma-voom differential expression counts">
+
+
+
+## Visualizing differential expression results to identify interesting genes
+
+In addition to the plots already discussed, it is recommended to have a look at the expression levels of the individual samples for the genes of interest, before following up on the DE genes with further lab work. The Galaxy limma tool can auto-generate heatmaps of the top genes to show the expression levels across the *samples*. This enables a quick view of the expression of the top differentially expressed genes and can help show if expression is consistent amongst replicates in the groups. **The following results are all after the TREAT step was applied:**
+
+### Heatmap of top genes
+
+Click on the `Heatmap_basalpregnant-basallactate.pdf` link in the `Report`. You should see a plot like below. Each horizontal row corresponds to a gene (labeled on the right), while each column refers to a sample. Genes that are relatively **upregulated** for a sample are shown in **red**, while those relatively **downregulated** in a given sample are in **blue**. 
+
+<img src="{{ page.root }}/fig/treat_heatmap.png" alt="limma-voom differential expression counts">
+
+> ## What genes are comparatively downregulated in sample `SRR1552452`? 
+> Looking at the column labeled `SRR1552452` we see that there are two genes that are in blue, meaning they have a negative Z-score, meaning that they are comparatively downregulated in this `basalpregnant` sample. 
+> The gene labels tell us that these are genes `Csn1s2b` and `Mrgprf`. You could optionally use this info to look up more about the function of these genes on NCBI. 
+> Note: Of course, this plot is only showing us the Top 10 most DE genes - there are likely many other comparatively downregulated genes for this sample. 
+{: .solution} 
+
+ 
+### Stripcharts of top genes
+
+The limma-voom tool can also auto-generate stripcharts to view the expression of the top genes across the groups. Click on the `Stripcharts_basalpregnant-basallactate.pdf` link in the `Report`. You should see 10 plots, one for each top gene. Two are shown below. Note that here you can see if replicates tend to group together and how the expression compares to the other groups.
+
+
+<img src="{{ page.root }}/fig/treat_stripcharts.png" alt="limma-voom differential expression counts">
+
+> ## What other plot gives us information about replicates clustering? 
+> Scrolling back through the all of the QC plots, look for another plot that represents the samples spatially. 
+> Perhaps your eye is drawn towards the **`MDS Plots`**, which, as a reminder, *are visualisations of a principal components analysis, which determines the greatest sources of variation in the data*. 
+> So, the MDS plots are an overall picture of how the samples are separated based on the expression of all of the genes, and are helpful for troubleshooting. 
+> In contrast, the strip charts show how samples separate based just on the expression of a single gene. The separation between `basalpregnant` and `basallactate` would be much less visually apparent if we were to make a stripchart for say, the 2000th most differentally expressed gene as opposed to those in the Top 10. If your experiment is well controlled and has worked well, what we hope to see is that the greatest sources of variation in the data are the treatments/groups we are interested in.
+{: .solution} 
+
+## Conclusion
+
+In this tutorial we have seen how counts files can be converted into differentially expressed genes with limma-voom. This follows on from the accompanying tutorial, **RNA-seq reads to counts**, that showed how to generate counts from the raw reads (FASTQs) for this dataset. In this part we have seen ways to visualise the count data, and QC checks that can be performed to help assess the quality and results. We have also reproduced results similar to what the authors found in the original paper with this dataset. For further reading on analysis of RNA-seq count data and the methods used here, see the articles; *RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR*  and *From reads to genes to pathways: differential expression analysis of RNA-Seq experiments using Rsubread and the edgeR quasi-likelihood pipeline*.
+
+### Preview of next week: 
+
+**There are probably a couple things that you are left wondering or wish to improve, though**: 
++ Can I compare multiple variables at once or make multiple comparisons? 
++ Can I make prettier, customized versions of some of these figures? 
++ Can we make inferences about whole functional categories of genes and their expression? 
++ Can some of this be done in a more automated way? 
+
+**Don't worry - the answer to these questions is YES and we will be addressing them next week!** 
