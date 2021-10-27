@@ -37,7 +37,7 @@ For this hands-on tutorial, we are going to focus on the **basal cell** samples,
 All of the data for this experiment can be found under [BioProject PRJNA258286](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA258286), which contains [twelve SRA Experiments](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=258286). For this section of the exercise, use your knowledge of the NCBI SRA and Galaxy uploading options to load the four relevant basal cell sample FASTQs into our Galaxy history. 
 
 > ## Which SRAs contain the samples we are interested in? 
-> 1. You can start by downloading [SRARunTable_Fu2015.txt]({{ page.root }}/data/SRARunTable_Fu2015.txt) file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
+> 1. You can start by downloading [SraRunTable_Fu2015.txt](../data/SraRunTable_Fu2015.txt) file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
 > 2. Next, open the file in Excel or similar and look at the `Immunophenotype` - six of them should say `basal cell population`. 
 > 3. Look at the `Developmental Stage` column. The SRA Run Numbers associated with those samples and their `Developmental_Stage` are: 
 > 
@@ -53,7 +53,7 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 {: .solution} 
 
 > ## Hands-On Challenge: Load the basal cell data onto Galaxy
-> 1. Like last week, we can start by uploading the [SRARunTable_Fu2015.txt](../data/SRARunTable_Fu2015.txt) onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
+> 1. Like last week, we can start by uploading the [SraRunTable_Fu2015.txt](../data/SraRunTable_Fu2015.txt) onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
 > 2. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool to select the relevant lines using the correct **Pattern**. You can either use the same `SRA|SRA` format to search for multiple SRA accession ID numbers as in last week's exercise, OR try to search using a combination of values in the `Developmental_Stage` and `immunophenotype` columns.
 > 
 > 3. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button> tool just to select the SRA ID column. 
