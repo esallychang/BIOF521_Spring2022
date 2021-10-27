@@ -34,29 +34,28 @@ For this hands-on tutorial, we are going to focus on the **basal cell** samples,
 
 ## Data Upload 
 
-All of the data for this experiment can be found under [BioProject PRJNA258286](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA258286), which contains [twelve SRA Experiments](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=258286). For this section of the exercise, use your knowledge of the NCBI SRA and Galaxy uploading options to load the six basal cell sample Fastqs into your new Galaxy history. 
+All of the data for this experiment can be found under [BioProject PRJNA258286](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA258286), which contains [twelve SRA Experiments](https://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=258286). For this section of the exercise, use your knowledge of the NCBI SRA and Galaxy uploading options to load the four relevant basal cell sample FASTQs into our Galaxy history. 
 
 > ## Which SRAs contain the samples we are interested in? 
-> 1. You can start by downloading `SRARunTable_Fu2015.tsv` file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
+> 1. You can start by downloading [SRARunTable_Fu2015.txt]({{ page.root }}/data/SRARunTable_Fu2015.txt) file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
 > 2. Next, open the file in Excel or similar and look at the `Immunophenotype` - six of them should say `basal cell population`. 
-> 3. The SRA Run Numbers associated with those samples and their `Developmental_Stage` are: 
+> 3. Look at the `Developmental Stage` column. The SRA Run Numbers associated with those samples and their `Developmental_Stage` are: 
 > 
 > ~~~
-> SRR1552450	virgin
-> SRR1552451 virgin
-> SRR1552452 pregnant
-> SRR1552453 pregnant
-> SRR1552454 lactating
-> SRR1552455 lactating
+> SRR1552452 basalpregnant
+> SRR1552453 basalpregnant
+> SRR1552454 basallactating
+> SRR1552455 basallactating
 > ~~~
 > 
-> So for our comparison of the basal cells of pregnant vs. lactating mice, we will want to look at `SRR1552452 - SRR1552455`. 
+> So for our comparison of the basal cells of pregnant vs. lactating mice, we will want to look at SRAs `SRR1552452 - SRR1552455`. 
 > {: .output}
 {: .solution} 
 
 > ## Hands-On Challenge: Load the basal cell data onto Galaxy
-> 1. Like last week, we can start by uploading the `SRARunTable_Fu2015.tsv` onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
-> 2. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool to select the relevant lines using the correct **Pattern**. 
+> 1. Like last week, we can start by uploading the [SRARunTable_Fu2015.txt]({{ page.root }}/data/SRARunTable_Fu2015.txt) onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
+> 2. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool to select the relevant lines using the correct **Pattern**. You can either use the same `SRA|SRA` format to search for multiple SRA accession ID numbers as in last week's exercise, OR try to search using a combination of values in the `Developmental_Stage` and `immunophenotype` columns.
+> 
 > 3. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button> tool just to select the SRA ID column. 
 > 4. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> with the `List of SRA accession, one per line` option.
 > 5. You should end up with four files inside your single-ended output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button>. It will look roughly like below: 
@@ -64,18 +63,6 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 > <img src="{{ page.root }}/fig/Single_End_BasalCell.png" width="400" alt="Single End Input in Galaxy History">
 > 
 {: .challenge}
-
-## Keeping our data organized
-
-As we started to learn last week, being able to process multiple files at once as a collection is going to save us a lot of time! This time, there will be four files to work with at once, and we are going to want to keep track of which samples they each came from.
-
-The SRA Numbers will not be important now that we have downloaded the files into Galaxy, so I highly recommend re-naming the samples witin the collection of paired-end output based on the scheme below. This will allow us to keep track of which file is which in any output reports. I also went ahead and named the collection of single-end reads output from <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Fasterq </button> `Input Reads` and added `Raw` and `Fastq` tags to the collection.
-
-| SampleID | Group    | SRA|
-| BasalPreg_1 | basalpregnant | SRR1552452 |
-| BasalPreg_2 | basalpregnant | SRR1552453 |
-| BasalLac_1 | basallactate | SRR1552454 |
-| BasalLac_2 | basallactate | SRR1552455 |
 
 
 
