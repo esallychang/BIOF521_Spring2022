@@ -161,7 +161,7 @@ Therefore they cannot be simply mapped back to the genome as we normally do for 
 > > ## What file type will the mapping results be?
 > > A **BAM** (Binary Sequence Alignment Matrix)! 
 > > We have told **HISAT2** to `Output alignment summary in a more machine-friendly style`, as opposed to a human-friendly alignment summary, which would be a SAM file. Look at last week's material if need a refresher on mapping outputs.
-> > {: .solution}
+> {: .solution}
 >
 {: .challenge} 
 
