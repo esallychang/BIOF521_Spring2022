@@ -53,7 +53,7 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 {: .solution} 
 
 > ## Hands-On Challenge: Load the basal cell data onto Galaxy
-> 1. Like last week, we can start by uploading the [SRARunTable_Fu2015.txt]({{ page.root }}/data/SRARunTable_Fu2015.txt) onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
+> 1. Like last week, we can start by uploading the [SRARunTable_Fu2015.txt](../data/SRARunTable_Fu2015.txt) onto Galaxy using the `Upload Data` tool: <img src="{{ page.root }}/fig/Galaxy_upload_button.png" alt="Galaxy upload button">. 
 > 2. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool to select the relevant lines using the correct **Pattern**. You can either use the same `SRA|SRA` format to search for multiple SRA accession ID numbers as in last week's exercise, OR try to search using a combination of values in the `Developmental_Stage` and `immunophenotype` columns.
 > 
 > 3. Use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button> tool just to select the SRA ID column. 
