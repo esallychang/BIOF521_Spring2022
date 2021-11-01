@@ -39,7 +39,7 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 > ## Which SRAs contain the samples we are interested in? 
 > 1. You can start by downloading [SraRunTable_Fu2015.txt](../data/SraRunTable_Fu2015.txt) file containing metadata for the 12 samples, like we did for the Covid-19 data set last week. 
 > 2. Next, open the file in Excel or similar and look at the `Immunophenotype` - six of them should say `basal cell population`. 
-> 3. Look at the `Developmental Stage` column. The SRA Run Numbers associated with those samples and their `Developmental_Stage` are: 
+> 3. Look at the `Developmental Stage` column. The SRA Run Numbers associated with our samples of interest and their `Developmental_Stage` are: 
 > 
 > ~~~
 > SRR1552452 basalpregnant
@@ -68,12 +68,13 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 
 ## Quality Control of Raw Reads
 
-Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> tool on the collection you just created. Then, to keep the results from all six samples organized, we will make use of an excellent tool called <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> to aggregate them all into one report.
+Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> tool on the collection you just created. Then, to keep the results from all four samples organized, we will make use of an excellent tool called <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> to aggregate them all into one report.
 
 > ## Hands-On: FastQC + MultiQC 
 > 1. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> with the following parameters: 
 > 	* **Short Read Data from your current history**: `Input Data`.
-> 2. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the following parameters: 
+>  
+> 2. Once that is done, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the following parameters: 
 > 	* **Which tool was used to generate logs?**: `FastQC`. 
 > 	* **Type of FASTQC output?** `Raw data`. 
 > 	* **FastQC output**: `RawData` files (output of FASTQC on trimmed reads).

@@ -6,6 +6,7 @@ objectives:
 - "Download sequencing metadata in bulk from NCBI"
 - "Load data from the NCBI SRA into the environment"
 keypoints:
+- "Data can be found on NCBI using the a variety of identifiers for Bioproject, Biosample and SRA"
 - "Galaxy is an open source tool for conducting bioinformatic analyses"
 - "FASTQ files generally store raw sequencing data"
 ---
@@ -29,13 +30,13 @@ The data availability statement can be found in the acknowledgements section of 
   <img src="{{ page.root }}/fig/Lemieux_Data_Statement.png" alt="Data availability statement from Lemieux et al. 2020" />
 </a>
 
-As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622387`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage, but their general structure can be summarized below: 
+As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622837`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage, but their general structure can be summarized below: 
 
 <img src="{{ page.root }}/fig/Bioproject_Structure.png" alt="Schematic of an NCBI BioProject">
 
 > ## "Hands-On: Get Metadata from NCBI SRA"
 > 1. Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
-> 2. Perform a search using the Bioproject ID from the paper: `BioProject PRJNA622387`
+> 2. Perform a search using the Bioproject ID from the paper: `BioProject PRJNA622837`
 > <img src="{{ page.root }}/fig/SRA_Bioproject_Search.png" alt="SRA search toolbar filled in with Bioproject ID from above">
 > 3. The web page will show a large number of available SRA datasets related to project described in Lemieux et al. 2020 (at the time of writing there were 3,927). 
 > 4. Download metadata describing these datasets by:
@@ -96,6 +97,11 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 * Run Number `SRR12733957`: A sequencing run from a sample collected on April 6th, 2020.
 * Run Number `SRR11954102`: A sequencing run from a sample collected on May 2nd, 2020.
 
+> ## Warning: Don't get caught by the wrong "Cut"! 
+> <span class="glyphicon glyphicon-warning-sign"></span> WARNING: There are two cut tools in Galaxy due to historical reasons. For this tutorial we are assuming you are using the named EXACTLY <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button>  The other tool follows a similar logic but with a different interface. <span class="glyphicon glyphicon-warning-sign"></span> 
+> 
+{: .callout}
+
 > ## Hands-On: Creating a subset of data
 >
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression  </button> tool in the **Filter and Sort** section of the tool panel. You may find that Galaxy has an overwhelming amount of tools installed. To find a specific tool type the tool name in the tool panel search box to find the tool.
@@ -106,7 +112,6 @@ The Galaxy servers are powerful enough to process all 2,000+ datasets, but to ma
 > 4. Click the `Execute` button.
 > 5. Once the this has been executed, you should have a file with a total of three lines. If you look at the file (<span class="glyphicon glyphicon-eye-open"></span>), you will see that one of the two lines has been duplicated to take the place of the "header" line (which is fine for now). 
 > 6. Cut the first column from the file using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Cut columns from a table (cut) </button>  tool, which you will find in **Text Manipulation** section of the tool pane. 
-> <span class="glyphicon glyphicon-warning-sign"></span> WARNING: There are two cut tools in Galaxy due to historical reasons. For this tutorial we are assuming you are using the one described above. The other tool follows a similar logic but with a different interface. <span class="glyphicon glyphicon-warning-sign"></span> 
 > 7. Make sure the dataset produced by the previous step is selected in the **File to cut** field of the tool form.
 > 8. Change **Delimited by** to `Comma`.
 > 9. In **List of fields** drop-down menu select `Column: 1`. This is telling the tool to only return the first column of our data.
