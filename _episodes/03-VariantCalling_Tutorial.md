@@ -149,7 +149,7 @@ Conveniently, there is a special version of **SnpEff** that is specifically cali
 
 > ## Hands-On: Annotate variant effects with SnpEff
 > Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> SnpEff eff: annotate variants for SARS-CoV-2 </button> and modify the following parameters:
-> +  <span class="glyphicon glyphicon-folder-close"></span> **Input reads in BAM format**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Insert indel qualities </button>. 
+> +  <span class="glyphicon glyphicon-folder-close"></span> **Input reads in VCF format**: select output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> LoFreq </button>. 
 > + **Select annotated Coronavirus Genome** is `NC045512.2`, which is the annotated version of the reference genome we have been using throughout. 
 > + **Output format**: `VCF (only if input is VCF)`.
 > + **Create CSV report Useful for downstream analysis (-csvStats)**: `Yes`
