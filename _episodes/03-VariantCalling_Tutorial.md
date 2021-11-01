@@ -11,11 +11,10 @@ keypoints:
 - "Variant-calling is a multistep pipeline that builds upon steps you have already encountered: Quality control and Mapping."
 ---
 
-> ## Prerequisites
-> This tutorial assumes that you have done the following: 
-> * Have familiarized yourself with the steps of variant-calling and related file-formats (you can always do this as you progress through the tutorial as needed!). 
-> * Have completed the tutorials on Uploading Data to Galaxy and Read Mapping, and have the results of the Read Mapping analysis ready in your current History.
-{: .prereq}
+> ## Warning: Results may vary!
+> Your results may be slightly different from the ones presented in this tutorial due to differing versions of tools, reference data, external databases, or because of stochastic processes in the algorithms.
+> 
+{: .callout}
 
 
 ## Tutorial Preview: Steps in Variant Calling
@@ -65,7 +64,7 @@ What percentage of reads were duplicated in the raw `SRR11954102`? What about in
 > <img src="{{ page.root }}/fig/SRR11954102_Duplication.png" alt="Duplication section of Fastp report for sample SRR11954102">
 > We can see form this graph that most sequences are present in only one copy (duplication level of 1), meaning this sample has a low overall duplication level (2.3%) - only 2.3% of sequences are duplicates of each other. 
 >
-> If we look at `SRR12733957`, we see that this level is much greater (22.8%). 
+> If we look at `SRR12733957`, we see that this level is much greater (~ 22.8%). 
 > <img src="{{ page.root }}/fig/SRR12733957_Duplication.png" alt="Duplication section of Fastp report for sample SRR12733957">
 {: .solution}
 
@@ -299,7 +298,7 @@ We are going to be using Galaxy utilities to do some tabulating and counting.
 
 > ## Hands-On: Finding one particular mutation using the `Select lines` tool
 > **Suppose we want to know: Do either of our samples have one of the diagnostic sequence changes associated with the more transmissible B.1.1.7 SARS-CoV-2 strain?** 
-> We know the B.1.1.7 lineage contains a nonsense mutation (change for legitimate codon specifying an amino acid to a stop codon) in ORF8a, at nucleotide `27972`. 
+> We know the B.1.1.7 lineage contains a nonsense mutation (changing a legitimate codon specifying an amino acid to a stop codon) in ORF8a, at nucleotide `27972`. 
 > > ## Do we have any variants called at position `27972` in our data set? 
 > > One solution is to use the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Select lines that match an expression </button> tool with the following parameters: 
 > > + Make sure our final, collapsed is listed in the <span class="glyphicon glyphicon-file"></span> **Select lines from** field of the tool form.
