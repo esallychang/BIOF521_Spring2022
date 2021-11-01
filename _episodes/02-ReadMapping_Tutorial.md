@@ -1,20 +1,20 @@
 ---
 title: "Hands-On: Mapping Our Short Read Data to a Reference Genome"
-exercises: 90
+exercises: 30
 objectives:
 - Students will use their knowledge of quality control to clean the input data sets
 - Students will obtain an appropriate reference genome and map their data to this reference
 - Students will summarize the results of a read-mapping analysis
 keypoints:
-- "Galaxy is an open source tool for conducting bioinformatic analyses"
-- "FASTQ files generally store raw sequencing data"
+- "Read mapping is the process of placing reads on the reference genome"
+- "You can calculate important statistics and diagnose issues using results from read mapping"
 ---
 
-> ## Prerequisites
-> This tutorial assumes that you have done the following: 
-> * Loaded the data in the **Loading Our Input Data Into Galaxy** tutorial
-> * Have taken a look at the Galaxy Environment 101 Tutorial and are familiar with the concepts therein. 
-{: .prereq}
+> ## Warning: Results may vary!
+> Your results may be slightly different from the ones presented in this tutorial due to differing versions of tools, reference data, external databases, or because of stochastic processes in the algorithms.
+> 
+{: .callout}
+
 
 
 ## What is Read-Mapping?
@@ -51,7 +51,7 @@ Because making sure our reads are high-quality is important but not the focus of
 > ## Hands-On: Running `fastp`
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> fastp - fast all-in-one preprocessing for FASTQ files </button> tool. 
 > 2. Set **single or paired reads** to `Paired Collection`. 
-> 3. Make sure <span class="glyphicon glyphicon-file"></span> **Select paired collection(s)** set to `list paired`, and make sure that you have selected the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button>.
+> 3. Make sure that you have selected the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> as the input.
 > 4. Press `Execute`. 
 {: .challenge}
 
