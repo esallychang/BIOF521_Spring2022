@@ -3,7 +3,8 @@ title: "Hands On: Creating Counts from Mapped Reads"
 exercises: 30
 objectives:
 - "Learn how RNA-seq reads are converted into counts"
-- "Create a Galaxy Workflow that converts RNA-seq reads into counts"
+- Learn different metrics for troubleshooting RNAseq expression data
+- "Utilize an imported Galaxy Workflow that performs QC on the mapped read data and counts"
 keypoints:
 - In RNA-seq, reads (FASTQs) are mapped to a reference genome with a spliced aligner (e.g HISAT2, STAR)
 - The aligned reads (BAMs) can then be converted to counts
@@ -11,14 +12,18 @@ keypoints:
 - MultiQC can be used to create a nice summary report of QC information
 ---
 
-## Counting
+> ## Heads up: Results may vary!
+> It is possible that your results may be **slightly** different from the ones presented in this tutorial due to differing versions of tools, reference data, external databases, or because of stochastic processes in the algorithms.
+> 
+{: .callout}
 
-The alignment produces a set of BAM files, where each file contains the read alignments for each sample. In the BAM file, there is a chromosomal location for every read that mapped. Now that we have figured out where each read comes from in the genome, we need to summarise the information across genes or exons. The mapped reads can be counted across mouse genes by using a tool called **featureCounts**. featureCounts requires gene annotation specifying the genomic start and end position of each exon of each gene. For convenience, featureCounts contains built-in annotation for mouse (`mm10`, `mm9`) and human (`hg38`, `hg19`) genome assemblies, where exon intervals are defined from the NCBI RefSeq annotation of the reference genome. 
+## What is counting? 
 
-Reads that map to exons of genes are added together to obtain the count for each gene, with some care taken with reads that span exon-exon boundaries. The output is a count for each Entrez Gene ID, which are numbers such as `100008567`. For other species, users will need to read in a data frame in GTF format to define the genes and exons. Users can also specify a custom annotation file in SAF format. See the tool help in Galaxy, which has an example of what an SAF file should like like, or the Rsubread users guide for more information.
+The alignment produced a set of BAM files, where each file contains the read alignments for each sample. In the BAM file, there is a chromosomal location for every read that mapped. Now that we have figured out where each read comes from in the genome, we need to summarise the information across genes or exons. The mapped reads can be counted across mouse genes by using a tool called **featureCounts**. featureCounts requires gene annotation specifying the genomic start and end position of each exon of each gene. For convenience, featureCounts contains built-in annotation for mouse (`mm10`, `mm9`) and human (`hg38`, `hg19`) genome assemblies, where exon intervals are defined from the NCBI RefSeq annotation of the reference genome. 
+<br/><br/>
 
-
-
+Reads that map to exons of genes are added together to obtain the count for each gene, with some care taken with reads that span exon-exon boundaries. The output is a count for each Entrez Gene ID, which are numbers such as `100008567`. For other species, users will need to read in a data frame in GTF format to define the genes and exons. Users can also specify a custom annotation file in SAF format. Doing so is a bit outside the scope of this course!
+<br/><br/>
 > ## Hands-on: Count reads mapped to genes with **featureCounts**
 > 1. Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> **featureCounts** </button> modifying the following parameters: 
 > + *"Alignment file"*: `aligned reads (BAM)` (output of **HISAT2**). 
@@ -30,19 +35,21 @@ Reads that map to exons of genes are added together to obtain the count for each
 > 
 {: .challenge} 
 
+<img src="{{ page.root }}/fig/FeatureCounts_MultiQC.png" width="400" alt="Summary table FeatureCounts">
+
+We can see from the summary that about 65% of each data set was able to be assigned uniquely to actual coding regions of the genome (exons). 
+
+
 > ## Note: **featureCounts** parameters
 > In this example we have kept many of the default settings, which are typically optimised to work well under a variety of situations. **For example, the default setting for featureCounts is that it only keeps reads that uniquely map to the reference genome. For testing differential expression of genes, this is preferred, as the reads are unambigously assigned to one place in the genome** allowing for easier interpretation of the results. Understanding all the different parameters you can change involves doing a lot of reading about the tool that you are using, and can take a lot of time to understand! We won’t be going into the details of the parameters you can change here, but you can get more information from looking at the tool help.
 {: .callout}
 
+## Finding out more about a gene using the Entrez ID
 
-<img src="{{ page.root }}/fig/FeatureCount_MultiQC.png" alt="Summary table FeatureCounts">
-
-We can see from the summary that about 65% of each data set was able to be assigned uniquely to actual coding regions of the genome (exons). 
-
-The counts for the samples are output as tabular files. Take a look at one. The numbers in the first column of the counts file represent the Entrez gene identifiers for each gene, while the second column contains the counts for each gene for the sample.
-
-More about Entrez Gene IDs here: 
-
+The counts for the samples are output as a tabular file - take a look at one! The numbers in the first column of the counts file represent the Entrez gene identifiers for each gene, while the second column contains the counts for each gene for the sample. According to NCBI, [Entrez gene IDs](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1761442/) "provide unique integer identifiers for genes and other loci (such as officially named mapped markers) for a subset of model organisms." 
+<br/><br/>
+They are extremely useful for being sure that you are referring to the exact same gene in the exact same model organism as someone else is!
+<br/><br/>
 > ## Hands-On: Finding out more about a gene
 > 1. Let's look at the first gene in the mapping output for `SRR1552452`. For me (it may vary), it is an ID number of `497097`, and there are `65` reads which have mapped to it. 
 > 2. Go to https://www.ncbi.nlm.nih.gov/.
@@ -144,16 +151,17 @@ This workflow will also involve uploading a BED file associated with the `mm10` 
 ### **Strandedness**  
 
 RNAs that are typically targeted in RNA-Seq experiments are single stranded (e.g., mRNAs) and thus have polarity (5’ and 3’ ends that are functionally distinct). During a typical RNA-Seq experiment the information about strandness is lost after both strands of cDNA are synthesized, size selected, and converted into a sequencing library. However, this information can be quite useful for the read counting step, especially for reads located on the overlap of 2 genes that are on different strands. As far as we know this data is unstranded, but as a sanity check you can check the strandness. This information should be provided with your FASTQ files, ask your sequencing facility! If not, try to find it on the site where you downloaded the data or in the corresponding publication.
+<br/><br/>
 
 <img src="{{ page.root }}/fig/strandness_why.png" alt="why strandedness info is useful">
 **Figure**: Read1 will be assigned to gene1 located on the forward strand but Read2 could be assigned to gene1 (forward strand) or gene2 (reverse strand) depending if the strandness information is conserved. 
 
-
+<br/><br/>
 This workflow uses the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> RSeQC Infer Experiment </button>  tool to “guess” the strandness. This tool takes the BAM files from the mapping, selects a subsample of the reads and compares their genome coordinates and strands with those of the reference gene model (from an annotation file). Based on the strand of the genes, it can gauge whether sequencing is strand-specific, and if so, how reads are stranded (forward or reverse):
 
 <img src="{{ page.root }}/fig/strandness_cases.png" alt="possible types of strandness">
 **Figure**: In a stranded forward library, reads map mostly on the genes located on forward strand (here gene1). With stranded reverse library, reads map mostly on genes on the reverse strand (here gene2). With unstranded library, reads maps on genes on both strands.
-
+<br/><br/>
 <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> RSeQC Infer Experiment </button> tool generates a file with information on: 
 
 - Paired-end or single-end library.
@@ -198,16 +206,19 @@ You can check the numbers of reads mapped to each chromosome with the <button ty
 > ## Interpreting Per-Chromosome Plots
 > 1. What do you notice aboutg the overall distribution of reads mapped to each chromosome? 
 > 2. Are the samples male or female? (If a sample is not in the XY plot it means no reads mapped to Y). 
-> > ## Solution
-> > 1. Samples appear to have roughly the same pattern of distribution across the chromosomes, and no particular chromosome has a MUCH higher number of reads mapping than any other. It would be more concerning if all your reads were mapped to just one chromosome, unless you were specifically enriching for a gene from that chromosome. 
-> > 2. The samples appear to be all female as there are few reads mapping to the Y chromosome. As this is a experiment specifically studying pregnant and lactating mice if we saw large numbers of reads mapping to the Y chromosome in a sample it would be unexpected and a probable cause for concern. The few reads that do map to the Y chromosome are likely spurious mappings due to highly sequence similarity between portions of the Y and other chromosomes.
-> {: .solution}
 {: .challenge}
 
-## Assessing other aspects of mapping: Gene Body Coverage and Read Distribution Across Features
+> ## Solution
+> 1. Samples appear to have roughly the same pattern of distribution across the chromosomes, and no particular chromosome has a MUCH higher number of reads mapping than any other. It would be more concerning if all your reads were mapped to just one chromosome, unless you were specifically enriching for a gene from that chromosome. 
+> <br/><br/>
+> 2. The samples appear to be all female as there are few reads mapping to the Y chromosome. As this is a experiment specifically studying pregnant and lactating mice if we saw large numbers of reads mapping to the Y chromosome in a sample it would be unexpected and a probable cause for concern. The few reads that do map to the Y chromosome are likely spurious mappings due to highly sequence similarity between portions of the Y and other chromosomes.
+{: .solution}
+
+
+## Gene Body Coverage and Read Distribution Across Features
 
 > ## Running more tools 
-> The following two tools were NOT included in the workflow we just ran, but as part of this week's tutorials you will be adding it to a reproducible workflow that you can run on your own samples. For now, you will need to run each of these tools separately by hand to get the output plots. 
+> The following two tools were NOT included in the workflow we just ran. For now, you will need to run each of these tools separately by hand to get the output plots. 
 {: .callout}
 
 ### Gene Body Coverage (5'-3')
@@ -232,7 +243,7 @@ The coverage of reads along gene bodies can be assessed to check if there is any
 ### Read Distribution Across Features (exons, introns, intergenic...)
 
 
-We can also check the distribution of reads across known gene features, such as exons (CDS, 5'UTR, 3'UTR), introns and intergenic regions. In RNA-seq we expect most reads to map to exons rather than introns or intergenic regions. It is also the reads mapped to exons that will be counted so it is good to check what proportions of reads have mapped to those. High numbers of reads mapping to intergenic regions could indicate the presence of DNA contamination.
+We can also check the distribution of reads across known gene features, such as exons (CDS, 5'UTR, 3'UTR), introns and intergenic regions. In RNA-seq we expect most reads to map to exons rather than introns or intergenic regions. It is also the reads mapped to exons that will be counted so it is good to check what proportions of reads have mapped to those. **High numbers of reads mapping to intergenic regions could indicate the presence of DNA contamination.**
 
 > ## Hands-on: Check distribution of reads with **Read Distribution**
 >
@@ -250,7 +261,7 @@ We can also check the distribution of reads across known gene features, such as 
 
 ## Conclusions 
 
-In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data. A follow-on tutorial, **RNA-seq counts to genes**, shows how to perform differential expression and QC on the counts for this dataset. 
+In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The next tutorial, **RNA-seq counts to genes**, shows how to perform differential expression and QC on the counts for this dataset. 
 
 > ## What other aspects of Quality Control could we look at for our RNAseq reads? 
 > The reads could be checked for:

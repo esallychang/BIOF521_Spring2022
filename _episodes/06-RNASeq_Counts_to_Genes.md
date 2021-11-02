@@ -1,19 +1,18 @@
 ---
-title: "Hands On: Creating Counts from Mapped Reads" 
-exercises: 90
+title: "Hands On: From RNAseq Counts to Differentially Expressed Genes" 
+exercises: 45
 objectives:
   - "Analysis of RNA-seq count data using limma-voom"
   - "QC of count data"
   - "Visualisation and interactive exploration of count data"
   - "Identification of differentially expressed genes"
-time_estimation: "2h"
-key_points:
+keypoints:
   - "The limma-voom tool can be used to perform differential expression and output useful plots"
   - "Multiple comparisons can be input and compared"
   - "Results can be interactively explored with limma-voom via Glimma"
 ---
 
-In this tutorial, we will deal with:
+**In this tutorial, we will deal with:**
 
 1. Preparing the inputs
 	+ Get gene annotations
@@ -58,7 +57,7 @@ In this tutorial, we will deal with:
 
 ### Get Gene Annotations 
 
-Gene annotations can be provided to the **limma-voom** tool and if provided the annotation will be available in the output files. This will give us more context about the potentially interesting functions of the differentially expressed genes than a list of relatively anonymous Entrez gene IDs would otherwise give us. We’ll get gene symbols and descriptions for these genes using the Galaxy <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> annotateMyIDs </button> tool, which can provide annotations for human, mouse, fruitfly and zebrafish.
+Gene annotations can be provided to the **limma-voom** tool and if provided the annotation will be available in the output files. This will give us more context about the potentially interesting functions of the differentially expressed genes than a list of relatively anonymous Entrez gene IDs would otherwise give us. We’ll get gene symbols and descriptions for these genes using the Galaxy <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> annotateMyIDs </button> tool, which can provide annotations for human, mouse, fruitfly and zebrafish. Although, obviously in our case, we would know something is very wrong if we ended up with other organisms in our mouse data! 
 
 > ## Hands-On: Get Gene Annotations
 >
@@ -74,7 +73,7 @@ Gene annotations can be provided to the **limma-voom** tool and if provided the 
 > 2. Rename file as `annodata` using the <span class="glyphicon glyphicon-pencil"></span> icon. The file should look similar to the (sample) of the one below: 
 > <img src="{{ page.root }}/fig/annodata.png" alt="top of annotation table data">
 > 3. Check the number of lines shown on the datasets in the history, there should be 27,180 lines in both. There MUST be the same number of lines (rows) in the counts and annotation.
-{: .challenges}
+{: .challenge}
 
 ## Differential Expression with **limma-voom** 
 
@@ -125,7 +124,7 @@ Since we are interested in differences between groups, we need to specify which 
 > 
 > 
 > 2. Inspect the `Report` produced by clicking on the <span class="glyphicon glyphicon-eye"></span> (eye) icon. 
-{: .hands_on}
+{: .challenge}
 
 
 ## QC of count data using plots from **limma**
@@ -160,11 +159,13 @@ Next, scroll down the `Report` to take a look at the **Additional information** 
 
 ### Density plots
 
-Density plots can be output in the `Report` if *Filter lowly expressed genes* is selected. A link is also provided in the `Report` to a PDF version (`DensityPlots.pdf`). These plots allow comparison of the counts distributions before and after filtering. The samples are coloured by the groups. Count data is not normally distributed, so if we want to examine the distributions of the raw counts we need to log the counts. We typically check the distribution of the read counts on the log2 scale. A CPM value of 1 is equivalent to a log-CPM value of 0 and the CPM we used of 0.5 is equivalent to a log-CPM of -1. It can be seen in the Raw counts (before filtering) plot below, that a large proportion of genes within each sample are not expressed or lowly-expressed, and the Filtered counts plot shows our filter of CPM of 0.5 (in at least 2 samples) removes a lot of these uninformative genes.
+Density plots can be output in the `Report` if *Filter lowly expressed genes* is selected. A link is also provided in the `Report` to a PDF version (`DensityPlots.pdf`). These plots allow comparison of the counts distributions before and after filtering. The samples are colored by the groups. Count data is not normally distributed, so if we want to examine the distributions of the raw counts we need to take the log values of the counts. **We typically check the distribution of the read counts on the log(2) scale.** 
+<br/><br/>
+A CPM value of 1 is equivalent to a log-CPM value of 0 and the CPM we used of 0.5 is equivalent to a log-CPM of -1. It can be seen in the Raw counts (before filtering) plot below, that a large proportion of genes within each sample are not expressed or lowly-expressed, and the Filtered counts plot shows our filter of CPM of 0.5 (in at least 2 samples) removes a lot of these uninformative genes: 
 
 <img src="{{ page.root }}/fig/limma_densityplots.png" alt="density plots from limma report">
 
-We can also have a look more closely to see whether our threshold of 0.5 CPM does indeed correspond to a count of about 10-15 reads in each sample with the plots of CPM versus raw counts. Click on the `CpmPlots.pdf` link in the `Report`. You should see 4 plots, one for each sample. Two of the plots are shown below. From these plots we can see that 0.5 CPM is equivalent to ~10 counts in each of the 4 samples (where the lines intersect), so 0.5 seems to be an appropriate threshold for this dataset (these samples all have sequencing depth of 20-30 million, see the `Library information` file below, so a CPM value of 0.5 would be ~10 counts).
+We can also have a look more closely to see whether our threshold of 0.5 CPM does indeed correspond to a count of about 10-15 reads in each sample with the plots of CPM versus raw counts. Click on the `CpmPlots.pdf` link in the `Report`. You should see 4 plots, one for each sample. Two of the plots are shown below. From these plots we can see that 0.5 CPM is equivalent to ~10 counts in each of the 4 samples (where the lines intersect), so 0.5 seems to be an appropriate threshold for this dataset (these samples all have sequencing depth of 20-30 million, see the `Library information` file below, so a CPM value of 0.5 would be ~10 counts): 
 
 <img src="{{ page.root }}/fig/limma_cpm.png" alt="cpm plots from limma report">
 
@@ -181,7 +182,7 @@ We can also use box plots to check the distributions of counts in the samples. B
 
 ### Normalization Factors 
 
-The TMM normalization generates normalization factors, where the product of these factors and the library sizes defines the effective library size. TMM normalization (and most scaling normalization methods) scale relative to one sample. The normalization factors multiply to unity across all libraries. A normalization factor below one indicates that the library size will be scaled down, as there is more suppression (i.e., composition bias) in that library relative to the other libraries. This is also equivalent to scaling the counts upwards in that sample. Conversely, a factor above one scales up the library size and is equivalent to downscaling the counts.
+The TMM normalization generates normalization factors, where the product of these factors and the library sizes defines the effective library size. TMM normalization (and most scaling normalization methods) scale relative to one sample. A normalization factor below one indicates that the library size will be scaled down, as there is more suppression (i.e., composition bias) in that library relative to the other libraries. This is also equivalent to scaling the counts upwards in that sample. Conversely, a factor above one scales up the library size and is equivalent to downscaling the counts.
 
 <img src="{{ page.root }}/fig/limma_norm_factors.png" alt="normalization factors table from limma report">
 
@@ -192,14 +193,12 @@ The TMM normalization generates normalization factors, where the product of thes
 
 ## Voom variance plot
 
-This plot (left, below) is generated by the voom method and displayed in the `Report` along with a link to a PDF version (`VoomPlot.pdf`). Each dot represents a gene and it shows the mean-variance relationship of the genes in the dataset. This plot can help show if low counts have been filtered adequately and if there is a lot of variation in the data, as shown in the **More details on Voom variance plots** box below.
-
-The SA plot (below, right) plots log2 residual standard deviations against mean log-CPM values. The average log2 residual standard deviation is marked by a horizontal blue line. This plot shows how the dependence between the means and variances has been removed after the voom weights are applied to the data.
+This plot (left, below) is generated by the **limma-voom** method and displayed in the `Report` along with a link to a PDF version (`VoomPlot.pdf`). Each dot represents a gene and it shows the mean-variance relationship of the genes in the dataset. This plot can help show if low counts have been filtered adequately and if there is a lot of variation in the data, as shown in the **More details on Voom variance plots** box below.
+<br/><br/>
 
 <img src="{{ page.root }}/fig/voomplot.png" alt="voom variance plots from limma report">
 
-
-If we didn’t filter this dataset for the lowly expressed genes the variance plot would look more like below.
+If we didn’t filter this dataset for the lowly expressed genes the variance plot would look more like below: 
 
 <img src="{{ page.root }}/fig/voomplot_nofilt.png" alt="unfiltered voom variance plot example">
 
@@ -235,7 +234,7 @@ Volcano plots are commonly used to display the results of RNA-seq or other -omic
 {: .solution} 
 
 
-### **limma-voom** tabular output
+## **limma-voom** tabular output
 
 Although the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> limma-voom </button> tool produces a lot of really helpful diagnostic plots if we tell it to, the core output of this tool is a tabular file of differentially expressed genes. This tabular format can allow us to filter the data in different ways and is very useful input for further downstream tools for visualization and analysis. 
 
@@ -243,10 +242,14 @@ To access this file, click on the **`limma on data...:DE tables`** object in you
 
 <img src="{{ page.root }}/fig/limma_voom_table.png" alt="first lines of limma-voom DE genes table">
 
+This output table should have the same number of data-containing rows as the total of the **`Differential Expression Counts`** table in the HTML report: 
+
+<img src="{{ page.root }}/fig/limma_DE_counts.png" alt="limma-voom differential expression counts">
+
 
 **The columns of the limma-voom table can be interpreted as below:** 
 
-| **Limma-voom output column**| **Explanation** | 
+| **Limma-voom output column** | **Explanation** | 
 | ENTREZID | NCBI Entrez ID for this differentially expressed gene | 
 | SYMBOL | Abbreviated gene name | 
 | GENENAME | Full gene name | 
@@ -257,13 +260,11 @@ To access this file, click on the **`limma on data...:DE tables`** object in you
 | adj.P.value | p-value adjusted for multiple testing | 
 | B | B-statistic is the log-odds that the gene is differentially expressed. For reference, a B-statistic of 0 corresponds to a 50-50 chance that the gene is differentially expressed. | 
 
-> ## How is this table sorted by default?
+
+> ## How is this tabular output sorted by default?
 > Scanning across the columns, we can see that the table appears to be by default sorted by the `adj.P.value` column. This means that the most significantly differentially expressed genes (after correcting for multing testing, see below) are at the top of the table.
 {: .solution} 
 
-This output table should have the same number of data-containing rows as the total of the **`Differential Expression Counts`** table in the HTML report: 
-
-<img src="{{ page.root }}/fig/limma_DE_counts.png" alt="limma-voom differential expression counts">
 
 > ## A note about deciding how many genes are significant
 > In order to decide which genes are differentially expressed, we usually take a cut-off (e.g. 0.05 or 0.01) on the adjusted p-value, NOT the raw p-value. This is because we are testing many thousands of genes in our experiment, and the chances of finding differentially expressed genes is very high when you do that many tests. Hence we need to control the false discovery rate, which is the adjusted p-value column in the results table. What this means is that, **if we choose an adjusted p-value cut-off of 0.05, and if 100 genes are significant at a 5% false discovery rate, we are willing to accept that 5 will be false positives.**
@@ -272,7 +273,9 @@ This output table should have the same number of data-containing rows as the tot
 
 ## Testing relative to a threshhold (TREAT) 
 
-When there is a lot of differential expression, sometimes we may want to cut-off on a fold change threshold, as well as a p-value threshold, so that we follow up on the most biologically significant genes. However, it is not recommended to simply rank by p-value and then discard genes with small logFC’s, as this has been shown to increase the false discovery rate. In other words, you are not controlling the false discovery rate at 5% any more. There is a function called `treat` in limma that performs this style of analysis correctly (McCarthy et al. 2009). TREAT will simply take a user-specified log fold change cut-off and recalculate the moderated t-statistics and p-values with the new information about logFC. There are thousands of genes differentially expressed in this `basalpregnant-basallactate` comparison, so let's rerun the analysis applying TREAT and similar thresholds to what was used in the Fu paper: **an adjusted P value of 0.01 (1% false discovery rate) and a log-fold-change cutoff of 0.58 (equivalent to a fold change of 1.5).**
+When you have a huge list of differentially expressed genes, sometimes we may want to set cut-offs so we can follow up on the most biologically relevant genes.However, it is not recommended to simply rank by p-value as this has been shown to increase the false discovery rate (i.e. a rate of . In other words, you are not controlling the false discovery rate at 5% any more. There is a function called `treat` in limma that performs this style of analysis correctly (McCarthy et al. 2009).
+<br/><br/>
+**TREAT** will simply take a user-specified log-fold change cut-off and recalculate modified t-statistics and p-values with the new information about logFC. There are thousands of genes differentially expressed in this `basalpregnant-basallactate` comparison, so let's rerun the analysis applying TREAT and similar thresholds to what was used in the Fu paper: **an adjusted P value of 0.01 (1% false discovery rate) and a log-fold-change cutoff of 0.58 (equivalent to a fold change of 1.5).**
 
 > ## Hands-on: Testing relative to a threshold (TREAT)
 >
@@ -284,14 +287,14 @@ When there is a lot of differential expression, sometimes we may want to cut-off
 > 2. Add a tag `#treat` to the `Report` output and inspect the report. 
 >
 {: .challenge}
+<br/><br/>
+
+We can see that many fewer genes are now highlighted in the volcano plot and identified as differentially expressed now that we have applied more stringent conditions for something to be considered differetially expressed:
 
 
-We can see that much fewer genes are now highlighted in the MD plot and identified as differentially expressed now that we have applied more stringent conditions for something to be considered differetially expressed:
+<img src="{{ page.root }}/fig/treat_volcano_plot.png" alt="limma-voom differential expression volcano plot after TREAT">
 
-
-<img src="{{ page.root }}/fig/treat_volcano_plot.png" alt="limma-voom differential expression counts">
-
-<img src="{{ page.root }}/fig/treat_DE_counts.png" alt="limma-voom differential expression counts">
+<img src="{{ page.root }}/fig/treat_DE_counts.png" alt="limma-voom DE counts summary after TREAT">
 
 
 
@@ -328,12 +331,11 @@ The limma-voom tool can also auto-generate stripcharts to view the expression of
 
 ## Conclusion
 
-In this tutorial we have seen how counts files can be converted into differentially expressed genes with limma-voom. This follows on from the accompanying tutorial, **RNA-seq reads to counts**, that showed how to generate counts from the raw reads (FASTQs) for this dataset. In this part we have seen ways to visualise the count data, and QC checks that can be performed to help assess the quality and results. We have also reproduced results similar to what the authors found in the original paper with this dataset. For further reading on analysis of RNA-seq count data and the methods used here, see the articles; *RNA-seq analysis is easy as 1-2-3 with limma, Glimma and edgeR*  and *From reads to genes to pathways: differential expression analysis of RNA-Seq experiments using Rsubread and the edgeR quasi-likelihood pipeline*.
+In this tutorial we have seen how counts files can be converted into differentially expressed genes with limma-voom. This follows on from the accompanying tutorial, **RNA-seq reads to counts**, that showed how to generate counts from the raw reads (FASTQs) for this dataset. In this part we have seen ways to visualise the count data, and QC checks that can be performed to help assess the quality and results. We have also reproduced results similar to what the authors found in the original paper with this dataset.
 
 ### Preview of next week: 
 
 **There are probably a couple things that you are left wondering or wish to improve, though**: 
-+ Can I compare multiple variables at once or make multiple comparisons? 
 + Can I make prettier, customized versions of some of these figures? 
 + Can we make inferences about whole functional categories of genes and their expression? 
 + Can some of this be done in a more automated way? 
