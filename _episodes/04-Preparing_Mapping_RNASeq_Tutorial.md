@@ -3,10 +3,13 @@ title: "Hands On: Quality Control and Mapping of RNA-Seq Data"
 exercises: 30
 objectives:
 - "Make use of Galaxy Collections for a tidy analysis"
-- "Generate interactive reports to summarise QC information from a collection of files with MultiQC"
+- "Generate reports summarizing QC information from a collection of files with MultiQC"
 - "Use a splice-aware aligner to map RNAseq data to a reference"
 keypoints:
-- "PLEASE EDIT ME"
+- In RNA-seq, reads (FASTQs) are mapped to a reference genome with a spliced aligner (e.g HISAT2, STAR).
+- The aligned reads (BAMs) can then be converted to counts.
+- Many QC steps can be performed to help check the quality of the data.
+- MultiQC can be used to create a nice summary report of QC information. 
 ---
 
 ## Introduction
@@ -72,13 +75,15 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 
 > ## Hands-On: FastQC + MultiQC 
 > 1. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> with the following parameters: 
-> 	* **Short Read Data from your current history**: `Input Data`.
+> 	* **Short Read Data from your current history**: `Your collection of Input Data`.
 >  
 > 2. Once that is done, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the following parameters: 
 > 	* **Which tool was used to generate logs?**: `FastQC`. 
 > 	* **Type of FASTQC output?** `Raw data`. 
 > 	* **FastQC output**: `RawData` files (output of FASTQC on trimmed reads).
 > 3. Add a tag `#fastqc-raw` to the `Webpage` output from MultiQC and inspect the webpage. 
+> 
+>
 {: .challenge} 
 
 > ## Did any of the samples fail any of the their QC checks?
@@ -90,6 +95,8 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 > 
 > This seems concerning, but not unexpected for RNAseq data, since, as we will see, there are some genes that are very highly expressed (and therefore present in those copies in our sequencing data). We will learn how to deal with widely varying expression levels during later steps of this tutorial.
 {: .solution} 
+
+## Trimming with CutAdapt
 
 Much like in the first week of class, we will use Cutadapt to trim the reads to remove the Illumina adapter and any low quality bases at the ends (quality score < 20). We will discard any sequences that are too short (< 20bp) after trimming. The Cutadapt tool Help section provides the sequence we can use to trim this standard Illumina adapter `AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC`, as given on the [Cutadapt website](https://cutadapt.readthedocs.io/en/stable/guide.html#illumina-truseq). For trimming paired-end data see the Cutadapt Help section. Other Illumina adapter sequences (e.g. Nextera) can be found at the [Illumina website](http://sapac.support.illumina.com/bulletins/2016/12/what-sequences-do-i-use-for-adapter-trimming.html). Note that Cutadapt requires at least three bases to match between adapter and read to reduce the number of falsely trimmed bases, which can be changed in the Cutadapt options if desired.
 
@@ -120,16 +127,16 @@ Much like in the first week of class, we will use Cutadapt to trim the reads to 
 > {: .output}
 > After trimming, very few reads were filtered for being too short or too low quality.
 {: .solution}
-
+<br/><br/>
 If you would like, you can run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> and <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> again now to confirm that the adaptors have been removed and that the reads are trimmed (check the sequence length distribution - the reads should no longer all be the same length!). Otherwise, we are ready to move on to the next step - mapping these trimmed reads to a reference genome and then counting up the number of reads per gene. 
 
 ## Mapping reads to the mouse reference genome
 
-Now that we have prepared our reads, we can align the reads for our 12 samples. There is an existing reference genome for mouse and we will map the reads to that. The current most widely used version of the mouse reference genome is `mm10/GRCm38` (although note that there is a new version `mm39` released June 2020). Here we will use [**HISAT2**](https://ccb.jhu.edu/software/hisat2/index.shtml) to align the reads. HISAT2 is the descendent of TopHat, one of the first widely-used aligners, but alternative mappers could be used, such as STAR. See the [RNA-seq ref-based tutorial]({{ site.baseurl }}/topics/transcriptomics/tutorials/ref-based/tutorial.html#mapping) for more information on RNA-seq mappers. There are often numerous mapping parameters that we can specify, but usually the default mapping parameters are fine. 
-
+Now that we have prepared our reads, we can align the reads for our 12 samples. There is an existing reference genome for mouse and we will map the reads to that. The current most widely used version of the mouse reference genome is `mm10/GRCm38` (although note that there is a new version `mm39` released June 2020). Here we will use [**HISAT2**](https://ccb.jhu.edu/software/hisat2/index.shtml) to align the reads. HISAT2 is the descendent of TopHat, one of the first widely-used aligners, but alternative mappers could be used, such as STAR. There are often numerous mapping parameters that we can specify, but usually the default mapping parameters are fine. 
+<br/><br/>
 
 However, library type (paired-end vs single-end) and library strandness (stranded vs unstranded) require some different settings when mapping and counting, so they are two important pieces of information to know about samples. The mouse data comprises unstranded, single-end reads so we will specify that where necessary. HISAT2 can output a mapping summary file that tells what proportion of reads mapped to the reference genome. Summary files for multiple samples can be summarised with MultiQC.
-
+<br/><br/>
 **Splice-Aware Mapping** 
 
 With eukaryotic transcriptomes most reads originate from processed mRNAs lacking introns:
@@ -137,7 +144,7 @@ With eukaryotic transcriptomes most reads originate from processed mRNAs lacking
 <img src="{{ page.root }}/fig/rna-seq-reads.png" alt="Diagram of eukaryotic transcripts">
 
 **Figure Legend**: The types of RNA-seq reads (adaption of the Figure 1a from Kim et al. 2015): reads that mapped entirely within an exon (in red), reads spanning over 2 exons (in blue), read spanning over more than 2 exons (in purple).
-
+<br/><br/>
 Therefore they cannot be simply mapped back to the genome as we normally do for DNA data. Spliced-awared mappers have been developed to efficiently map transcript-derived reads against a reference genome:
 
 <img src="{{ page.root }}/fig/splice_aware_alignment.png" alt="Splice aware alignment">

@@ -1,0 +1,5 @@
+SampleName	CellTypeStatus
+SRR1552452	basalpregnant
+SRR1552453	basalpregnant
+SRR1552450	basalvirgin
+SRR1552451	basalvirgin
