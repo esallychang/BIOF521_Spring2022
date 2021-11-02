@@ -236,9 +236,14 @@ The coverage of reads along gene bodies can be assessed to check if there is any
 >           - *"Which tool was used generate logs?"*: `RSeQC`. 
 >               - *"Type of RSeQC output?"*: `gene_body_coverage`. 
 >                   - *"RSeQC gene_body_coverage output"*: `Gene Body Coverage (BAM) (text)` (output of **Gene Body Coverage**). 
+> 			-  Use only flat plots: `Yes`.
 > 3. Inspect the `Webpage` output from MultiQC. 
 >
 {: .challenge}
+<br/><br/>
+The plot below from the RSeQC website shows what samples with 3’biased coverage would look like: 
+
+<img src="{{ page.root }}/fig/genebodycoverage.png" height="600" alt="Example of 3' biased gene coverage output">
 
 ### Read Distribution Across Features (exons, introns, intergenic...)
 
@@ -255,10 +260,14 @@ We can also check the distribution of reads across known gene features, such as 
 >           - *"Which tool was used generate logs?"*: `RSeQC`.
 >               - *"Type of RSeQC output?"*: `read_distribution`.
 >                   - *"RSeQC read_distribution output"*: `Read Distribution output` (output of **Read Distribution**). 
+> 		 - Use only flat plots: `Yes`.
 > 3. Inspect the `Webpage` output from MultiQC.
 >
 {: .challenge}
 
+<img src="{{ page.root }}/fig/rseqc_readdist.png" width="700" alt="Read distribution barplot from RSeQC">
+<br/><br/>
+It looks good, most of the reads have mapped to exons and not many to introns or intergenic regions.
 ## Conclusions 
 
 In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The next tutorial, **RNA-seq counts to genes**, shows how to perform differential expression and QC on the counts for this dataset. 
@@ -271,3 +280,4 @@ In this tutorial we have seen how reads (FASTQ files) can be converted into coun
 > * This is single-end data but paired-end mapped reads could be checked for fragment size (distance between the read pairs).
 > Anything else? 
 {: .solution}
+
