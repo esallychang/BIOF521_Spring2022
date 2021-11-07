@@ -75,7 +75,7 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 
 > ## Hands-On: FastQC + MultiQC 
 > 1. <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> FASTQC </button> with the following parameters: 
-> 	* **Short Read Data from your current history**: `Your collection of Input Data`.
+> 	* **Raw Read Data from your current history**: `Your collection of Input Data`.
 >  
 > 2. Once that is done, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the following parameters: 
 > 	* **Which tool was used to generate logs?**: `FastQC`. 
@@ -91,7 +91,7 @@ Next, run the <button type="button" class="btn btn-outline-tool" style="pointer-
 > 
 > <img src="{{ page.root }}/fig/MultiQC_CheckSummary.png" width="400" alt="MultiQC FastQC Checks Summary">
 > 
-> We can see that all four of our samples failed the `Sequence Duplication` and `Per Base Sequence Composition` checks
+> We can see that all four of our samples failed the `Sequence Duplication` and `Per Base Sequence Content` checks
 > 
 > This seems concerning, but not unexpected for RNAseq data, since, as we will see, there are some genes that are very highly expressed (and therefore present in those copies in our sequencing data). We will learn how to deal with widely varying expression levels during later steps of this tutorial.
 {: .solution} 

@@ -241,9 +241,12 @@ The coverage of reads along gene bodies can be assessed to check if there is any
 >
 {: .challenge}
 <br/><br/>
-The plot below from the RSeQC website shows what samples with 3’biased coverage would look like: 
+The plot below from the RSeQC website shows what samples with 3’biased coverage would look like. Compare this with the plot you got for our dataset, which is a good demonstration of what an un-biased plot would look like.  
 
 <img src="{{ page.root }}/fig/genebodycoverage.png" height="600" alt="Example of 3' biased gene coverage output">
+
+
+
 
 ### Read Distribution Across Features (exons, introns, intergenic...)
 
@@ -270,7 +273,7 @@ We can also check the distribution of reads across known gene features, such as 
 It looks good, most of the reads have mapped to exons and not many to introns or intergenic regions.
 ## Conclusions 
 
-In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The next tutorial, **RNA-seq counts to genes**, shows how to perform differential expression and QC on the counts for this dataset. 
+In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The [next tutorial](https://esallychang.github.io/BIOF521_Fall2021/06-RNASeq_Counts_to_Genes/index.html) shows how to perform differential expression and QC on the counts for this dataset. 
 
 > ## What other aspects of Quality Control could we look at for our RNAseq reads? 
 > The reads could be checked for:
