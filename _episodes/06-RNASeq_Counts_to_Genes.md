@@ -112,7 +112,6 @@ Since we are interested in differences between groups, we need to specify which 
 >          - *"Minimum Samples"*: `2`
 > 		- **Output Options**
 >          - *"Additional Plots"* selected:
->              - `Glimma Interactive Plots`
 >              - `Density Plots (if filtering)`
 >              - `CpmsVsCounts Plots (if filtering on cpms)`
 >              - `Box Plots (if normalising)`
