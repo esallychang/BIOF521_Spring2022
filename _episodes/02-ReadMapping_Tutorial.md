@@ -41,7 +41,7 @@ Read mapping has a few distinctive steps:
 Because making sure our reads are high-quality is important but not the focus of this analysis, we are going to be using a program called **Fastp** that does the quality report generation as well as the trimming+filtering steps. More information can be found on the Fastp website: `https://github.com/OpenGene/fastp`.  From the steps below, you can see that **Fastp** does pretty much the same operations as **CutAdapt** did last week!
 
 **Fastp does the following to our data** : 
-- Filter out bad reads (too low quality, too short, etc.). The default sequence quality filter for **Fastp** is a Phred score of 30. Check back in your slides to see what base-calling accuracy this corresponds to! 
+- Filter out bad reads (too low quality, too short, etc.). The default sequence quality filter for **Fastp** is a Phred score of 15. Check back in your slides to see what base-calling accuracy this corresponds to! 
 - Cut low quality bases for per read from their 5' and 3' ends
 - Cut adapters. Adapter sequences can be automatically detected, which means you don't have to input the adapter sequences to trim them.
 - Correct mismatched base pairs in overlapped regions of paired end reads, if one base is with high quality while the other is with ultra-low quality
@@ -86,7 +86,7 @@ For example, what percentage of the reads from `SRR11954102` passed all of the f
 Of the 10% of reads that were filtered from the data set `SRR11955102`, why were most of them filtered? 
 
 > ## Solution 
-> It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality (average Phred score < 32). 
+> It looks like most of the reads that ended up getting removed from either data set were removed were removed because they were too low quality. 
 > We can tell this by looking again at the `Filtering Result` section, and seeing that about 9.2% out of the roughly 10% of the reads removed were removed as `Reads with low quality`. 
 {: .solution}
 
@@ -98,7 +98,7 @@ What are some of the main things we can learn from this plot of the quality of t
 > A few of the things that I noticed are as follows.
 > + The reads are about 100bp long (see Position x-axis).
 > + The quality of the reads declines along their lengths, similar to the patterns described in the "Read Quality" lecture. 
-> + Some bases towards the end of the read are lower than the cutoff quality score (Phred > 32), especially for the any bases called as a G. 
+> + Some bases towards the end of the read are lower than the cutoff quality score, especially for the any bases called as a G. 
 > + What else do you notice? 
 {: .solution}
 
@@ -110,7 +110,7 @@ What are some of the main things we can learn from this plot of the quality of t
 > A few of the things that I noticed are: 
 > + The reads are still about 100bp long (see Position x-axis).
 > + The quality of the reads still declines along their lengths.
-> + However, all bases along the length of the read are now over the `Phred > 32` read-quality cutoff. 
+> + However, there is much less variation in quality along the read length. 
 > + What else do you notice? 
 {: .solution}
 
