@@ -1,0 +1,81 @@
+---
+source: Rmd
+title: "Hands On: Performing Enrichment Analysis on Differentially Expressed Genes" 
+exercises: 45
+objectives:
+- Gain functional insight from a list of differetially expressed genes
+- Perform a GO enrichment analysis
+- Simplify the results of the GO enrichment analysis
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("09-")
+```
+
+## Introduction to GO Term Enrichment Analysis
+
+When we have a large list of genes of interest, such as a list of differentially expressed genes obtained from an RNA-Seq experiment, how do we extract biological meaning from it?
+
+One way to do so is to perform functional enrichment analysis. This method consists of applying statistical tests to verify if genes of interest are more often associated to certain biological functions than what would be expected in a random set of genes. In this tutorial you will learn about enrichment analysis and how to perform it.
+
+## What is the Gene Ontology?
+
+The Gene Ontology (GO) is a structured, controlled vocabulary for the classification of gene function at the molecular and cellular level. It is divided in three separate sub-ontologies or GO types: biological process (e.g., signal transduction), molecular function (e.g., ATPase activity) and cellular component (e.g., ribosome). These sub-ontologies are structured as directed acyclic graphs (a hierarchy with multi-parenting) of GO terms.
+
+This week, we are going to focus on the **Biological Function** GO type. Here is an example of the hierarchy that would get you from a relatively specific biological processs, **`negative regulation of programmed cell death`** all the way back up to the general **`biological_process`** term. You can see that terms can be related to one another by a variety of different relationships, such as **Positive or negative regulation** or being **Part of** another term.
+
+![Example GO term hierarchy and list of relationships](images/GO_0043069_goAncestry.png){width="749"}
+
+## What actually happens when we perform functional enrichment?
+
+### First, we gather the data we need:
+
+-   A set of genes of interest (e.g., differentially expressed genes): Our differentially expressed genes
+
+-   A set with all the genes to consider in the analysis: population set (which must contain the study set): In this case, all genes in the mouse genome
+
+-   GO annotations, associating the genes in the population set to GO terms
+
+-   The GO ontology, with the description of GO terms and their relationships
+
+### Then, we plan calculate enrichment values:
+
+For each GO term, we need to count the frequency (k) of genes in the study set (n) that are associated to the term, and the frequency (K) of genes in the population set (N) that are associated to the same term. Then we test how likely would it be to obtain at least k genes associated to the term if n genes would be randomly sampled from the population, given the frequency K and size N of the population. **That is, how unlikely is it that a particular GO Term would occur so frequently in our sample of differentially expressed genes just by chance, compared to the background.**
+
+**The appropriate statistical test is the one-tailed variant of Fisher's exact test, also known as the hypergeometric test for over-representation.** When the one-tailed version is applied, this test will compute the probability of observing at least the sample frequency, given the population frequency. The hypergeometric distribution measures precisely the probability of k successes in n draws, without replacement, from a finite population of size N that contains exactly K successful objects:
+
+![Formula for hypergeometric formula assuming variable names as above](images/goenrichment_formula.png)
+
+## Hands-On: Conducting a GO Term Enrichment Analysis
+
+We already have our `pregnant_lactate_limma` object loaded into RStudio, so we aleady have all of the information from our DE analysis that we need. We need to re-arrange this data a bit so it is in a `named vector` of just the `Log fold change`, each value named after its corresponding `EntrezID` and sorted in decreasing order by the fold change as required by the **`clusterProfiler`** package we will be using.
+
+Luckily this only takes a few steps:
+
+```{r eval=FALSE}
+# we want the log2 fold change stored as a vector
+original_gene_list <- pregnant_lactate_limma$logFC
+
+# name the vector with the EntrezIDs
+names(original_gene_list) <-pregnant_lactate_limma$ENTREZID
+
+# omit any NA values (here shouldn't be any missing values for either variable, but this is always a good thing to check.) 
+gene_list<-na.omit(original_gene_list)
+
+# sort the list in decreasing order (required for clusterProfiler)
+gene_list = sort(gene_list, decreasing = TRUE)
+```
+
+You should now have a named vector called `gene_list` in your environment. 
+
+> ## How many items are in the `gene_list` object? What do each of them represent? 
+> `14187 items`. Each of these represent 
+> You can look at the `gene_list` item under **Values** in your **Environment Pane** to find this information.
+> Alternatively, you can run either of the following commands to get the same information.
+> 
+> ``` {r eval=FALSE}
+> length(gene_list)
+> str(gene_list)
+> ```
+{: .solution}
