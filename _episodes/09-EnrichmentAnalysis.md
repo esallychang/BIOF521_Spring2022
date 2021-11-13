@@ -108,7 +108,7 @@ You should now have a named vector called `gene_list` in your environment.
 > ~~~
 > {: .output}
 >
-> {: .solution}
+{: .solution}
 
 ### Loading mouse genome GO annotations
 
@@ -292,7 +292,8 @@ There is a lot going on in the `pregnant_lactate_gsea_BP` data frame we just ext
 > ~~~
 > {: .output}
 >
-> This means (hah) that there are on average about 108 genes that were annotated with each GO term. {: .solution}
+> This means (hah) that there are on average about 108 genes that were annotated with each GO term.
+{: .solution}
 
 ### Lists of genes per GO Term
 
