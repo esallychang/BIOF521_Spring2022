@@ -131,7 +131,7 @@ You should now have a named vector called `gene_list` in your environment.
 
 I'm using data generated from differential expression in mice, so I install and load the annotation "org.Mm.eg.db" below, which contains all of the GO terms available for genes in the mouse genome. If you want to work on a different organism, there are ready-to-go GO annotation sets for 19 of the most commonly used model organisms. Look up the code for your particular organism here: <http://bioconductor.org/packages/release/BiocViews.html#___OrgDb>
 
-**Because of the large file size, I have already installed the mouse GO annotation package for you using the commands below:**
+**Because of the large file size, I have already installed the mouse GO annotation package for you using the commands below. You do NOT need to run this:**
 
 
 ~~~
@@ -142,10 +142,12 @@ BiocManager::install(organism, character.only = TRUE)
 ~~~
 {: .language-r}
 
-**You just need to run the following command to load the annotation package into your environment**
+**You DO just need to run the following command to load the annotation package into your environment**
 
 
 ~~~
+#You will likely get a bunch of text as this loads, but it can be safely ignored 
+organism = "org.Mm.eg.db"
 library(organism, character.only = TRUE)
 ~~~
 {: .language-r}
