@@ -283,7 +283,7 @@ There is a lot going on in the `pregnant_lactate_gsea_BP` data frame we just ext
 > ~~~
 > mean(pregnant_lactate_gsea_BP$setSize)
 > ~~~
-> {: .language-r}
+> {: .source}
 > 
 > 
 > 
