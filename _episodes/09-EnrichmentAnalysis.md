@@ -1,16 +1,33 @@
 ---
 source: Rmd
 title: "Hands On: Performing Enrichment Analysis on Differentially Expressed Genes" 
-exercises: 45
+exercises: 60
 objectives:
 - Gain functional insight from a list of differetially expressed genes
 - Perform a GO enrichment analysis
 - Simplify the results of the GO enrichment analysis
 ---
 
+## Preparing the environment
 
+**Load required packages:** These packages should already be installed in your environment, and some of them may already be loaded from previous tutorials. Still, we assume that all of these are in your environment to complete this tutorial: 
 
+~~~
+library(ggplot2) #graphics
+library(clusterProfiler) #package that does most of the actual GO term analyses
+library(enrichplot) #graphics for GO term enrichment
+library(ggridges) #graphics
+library(ggnewscale) #graphics
+library(europepmc) #lets us query the PMC publication database
+~~~
+{: .language-r}
 
+**Load data file**: You should already have the `pregnant_lactate_limma` data frame in your environment, but if not: 
+
+~~~
+pregnant_lactate_limma <- read.csv("limma-voom_basalpregnant-basallactate.csv",header=TRUE)
+~~~
+{: .language-r}
 
 ## Introduction to GO Term Enrichment Analysis
 
@@ -24,7 +41,7 @@ The Gene Ontology (GO) is a structured, controlled vocabulary for the classifica
 
 This week, we are going to focus on the **Biological Function** GO type. Here is an example of the hierarchy that would get you from a relatively specific biological processs, **`negative regulation of programmed cell death`** all the way back up to the general **`biological_process`** term. You can see that terms can be related to one another by a variety of different relationships, such as **Positive or negative regulation** or being **Part of** another term.
 
-![Example GO term hierarchy and list of relationships](../fig/GO_0043069_goAncestry.png){width="749"}
+<img src="{{ page.root }}/fig/GO_0043069_goAncestry.png" width="750" alt="Example GO term hierarchy and list of relationships">
 
 ## What actually happens when we perform functional enrichment?
 
@@ -535,8 +552,4 @@ Ridgeline plots help combine our information about our significantly enriched GO
 ~~~
 ridgeplot(gse1)
 ~~~
-{: .language-r}
-
-
-![Example ridgeline plot](../fig/Ridgeline_Plot_Example.png)
-*The 
+{: .language-r} 
