@@ -10,7 +10,7 @@ objectives:
 
 ## Preparing the environment
 
-**Load required packages:** These packages should already be installed in your environment, and some of them may already be loaded from previous tutorials. Still, we assume that all of these are in your environment to complete this tutorial: 
+1. **Load required packages:** These packages should already be installed in your environment, and some of them may already be loaded from previous tutorials. Still, we assume that all of these are in your environment to complete this tutorial: 
 
 ~~~
 library(ggplot2) #graphics
@@ -21,14 +21,18 @@ library(ggnewscale) #graphics
 library(europepmc) #lets us query the PMC publication database
 ~~~
 {: .language-r}
-
-**Load data file**: You should already have the `pregnant_lactate_limma` data frame in your environment, but if not: 
+<br/><br/>
+2. **Load data file**: You should already have the `pregnant_lactate_limma` data frame in your environment, but if not: 
 
 ~~~
 pregnant_lactate_limma <- read.csv("limma-voom_basalpregnant-basallactate.csv",header=TRUE)
 ~~~
 {: .language-r}
+<br/><br/>
+3. **Allocate more RAM and CPUS to this project**: Running the GO enrichment step itself is very memory intensive. For this portion of the tutorial, double check that your Allocation Settings look like the following and if not, adjust your settings to match the following in order to change the amount of RAM to 4GB and number of CPUs to 2: 
 
+<img src="{{ page.root }}/fig/Rstudio_Cloud_Allocation.png" alt="RStudio Cloud allocation menu">
+<br/><br/>
 ## Introduction to GO Term Enrichment Analysis
 
 When we have a large list of genes of interest, such as a list of differentially expressed genes obtained from an RNA-Seq experiment, how do we extract biological meaning from it?
