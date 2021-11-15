@@ -960,6 +960,17 @@ write.csv(virgin_pregnant_sample_filt,"virgin_pregnant_sample_filt.csv")
 ```
 <br/><br/>
 The write.csv() function has some additional arguments listed in the help, but at a minimum you need to tell it what data frame to write to file, and give a path to a file name in quotes (if you only provide a file name, the file will be written in the current working directory). As always, you can use the `help()` function to find out all about those other parameters!
+<br/><br/>
+
+You can then export the CSV from your RStudio Cloud environment to your local computer by checking the file you want to download: 
+
+<img src="{{ page.root }}/fig/RStudio_Cloud_Export1.png" alt="First steps of downloading from Rstudio Cloud">
+<br/><br/>
+
+Then, you will be prompted with options for what to name the file on your local computer: 
+
+<img src="{{ page.root }}/fig/RStudio_Cloud_Export2.png" alt="First steps of downloading from Rstudio Cloud">
+
 
 ## Brief Introduction to the `dplyr` package
 
@@ -996,4 +1007,10 @@ is then "piped" into the next step. You can use the pipe to rewrite
 multiple operations that you can read left-to-right, top-to-bottom
 (reading the pipe operator as "then").
 
+Here are some resources to help you get started if you think you'll be
+analyzing big dataframes in the future!
 
+-   **Official Dplyr Vignette**:
+    <https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html>
+-   **Main Dplyr and Tidyverse Website**:
+    <https://dplyr.tidyverse.org/index.html>
