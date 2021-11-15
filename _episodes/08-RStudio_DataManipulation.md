@@ -950,3 +950,40 @@ virg_preg_overlap <- virgin_pregnant_sample_filt[virgin_pregnant_sample_filt$ENT
 3. Either way, you should find that these datasets share **81** genes. 
 {: .solution}
 <br/><br/>
+
+## Brief Introduction to the `dplyr` package
+
+> ## Note
+> This material is definitely outside the scope of the course - I just wanted to make you aware that this really useful package exists! However if you are already familiar with this package, feel free to use it to help you complete this assignment or your final project!
+> 
+{: .callout} 
+<br/><br/>
+When you manipulate more complicated data sets, you may want to make use
+of the dplyr() package eventually. It streamlines a lot of the selecting
+and filtering steps and lets you chain together lots of commands to
+modify and manipulate big data frames. 
+<br/><br/>
+According to the main tutorial for `dplyr`, it aims to provide a
+function for each basic verb of data manipulation. These verbs can be
+organised into three categories based on the component of the dataset
+that they work with:
+<br/><br/>
+**Rows**: 
+* `filter()` chooses rows based on column values. 
+* `slice()` chooses rows based on location. 
+* `arrange()` changes the order of the rows.
+
+**Columns:** 
+* `select()` changes whether or not a column is included.
+* `rename()` changes the name of columns. 
+* `mutate()` changes the values of columns and creates new columns.
+
+**The Pipe Operator** All of the dplyr functions take a data frame (or
+tibble) as the first argument. Rather than forcing the user to either
+save intermediate objects or nest functions, dplyr provides the `%>%`
+operator. `x %>% f(y)` turns into `f(x, y)` so the result from one step
+is then "piped" into the next step. You can use the pipe to rewrite
+multiple operations that you can read left-to-right, top-to-bottom
+(reading the pipe operator as "then").
+
+
