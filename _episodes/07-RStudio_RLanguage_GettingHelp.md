@@ -613,7 +613,9 @@ Different functions might have different sections, but these are the main ones y
 
 > ## Tip: Running Examples
 >
-> From within the function help page, you can highlight code in the Examples and hit <kbd>Ctrl</kbd>+<kbd>Return</kbd> to run it in RStudio console. This is gives you a quick way to get a feel for how a function works. {: .callout}
+> From within the function help page, you can highlight code in the Examples and hit <kbd>Ctrl</kbd>+<kbd>Return</kbd> to run it in RStudio console. This is gives you a quick way to get a feel for how a function works. 
+{: .callout}
+
 
 > ## Tip: Reading help files
 >
