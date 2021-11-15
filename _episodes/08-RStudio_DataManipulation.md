@@ -951,6 +951,16 @@ virg_preg_overlap <- virgin_pregnant_sample_filt[virgin_pregnant_sample_filt$ENT
 {: .solution}
 <br/><br/>
 
+## Saving your data to a file
+
+We can save data to a file. We will save our `virgin_pregnant_sample_filt`  object to a .csv file using the write.csv() function:
+<br/><br/>
+```r
+write.csv(virgin_pregnant_sample_filt,"virgin_pregnant_sample_filt.csv")
+```
+<br/><br/>
+The write.csv() function has some additional arguments listed in the help, but at a minimum you need to tell it what data frame to write to file, and give a path to a file name in quotes (if you only provide a file name, the file will be written in the current working directory). As always, you can use the `help()` function to find out all about those other parameters!
+
 ## Brief Introduction to the `dplyr` package
 
 > ## Note
