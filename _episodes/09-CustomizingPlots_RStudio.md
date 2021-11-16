@@ -21,7 +21,7 @@ In this tutorial, we are first going to ease into creating figures in R by doing
 * Customize elements of the script to customize what the plot looks like 
 * Create a heatmap from scratch using our own script instead of one from Galaxy
 
-## Customizing a Heatmap Originally created on Galaxy 
+## Customizing a Volcano Plot Originally created on Galaxy 
 
 ### Creating the plot on Galaxy 
 
