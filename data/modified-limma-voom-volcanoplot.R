@@ -9,7 +9,7 @@ suppressPackageStartupMessages({
 
 # Import data  ------------------------------------------------------------
 
-results <- read.csv("pregnant_lactate_sample.csv", sep="\t")
+results <- read.csv("limma-voom_basalpregnant-basallactate.csv")
 
 
 # Format data  ------------------------------------------------------------
