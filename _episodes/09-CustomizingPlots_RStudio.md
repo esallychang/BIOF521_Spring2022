@@ -175,7 +175,7 @@ install.packages("gplots")
 library(gplots)
 ```
 <br/><br/>
-Download this file normalized counts file onto your computer and upload it to RStudio Cloud: [Basal Normalized Counts](../data/limma-voom_normalised_counts.csv). Read it into your environment, and make sure it is the dimensions we expect (9 columns, 15804 observations, and a header). This represents the normalized count values for all of the genes that were differetially expressed in a multiway comparison between all basal AND lactate samples in the original publication.
+Download this file normalized counts file onto your computer and upload it to RStudio Cloud: [Basal Normalized Counts](../data/limma-voom_basal_normalised_counts.csv). Read it into your environment, and make sure it is the dimensions we expect (9 columns, 15804 observations, and a header). This represents the normalized count values for all of the genes that were differetially expressed in a multiway comparison between all basal AND lactate samples in the original publication.
 
 ```r
 norm_counts <- read.csv("limma-voom_basal_normalised_counts.csv")
