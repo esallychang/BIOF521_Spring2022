@@ -845,18 +845,11 @@ a vector of the genes that have in common:
 overlap <- intersect(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt$ENTREZID)
 ```
 
-```
-## Error in as.vector(y): object 'virgin_pregnant_sample_filt' not found
-```
-
 ```r
 ## Let's see how big the overlap is 
 length(overlap) #They share 10 differentially expressed genes
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'overlap' not found
-```
 <br/><br/>
 We can also perform other set operations, such as `union()`, which
 creates a list of all elements in either list, and `setdiff()` which
@@ -869,7 +862,7 @@ length(union(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt$E
 ```
 
 ```
-## Error in as.vector(y): object 'virgin_pregnant_sample_filt' not found
+612
 ```
 
 ```r
@@ -878,7 +871,7 @@ length(setdiff(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt
 ```
 
 ```
-## Error in as.vector(y): object 'virgin_pregnant_sample_filt' not found
+343
 ```
 
 ```r
@@ -886,7 +879,7 @@ length(setdiff(virgin_pregnant_sample_filt$ENTREZID,pregnant_lactate_sample_filt
 ```
 
 ```
-## Error in as.vector(x): object 'virgin_pregnant_sample_filt' not found
+259
 ```
 <br/><br/>
 Now, let's say that we want to not only get the list of the overlap
@@ -901,35 +894,27 @@ We can do this with the `%in%` operator:
 preg_lac_overlap <- pregnant_lactate_sample_filt[pregnant_lactate_sample_filt$ENTREZID %in% overlap,]
 ```
 
-```
-## Error in pregnant_lactate_sample_filt$ENTREZID %in% overlap: object 'overlap' not found
-```
-
 ```r
 summary(preg_lac_overlap)
 ```
 
-```
-## Error in summary(preg_lac_overlap): object 'preg_lac_overlap' not found
-```
+~~~
+    ENTREZID         SYMBOL            GENENAME             logFC            AveExpr              t              P.Value            adj.P.Val               B           Min.   : 11876   Length:10          Length:10          Min.   :-1.2067   Min.   :-0.3013   Min.   :-5.6353   Min.   :4.120e-06   Min.   :0.0001169   Min.   :-3.3065   1st Qu.: 18319   Class :character   Class :character   1st Qu.:-0.7568   1st Qu.: 2.0955   1st Qu.:-4.6688   1st Qu.:1.471e-04   1st Qu.:0.0013582   1st Qu.:-1.2083   Median : 45659   Mode  :character   Mode  :character   Median :-0.5120   Median : 6.0652   Median :-2.8886   Median :2.733e-04   Median :0.0021566   Median : 0.2079   Mean   : 62697                                         Mean   : 0.1211   Mean   : 4.6200   Mean   :-0.2551   Mean   :2.810e-03   Mean   :0.0093064   Mean   :-0.1237   3rd Qu.: 74532                                         3rd Qu.: 0.6420   3rd Qu.: 7.0605   3rd Qu.: 5.1101   3rd Qu.:8.213e-04   3rd Qu.:0.0047824   3rd Qu.: 0.8261   Max.   :216344                                         Max.   : 3.6718   Max.   : 7.8557   Max.   : 7.4384   Max.   :1.654e-02   Max.   :0.0460253   Max.   : 4.2625 
+~~~
+{: .output}
 
 ```r
 # select the rows in the virgin_pregnant_sample_filt data frame that correspond to those 10 shared genes
 virg_preg_overlap <- virgin_pregnant_sample_filt[virgin_pregnant_sample_filt$ENTREZID %in% overlap,]
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'virgin_pregnant_sample_filt' not found
-```
-
 ```r
 summary(virg_preg_overlap)
 ```
 
-```
-## Error in summary(virg_preg_overlap): object 'virg_preg_overlap' not found
-```
-<br/><br/>
+~~~
+   ENTREZID         SYMBOL            GENENAME             logFC            AveExpr              t              P.Value            adj.P.Val               B           Min.   : 11876   Length:10          Length:10          Min.   :-3.4570   Min.   :-0.1198   Min.   :-11.463   Min.   :6.930e-07   Min.   :0.0001149   Min.   :-3.8060   1st Qu.: 18319   Class :character   Class :character   1st Qu.:-0.7905   1st Qu.: 2.1271   1st Qu.: -5.754   1st Qu.:8.456e-05   1st Qu.:0.0018655   1st Qu.:-2.5916   Median : 45659   Mode  :character   Mode  :character   Median :-0.5476   Median : 5.8256   Median : -3.645   Median :3.175e-03   Median :0.0187619   Median :-1.9078   Mean   : 62697                                         Mean   :-0.2973   Mean   : 4.6078   Mean   : -1.841   Mean   :3.519e-03   Mean   :0.0171176   Mean   :-0.3502   3rd Qu.: 74532                                         3rd Qu.: 0.6974   3rd Qu.: 6.8064   3rd Qu.:  3.580   3rd Qu.:4.714e-03   3rd Qu.:0.0247230   3rd Qu.: 1.8479   Max.   :216344                                         Max.   : 2.5778   Max.   : 7.2700   Max.   :  6.823   Max.   :1.320e-02   Max.   :0.0499212   Max.   : 6.5962  ~~~
+{: .output}<br/><br/>
 You can also cut out the step of creating the `overlap` vector by
 telling the %in% operator to compare the two columns of data directly,
 using a command like the one below:
