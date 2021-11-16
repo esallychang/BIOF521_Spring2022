@@ -559,4 +559,59 @@ Ridgeline plots help combine our information about our significantly enriched GO
 ridgeplot(gse1)
 ~~~
 {: .language-r} 
+
+![Ridgeline plot with default settings](../fig/default_ridgeplot.png)
+*Ridgeline plot of our top enriched GO Terms, displaying the distribution of log(2)fold changes of genes within a GO term. We can see for example, that `leukocyte mediate immunity` has a particular long tail of high fold-change genes.*
+
+### PubMed trend of enriched terms
+
+For fun, we can create one last plot that lets us explore whether or not your top most interesting enriched terms are also being studied by the scientific community as a whole. We will plots the number/proportion of publications trend based on the query result from PubMed Central for the Top 5 genes over the past two decades. **This step may take a few minutes because the function actually needs to query the PubMed database and return the results to Rstudio.**
+
+~~~
+terms <- gse1$Description[1:5] # Selecting first five GO terms
+pmcplot(terms, 2000:2020, proportion=FALSE) #Making plot based on raw number instead of proportion, since proportions of any one GO term will be quite low. 
+~~~
+{: .language-r} 
+
+![PMC plot over 20 years for top 5 GO terms](../fig/PMC_20year_top5.png)
+*Plot of the number of publications reference each of our Top 5 GO terms over the past 20 years.*
+
+> ## Challenge
 > 
+> 1. What commands would allow us to look at just the top 3 genes over 1990-2000? 
+> 
+> 2. What are some observations from the plot above?
+> 
+> > ## Solutions
+> > 1. You could use the commands: 
+> > ```r
+> > terms <- gse1$Description[1:3] # Selecting first three GO terms
+> > pmcplot(terms, 1990:2000, proportion=FALSE)
+> > ```
+> > 2. Some possibilities: 
+> > 
+> > * `Nuclear division` has been the most "popular" of these terms over the whole time frame.
+> > 
+> > * Besides `sister chromatid segregation` there is an obvious increase in all of these terms. 
+> > 
+> > * `rRNA processing`increased faster and eventually overtook `mitotic cell cycle` within the last 5-10 years or so. 
+> {: .solution}
+{: .challenge}
+
+## Other enrichment analyses: 
+
+GO terms are not the only gene annotations that we can perform enrichment analyses for. In general, each type of enrichment analysis will involve the following: 
+
+* Identifying genes of interest based on differential expression etc. 
+* Annotating these genes with GO terms or other forms of annotation
+* Based on the list of these genes and their GO terms, perform enrichment to see how unusual it is to have this many genes with this GO term in your target data set
+* Visualize these enrichment results in a variety of ways.
+
+**Here are some other types of annotations you can do:**
+* Disease Ontology Terms, such as those from [DisGeNET](https://www.disgenet.org/).
+* MeSH medical subject headings [NCBI MeSH page](https://www.nlm.nih.gov/mesh/meshhome.html)
+* The Kyoto Encyclopedia of Genes and Genomes pathways [KEGG](https://www.genome.jp/kegg/pathway.html) 
+
+The overarching tutorial page for the clusterProfiler() and related packages is a very great starting point for investigating these other types of analyses, and this page can be found [right here](https://yulab-smu.top/biomedical-knowledge-mining-book/clusterprofiler-go.html)!
+
+
