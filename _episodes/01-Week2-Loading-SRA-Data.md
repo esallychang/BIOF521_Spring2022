@@ -30,7 +30,7 @@ The data availability statement can be found in the acknowledgements section of 
   <img src="{{ page.root }}/fig/Lemieux_Data_Statement.png" alt="Data availability statement from Lemieux et al. 2020" />
 </a>
 
-As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622837`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects][bioproject] on its webpage, but their general structure can be summarized below: 
+As you can see, we now know we can find sequencing data related to this study under `BioProject PRJNA622837`. As defined by the NCBI, a BioProject is "a collection of biological data related to a single initiative, originating from a single organization or from a consortium", so they generally contain multiple sequencing data sets. The NCBI has much a much more [in-depth description of BioProjects](https://www.ncbi.nlm.nih.gov/books/NBK169438/) on its webpage, but their general structure can be summarized below: 
 
 <img src="{{ page.root }}/fig/Bioproject_Structure.png" alt="Schematic of an NCBI BioProject">
 
@@ -146,7 +146,7 @@ So, now we have a file that contains just the two accession numbers for the sequ
 > {: .solution}
 {: .challenge}
 
-`Pair-end data (fasterq-dump)`, `Single-end data (fasterq-dump)` and `Other data (fasterq-dump)` are actually collections of datasets. Collections in Galaxy are logical groupings of datasets that reflect the semantic relationships between them in the experiment / analysis. In this case the tool creates separate collections for paired-end reads, single reads, and other (any other type of file). See the [Galaxy Collections tutorial][collections-tutorial] and watch [Galaxy tutorial videos][galaxy-videos] (with names beginning with “Dataset Collections”) for more information.
+`Pair-end data (fasterq-dump)`, `Single-end data (fasterq-dump)` and `Other data (fasterq-dump)` are actually collections of datasets. Collections in Galaxy are logical groupings of datasets that reflect the semantic relationships between them in the experiment / analysis. In this case the tool creates separate collections for paired-end reads, single reads, and other (any other type of file). See the [Galaxy Collections tutorial](https://training.galaxyproject.org/training-material/topics/galaxy-interface/tutorials/collections/tutorial.html) and watch [Galaxy tutorial videos](https://www.youtube.com/playlist?list=PLNFLKDpdM3B9UaxWEXgziHXO3k-003FzE) (with names beginning with “Dataset Collections”) for more information.
 
 Explore the collections by first clicking on the collection name in the history panel. This takes you inside the collection and shows you the datasets in it. You can then navigate back to the outer level of your history.
 
@@ -157,10 +157,10 @@ Once `fasterq` finishes transferring data (all boxes are green / done), we are r
 > 
 > 1. Navigate to `https://usegalaxy.org/u/faes.biof521/h/biof521sp22week2tutorialfiles` (the URL will depend on the exact history you are trying to import). 
 > 2. In the top right-hand corner, click the big **"+"** button for the option to import this history into your Galaxy account. 
-> <img src="{{ page.root }}/fig/History_Import_TopCorner.png" alt="History Import Button in Top Corner">
+> <img src="{{ page.root }}/fig/History_Import_TopCorner.png" alt="History Import Button in Top Corner" width="400" height="200">
 > 3. Once that is done (it should just take a few moments), Galaxy will automatically take you back to your home screen, with the imported history now active. 
 > 4. Now you can go to the `View All Histories` option, and you should see this history side by side with your older histories. 
-> <img src="{{ page.root }}/fig/ViewAllHistories.png" alt="The View All Histories Option on Galaxy">
+> <img src="{{ page.root }}/fig/ViewAllHistories.png" alt="The View All Histories Option on Galaxy"  width="400">
 > 5. Drag and drop only the files that you need (in this case, probably just the `paired-end` collection into the history you set up for this tutorial. 
 > 6. Once you are done with that, make sure to click the **Switch To** tab above your Week 2 Tutorial history to make that one active before pressing the **Home** icon on the top bar to return to your usual Galaxy view.
 {: .solution}
