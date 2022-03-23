@@ -152,6 +152,19 @@ Explore the collections by first clicking on the collection name in the history 
 
 Once `fasterq` finishes transferring data (all boxes are green / done), we are ready to analyze it.
 
+> ## SRA Upload Workaround: Getting data from a Galaxy History
+> When to use this tool: If you have waited for more than 12 hours for these FASTQ files to successfully load into your Galaxy history using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> tool , you can transfer these files from an existing history I set up for this week. 
+> 1. Navigate to `https://usegalaxy.org/u/faes.biof521/h/biof521sp22week2tutorialfiles` (the URL will depend on the exact history you are trying to import). 
+> 2. In the top right-hand corner, click the big **"+"** button for the option to import this history into your Galaxy account. 
+> <img src="{{ page.root }}/fig/History_Import_TopCorner.png" alt="History Import Button in Top Corner">
+> 3. Once that is done (it should just take a few moments), Galaxy will automatically take you back to your home screen, with the imported history now active. 
+> 4. Now you can go to the `View All Histories` option, and you should see this history side by side with your older histories. 
+> <img src="{{ page.root }}/fig/ViewAllHistories.png" alt="The View All Histories Option on Galaxy">
+> 5. Drag and drop only the files that you need (in this case, probably just the `paired-end` collection into the history you set up for this tutorial. 
+> 6. Once you are done with that, make sure to click the **Switch To** tab above your Week 2 Tutorial history to make that one active before pressing the **Home** icon on the top bar to return to your usual Galaxy view.
+{: .solution}
+
+
 ## What does our paired-end data actually look like?  
 
 It is common to prepare pair-end and mate-pair sequencing libraries. This is highly beneficial for a number of applications discussed, such as those discussed in Week 2's **Genome Assembly** module. For now let’s just briefly discuss what these are and how they manifest themselves in FASTQ form.

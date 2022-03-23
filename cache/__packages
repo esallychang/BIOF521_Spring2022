@@ -1,0 +1,10 @@
+knitr
+clusterProfiler
+enrichplot
+ggplot2
+BiocGenerics
+Biobase
+S4Vectors
+IRanges
+AnnotationDbi
+org.Mm.eg.db
