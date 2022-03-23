@@ -11,5 +11,4 @@ URL: {{ URL }}
 BugReports: {{ BugReports }}
 Encoding: UTF-8
 Imports: 
-    RSQLite,
-    sass
+    RSQLite

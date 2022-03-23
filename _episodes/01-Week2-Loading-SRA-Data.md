@@ -153,7 +153,8 @@ Explore the collections by first clicking on the collection name in the history 
 Once `fasterq` finishes transferring data (all boxes are green / done), we are ready to analyze it.
 
 > ## SRA Upload Workaround: Getting data from a Galaxy History
-> When to use this tool: If you have waited for more than 12 hours for these FASTQ files to successfully load into your Galaxy history using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> tool , you can transfer these files from an existing history I set up for this week. 
+> **When to use this tool**: If you have waited for more than 12 hours for these FASTQ files to successfully load into your Galaxy history using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> tool , you can transfer these files from an existing history I set up for this week. 
+> 
 > 1. Navigate to `https://usegalaxy.org/u/faes.biof521/h/biof521sp22week2tutorialfiles` (the URL will depend on the exact history you are trying to import). 
 > 2. In the top right-hand corner, click the big **"+"** button for the option to import this history into your Galaxy account. 
 > <img src="{{ page.root }}/fig/History_Import_TopCorner.png" alt="History Import Button in Top Corner">
