@@ -1,6 +1,6 @@
 ---
 title: "Hands-On: Loading Our Input Dataset Onto Galaxy"
-exercises: 30
+exercises: 60
 objectives:
 - "Locate a sequencing dataset from NCBI based on info from a publication"
 - "Download sequencing metadata in bulk from NCBI"
