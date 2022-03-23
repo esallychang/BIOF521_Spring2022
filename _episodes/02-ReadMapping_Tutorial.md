@@ -1,6 +1,6 @@
 ---
 title: "Hands-On: Mapping Our Short Read Data to a Reference Genome"
-exercises: 30
+exercises: 60
 objectives:
 - Students will use their knowledge of quality control to clean the input data sets
 - Students will obtain an appropriate reference genome and map their data to this reference
@@ -116,7 +116,7 @@ What are some of the main things we can learn from this plot of the quality of t
 
 ## Getting the SARS-CoV-2 Reference Genome
 
-In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated relative to the original strain isolated from patients from Wuhan, China, we are going to map our filtered sequencing data to the full assembled genome of one of the original SARS-CoV-2 isolates, `Wuhan-Hu-1`. It has an accession ID of `NC_045512.2`, which you can search for on NCBI much like we did for the Boston samples to get more information. The `Wuhan-Hu-1` reference genome is stored as a compressed `FASTA` file, which we will discuss in much greater detail in Week 2. 
+In order to see what mutations the Boston strains of SARS-CoV-2 have accumulated relative to the original strain isolated from patients from Wuhan, China, we are going to map our filtered sequencing data to the full assembled genome of one of the original SARS-CoV-2 isolates, `Wuhan-Hu-1`. It has an accession ID of `NC_045512.2`, which you can search for on NCBI much like we did for the Boston samples to get more information. The `Wuhan-Hu-1` reference genome is stored as a compressed `FASTA` file, rather than a `FASTQ` file. 
 
 > ## Hands-On: Importing the reference genome from NCBI
 > 1. Click the **Upload Data** button in the toolbar.
