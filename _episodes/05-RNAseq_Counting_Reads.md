@@ -273,7 +273,7 @@ We can also check the distribution of reads across known gene features, such as 
 It looks good, most of the reads have mapped to exons and not many to introns or intergenic regions.
 ## Conclusions 
 
-In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The [next tutorial](https://esallychang.github.io/BIOF521_Fall2021/06-RNASeq_Counts_to_Genes/index.html) shows how to perform differential expression and QC on the counts for this dataset. 
+In this tutorial we have seen how reads (FASTQ files) can be converted into counts. We have also seen QC steps that can be performed to help assess the quality of the data in relation to its distribution on the reference genome. The [next tutorial](https://esallychang.github.io/BIOF521_Spring2022/06-RNASeq_Counts_to_Genes/index.html) shows how to perform differential expression and QC on the counts for this dataset. 
 
 > ## What other aspects of Quality Control could we look at for our RNAseq reads? 
 > The reads could be checked for:

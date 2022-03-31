@@ -186,6 +186,7 @@ Therefore they cannot be simply mapped back to the genome as we normally do for 
 >
 {: .challenge} 
 
+The [next tutorial](https://esallychang.github.io/BIOF521_Spring2022/05-RNAseq_Counting_Reads/index.html) will take you from these mapped reads to a data set containing a filtered set of data about how many reads map to different genes, which is necessary for calculating Differential Expression.
  
 > ## Note: Mapping for Paired-end or stranded reads
 > - If you have **paired-end** reads
