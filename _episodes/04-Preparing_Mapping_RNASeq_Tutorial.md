@@ -1,6 +1,6 @@
 ---
 title: "Hands On: Quality Control and Mapping of RNA-Seq Data" 
-exercises: 30
+exercises:
 objectives:
 - "Make use of Galaxy Collections for a tidy analysis"
 - "Generate reports summarizing QC information from a collection of files with MultiQC"
@@ -66,6 +66,19 @@ All of the data for this experiment can be found under [BioProject PRJNA258286](
 > <img src="{{ page.root }}/fig/Single_End_BasalCell.png" width="400" alt="Single End Input in Galaxy History">
 > 
 {: .challenge}
+
+> ## SRA Upload Workaround: Preloaded Galaxy History
+> Much like last week, if you have waited for more than 12 hours for these FASTQ files to successfully load into your Galaxy history using the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> tool , you can transfer these files from an existing history I set up for this week. 
+>
+> 1. Navigate to `https://usegalaxy.org/u/faes.biof521/h/biof521spring2022week3tutorial`. 
+> 2. In the top right-hand corner, click the big **"+"** button for the option to import this history into your Galaxy account. 
+> <img src="{{ page.root }}/fig/History_Import_TopCorner.png" alt="History Import Button in Top Corner" width="400" height="200">
+> 3. Once that is done (it should just take a few moments), Galaxy will automatically take you back to your home screen, with the imported history now active. 
+> 4. Now you can go to the `View All Histories` option, and you should see this history side by side with your older histories. 
+> <img src="{{ page.root }}/fig/ViewAllHistories.png" alt="The View All Histories Option on Galaxy"  width="400">
+> 5. Drag and drop only the files that you need for this tutorial.
+> 6. Once you are done with that, make sure to click the **Switch To** tab above your Week 3 Tutorial history to make that one active before pressing the **Home** icon on the top bar to return to your usual Galaxy view.
+{: .solution}
 
 
 
