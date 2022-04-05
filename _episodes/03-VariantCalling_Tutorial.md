@@ -244,10 +244,10 @@ SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	
 
 ## Let's answer some questions about our data using Galaxy!
 
-We are going to be using Galaxy utilities to do some tabulating and counting. 
+We are going to be using Galaxy utilities to do some tabulating and counting. **Note that in this collapsed output, each line represents a variant site and a predicted effect. Some variants will have multiple effects.** We are more interested in quantifying these different effects, so we will be using various tools to count the number of rows that pertain to different conditions. 
 
 > ## Hands-On: Using the **Count** tool
-> **Suppose we want to know: How many variants were found in each sample?**  
+> **Suppose we want to know: How many effects caused by variants were found in each sample?**  
 > We could look back at the uncollapsed files of each sample and see how many line they have, but we can also perform a single operation on the final file to get the results. 
 > Find and run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> and modify following the parameters:
 > +  <span class="glyphicon glyphicon-file"></span> **From Dataset**: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
@@ -256,21 +256,21 @@ We are going to be using Galaxy utilities to do some tabulating and counting.
 >
 > Viewing the small output file, you should see that there are two lines, which represent the number of times either of the SRA IDs appear in the first column. 
 >  <img src="{{ page.root }}/fig/Count_Sample_Results.png" width="300" alt="Output of counting number of variants per sample">
-> From this output, we can see that there are 759 variants found in	`SRR11954102`and 427	in `SRR12733957`. 
+> From this output, we can see that there are 759 variant effects found in	`SRR11954102`and 427	in `SRR12733957`. 
 > 
 >  
 > 
-> > ## **How many variants in each data set are predicted to have a HIGH impact?**  
+> > ## **How many effects in each data set are predicted to have a HIGH impact?**  
 > > Run the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> again on the same input file as above, but this time, add the column containing the `EFF[*].IMPACT` information (should be `column 11`) as a column for counting occurrences. 
 > >  <img src="{{ page.root }}/fig/Count_Two_Columns.png" width="750" alt="Example of selecting two columns in Count tool">
 > >  <span class="glyphicon glyphicon-eye-open"></span> Look at the output file. This time it has counted occurrences of each unique pairing of a Sample ID and a `EFF[*].IMPACT` level: 
-> >  <img src="{{ page.root }}/fig/Count_Impact_Sampl_Results.png" width="400" alt="Output of counting number of variants per sample and per Impact level">
-> > If we look just at the rows where `EFF[*].IMPACT = HIGH`, we can see that  `SRR11954102` has 97 of these variants, and `SRR12733957` has 49. 
+> >  <img src="{{ page.root }}/fig/Count_Impact_Sampl_Results.png" width="400" alt="Output of counting number of effects per sample and per Impact level">
+> > If we look just at the rows where `EFF[*].IMPACT = HIGH`, we can see that  `SRR11954102` has 97 of these effects, and `SRR12733957` has 49. 
 > {: .solution}
 {: .challenge}
 
 > ## Hands-on: Using the **Filter** tool
-> **Suppose we want to know: What variants are associated with the Spike Protein (S-protein), and perform operations just on those variants?** 
+> **Suppose we want to know: What variant-associated effects are associated with the Spike Protein (S-protein), and perform operations just on those rows?** 
 > 1. Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Filter data on any column using simple expressions </button> tool. 
 > 2. Set the <span class="glyphicon glyphicon-file"></span> **Filter** input: Our output from  <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Collapse </button>. 
 > 3. Set **With following condition** : `c14=='S'`. 
@@ -280,7 +280,7 @@ We are going to be using Galaxy utilities to do some tabulating and counting.
 > 5. Take a look at the output file <span class="glyphicon glyphicon-eye-open"></span>. It should have the same columns as the input, but limited to rows where the value of `EFF[*].GENE` is `S`. 
 > 6. The helpful summary of the output file tells us the following: `Filtering with c14=='S', kept 4.04% of 1187 valid lines (1187 total lines)`, and that the file is **48 lines long**. Because this 48 includes the header, we know that there are **47 Spike protein mutations** in our data set!
 > 
-> > ## How many of these Spike protein variants can be found in each sample? 
+> > ## How many of these Spike protein effects can be found in each sample? 
 > > There are several ways to do this, but one way uses the same <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Count occurrences of each record </button> tool as above.
 > >
 > > This time, make sure that the <span class="glyphicon glyphicon-file"></span> **From Dataset** variable is set to the output of **Filter** that we just generated. 
