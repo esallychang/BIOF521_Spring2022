@@ -1,0 +1,721 @@
+---
+title: "Basic Data Manipulation in R"
+teaching:
+exercises: 30
+questions:
+- How do I get started with tabular data (e.g. spreadsheets) in R?
+- What are some best practices for reading data into R?
+- How do I save tabular data generated in R?
+objectives:
+- Be able to load a tabular dataset using base R functions
+- Be able to determine the structure of a data frame including its dimensions and the datatypes of variables
+- Be able to subset/retrieve values from a data frame
+keypoints:
+source: Rmd
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, echo=FALSE}
+# Note that that despite this being labeled as a ".csv" file, it is actually delimited by a tab, which you can specific with a "\t" separator. Never trust data at face value!
+pregnant_lactate_sample <- read.csv("../data/pregnant_lactate_sample.csv", sep="\t")
+virgin_pregnant_sample <- read.csv("../data/virgin_pregnant_sample.csv", sep="\t")
+```
+
+## Importing tabular data into R
+
+There are several ways to import data into R. For our purpose here, we
+will focus on using the tools every R installation comes with (so called
+"base" R) to import a tab-delimited file containing results from our
+differential expression workflow. We will need to load the sheet using a
+function called `read.table()`.
+
+> ## Exercise: Review the arguments of the `read.table()` function
+>
+> **Before using the `read.table()` function, use R's help feature to answer the following questions**.
+>
+> *Hint*: Entering '?' before the function name and then running that line will bring up the help documentation. Also, when reading this particular help be careful to pay attention to the 'read.table' expression under the 'Usage' heading. Other answers will be in the 'Arguments' heading.
+>
+> A)  What is the default parameter for 'header' in the `read.table()` function?
+>
+> B)  What argument would you have to change to read a file that was delimited by semicolons (;) rather than a space?
+>
+> C)  What argument would you have to change to read file in which
+>     numbers used commas for decimal separation (i.e. 1,00)?
+>
+> D)  What argument would you have to change to read in only the first 10,000 rows of a very large file?
+{: .challenge}
+
+> ## Solution
+> 
+> A)  The `read.table()` function has the argument 'header' set to
+> TRUE by default, this means the function always assumes the
+> first row is header information, (i.e. column names)
+> 
+> B)  The `read.table()` function has the argument 'sep' set to " ".
+> This means the function assumes spaces are used as delimiters,
+> as you would expect. Changing this parameter (e.g. `sep=";"`)
+> would now interpret semicolons as delimiters.
+>
+> C)  If you set `dec=","` you could change the decimal operator. We'd probably assume the delimiter is some other character.
+> D)  You can set `nrow` to a numeric value (e.g. `nrow=10000`) to choose how. many rows of a file you read in. This may be useful for very large files where not all the data is needed to testsome data cleaning steps you are applying.
+> 
+{: .solution} 
+
+Hopefully, this exercise gets you thinking about using the provided help documentation in R. There are many arguments that exist, but which we wont have time to cover. Look here to get familiar with functions you use frequently, you may be surprised at what you find they can do. 
+
+Now, let's read in the file `pregnant_lactate_sample.csv`, which
+contains just 1000 random lines from the final `limma-voom` expression
+table for that data set. Call this data `pregnant_lactate_sample`. The
+first argument to pass to our `read.table()` function is the file path
+for our data. The file path must be in quotes and now is a good time to
+remember to use tab autocompletion. **If you use tab autocompletion you
+avoid typos and errors in file paths.** Use it!
+
+```{r, eval=FALSE}
+# Note that that despite this being labeled as a ".csv" file, it is actually delimited by a tab, which you can specific with a "\t" separator. Never trust data at face value!
+pregnant_lactate_sample <- read.csv("pregnant_lactate_sample.csv", sep="\t")
+```
+
+One of the first things you should notice is that in the Environment
+window, you have the `pregnant_lactate_sample` object, listed as 1000
+obs. (observations/rows) of 9 variables (columns). Double-clicking on
+the name of the object will open a view of the data in a new tab.
+
+INSERT IMAGE HERE
+
+A **data frame is the standard way in R to store tabular data**. A data
+fame could also be thought of as a collection of vectors, all of which
+have the same length. Using only a few functions, we can learn a lot
+about out data frame including some summary statistics as well as well
+as the "structure" of the data frame. Let's examine what each of these
+functions can tell us:
+
+```{r}
+nrow(pregnant_lactate_sample)
+ncol(pregnant_lactate_sample)
+```
+
+First, we can simply use the `nrow` and `ncol` functions to query how
+many rows and columns a data frame has. This may not SEEM particularly
+interesting, but it is extremely useful in functions that rely on doing
+something like iterating over each row.
+
+```{r}
+summary(pregnant_lactate_sample)
+```
+
+Our data frame had 9 variables, so we get 9 fields that summarize the
+data. The `LogFC`, `AveExpr`, and `P.value` variables (and several
+others) are numerical data and so you get summary statistics on the min
+and max values for these columns, as well as mean, median, and
+interquartile ranges. Many of the other variables (e.g. `SYMBOL`) are
+treated as character data. **Note**: Even though you shouldn't actually
+do math or other manipulations on the `ENTREZID` variable, since R only
+finds numbers in that column, it automatically assumes it is numeric and
+tries to calculate summary stats.
+
+Now, let's use the `str()` (structure) function to look a little more
+closely at how data frames work:
+
+```{r}
+## get the structure of a data frame
+str(pregnant_lactate_sample)
+```
+
+Ok, thats a lot up unpack! Some things to notice.
+
+-   the object type `data.frame` is displayed in the first row along
+    with its dimensions, in this case 1000 observations (rows) and 9
+    variables (columns).
+
+-   Each variable (column) has a name (e.g. `ENTREZID`). This is
+    followed by the object mode (e.g. chr, int, etc.). Notice that
+    before each variable name there is a `$` - this will be important
+    later.
+
+**As a reminder, here is the interpretation of those variables** 
+
+|**Limma-voom output column** | **Explanation** |
+| -------------------------- | ----------------- | 
+| ENTREZID | NCBI Entrez ID for this differentially expressed gene|
+|SYMBOL| Abbreviated gene name| 
+| GENENAME | Full gene name|
+| logFC | log(2) fold change between the two experimental conditions (basalpregnant vs. basallactate)| 
+| AveExpr| Average log(2)fold change across all samples in comparison|
+|t| moderated t-statistic: t-statistic like those for a normal t-test, adjusted for aspects of the experiment|
+| P.value | P-value associated with the above t-statistic|
+| adj.P.value | p-value adjusted for multiple testing|
+| B | B-statistic is the log-odds that the gene is differentially expressed. For reference, a B-statistic of 0 corresponds to a 50-50 chance that the gene is differentially expressed.|
+
+## Working with Vectors in R:
+
+We can think of each variable (column) of data in a `data.frame` as its
+own independent `**vector**` storing a different piece of data for each
+sample. Vectors are probably the most used commonly used object type in
+R. A vector is a collection of values that are all of the same type
+(numbers, characters, etc.). We can extract individual variables into
+vectors using the `$` operator.
+
+```{r}
+# Use the $ sign operator
+log_fc <- pregnant_lactate_sample$logFC
+
+str(log_fc)
+```
+
+We can see that the vector log_fc now contains the LogFC data from our
+data frame, stored as a numeric vector. Vectors always have a mode and a
+length. You can check these with the mode() and length() functions
+respectively.
+
+```{r}
+mode(log_fc)
+length(log_fc)
+```
+
+### Creating and subsetting vectors
+
+Let's create a few more vectors to play around with:
+
+```{r, purl = FALSE}
+# Some interesting human SNPs
+# while accuracy is important, typos in the data won't hurt you here
+
+snp_genes <- c("OXTR", "ACTN3", "AR", "OPRM1")
+snps <- c('rs53576', 'rs1815739', 'rs6152', 'rs1799971')
+snp_chromosomes <- c('3', '11', 'X', '6')
+snp_positions <- c(8762685, 66560624, 67545785, 154039662)
+```
+
+Once we have vectors, one thing we may want to do is specifically
+retrieve one or more values from our vector. To do so, we use **bracket
+notation**. We type the name of the vector followed by square brackets.
+In those square brackets we place the index (e.g. a number) in that
+bracket as follows:
+
+```{r, purl = FALSE}
+# get the 3rd value in the snp_genes vector
+snp_genes[3]
+```
+
+In R, every item your vector is indexed, starting from the first item
+(1) through to the final number of items in your vector. You can also
+retrieve a range of numbers:
+
+```{r, purl = FALSE}
+# get the 1st through 3rd value in the snp_genes vector
+
+snp_genes[1:3]
+```
+
+If you want to retrieve several (but not necessarily sequential) items
+from a vector, you pass a **vector of indices**; a vector that has the
+numbered positions you wish to retrieve.
+
+```{r, purl = FALSE}
+# get the 1st, 3rd, and 4th value in the snp_genes vector
+
+snp_genes[c(1, 3, 4)]
+```
+
+There are additional (and perhaps less commonly used) ways of subsetting
+a vector (see [these
+examples](https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html)).
+Also, several of these subsetting expressions can be combined:
+
+```{r, purl = FALSE}
+# get the 1st through the 3rd value, and 4th value in the snp_genes vector
+# yes, this is a little silly in a vector of only 4 values.
+snp_genes[c(1:3,4)]
+```
+
+## Adding to, removing, or replacing values in existing vectors
+
+Once you have an existing vector, you may want to add a new item to it.
+To do so, you can use the `c()` function again to add your new value:
+
+```{r, purl = FALSE}
+# add the gene 'CYP1A1' and 'APOA5' to our list of snp genes
+# this overwrites our existing vector
+snp_genes <- c(snp_genes, "CYP1A1", "APOA5")
+```
+
+We can verify that "snp_genes" contains the new gene entry
+
+```{r, purl = FALSE}
+snp_genes
+```
+
+Using a negative index will return a version of a vector with that
+index's value removed:
+
+```{r, purl = FALSE}
+snp_genes[-6]
+```
+
+We can remove that value from our vector by overwriting it with this
+expression:
+
+```{r, purl = FALSE}
+snp_genes <- snp_genes[-6]
+snp_genes
+```
+
+We can also explicitly rename or add a value to our index using double bracket notation:
+
+```{r, purl = FALSE}
+snp_genes[7]<- "APOA5"
+snp_genes
+```
+
+Notice in the operation above that R inserts an `NA` value to extend our vector so that the gene "APOA5" is an index 7. This may be a good or not-so-good thing depending on how you use this.
+
+
+> ## Exercise: Examining and subsetting vectors
+>
+> Answer the following questions to test your knowledge of vectors.  **Which of the following are true of vectors in R?** 
+> 
+> A) All vectors have a mode **or** a length.
+> 
+> B) All vectors have a mode **and** a length.
+> 
+> C) Vectors may have different lengths.
+> 
+> D) Items within a vector may be of different modes.
+> 
+> E) You can use the `c()` to add one or more items to an existing
+> vector.
+> 
+> F) You can use the `c()` to add a vector to an exiting vector. 
+> 
+> > ## Solution 
+> > A) False - Vectors have both of these properties.
+> > B) True
+> > C) True
+> > D) False - Vectors have only one mode (e.g. numeric, character); all items in a vector must be of this mode.
+> > E) True
+> > F) True
+> {: .solution} 
+{: .challenge}
+
+## Logical Subsetting
+
+There is one last set of cool subsetting capabilities we want to
+introduce. It is possible within R to retrieve items in a vector based
+on a logical evaluation or numerical comparison. For example, let's say
+we wanted get all of the SNPs in our vector of SNP positions that were
+greater than 100,000,000. We could index using the '\>' (greater than)
+logical operator:
+
+```{r, purl = FALSE}
+snp_positions[snp_positions > 100000000]
+```
+
+In the square brackets you place the name of the vector followed by the
+comparison operator and (in this case) a numeric value. Some of the most
+common logical operators you will use in R are:
+
+| Operator | Description              |
+|----------|--------------------------|
+| \<       | less than                |
+| \<=      | less than or equal to    |
+| \>       | greater than             |
+| \>=      | greater than or equal to |
+| ==       | exactly equal to         |
+| !=       | not equal to             |
+| !x       | not x                    |
+| a \| b   | a or b                   |
+| a & b    | a and b                  |
+
+> ## The magic of programming
+>
+> The reason why the expression
+> `snp_positions[snp_positions > 100000000]` works can be better
+> understood if you examine what the expression "snp_positions \>
+> 100000000" evaluates to:
+>
+> ```{r, purl = FALSE}
+> snp_positions > 100000000
+> ```
+>
+> The output above is a logical vector, the 4th element of which is
+> TRUE. When you pass a logical vector as an index, R will return the
+> true values:
+>
+> ```{r, purl = FALSE}
+> snp_positions[c(FALSE, FALSE, FALSE, TRUE)]
+> ```
+>
+> If you have never coded before, this type of situation starts to
+> expose the "magic" of programming. We mentioned before that in the
+> bracket notation you take your named vector followed by brackets which
+> contain an index: **named_vector[index]**. The "magic" is that the
+> index needs to *evaluate to* a number. So, even if it does not appear
+> to be an integer (e.g. 1, 2, 3), as long as R can evaluate it, we will
+> get a result. That our expression
+> `snp_positions[snp_positions > 100000000]` evaluates to a number can
+> be seen in the following situation. If you wanted to know which
+> **index** (1, 2, 3, or 4) in our vector of SNP positions was the one
+> that was greater than 100,000,000?
+>
+> We can use the `which()` function to return the indices of any item
+> that evaluates as TRUE in our comparison:
+>
+> ```{r, purl = FALSE}
+> which(snp_positions > 100000000)
+> ```
+>
+> **Why this is important**
+>
+> Often in programming we will not know what inputs and values will be
+> used when our code is executed. Rather than put in a pre-determined
+> value (e.g 100000000) we can use an object that can take on whatever
+> value we need. So for example:
+>
+> ```{r, purl = FALSE}
+> snp_marker_cutoff <- 100000000
+> snp_positions[snp_positions > snp_marker_cutoff]
+> ```
+>
+> Ultimately, it's putting together flexible, reusable code like this
+> that gets at the "magic" of programming! 
+{: .callout}
+
+## A few final vector tricks
+
+Finally, there are a few other common retrieve or replace operations you
+may want to know about. First, you can check to see if any of the values
+of your vector are missing (i.e. are `NA`). Missing data will get a more
+detailed treatment later, but the `is.NA()` function will return a
+logical vector, with TRUE for any NA value:
+
+```{r, purl = FALSE}
+# current value of 'snp_genes': 
+# chr [1:7] "OXTR" "ACTN3" "AR" "OPRM1" "CYP1A1" NA "APOA5"
+
+is.na(snp_genes)
+```
+
+Sometimes, you may wish to find out if a specific value (or several
+values) is present a vector. You can do this using the comparison
+operator `%in%`, which will return TRUE for any value in your collection
+that is in the vector you are searching:
+
+```{r, purl = FALSE}
+# current value of 'snp_genes':
+# chr [1:7] "OXTR" "ACTN3" "AR" "OPRM1" "CYP1A1" NA "APOA5"
+
+# test to see if "ACTN3" or "APO5A" is in the snp_genes vector
+# if you are looking for more than one value, you must pass this as a vector
+
+c("ACTN3","APOA5") %in% snp_genes
+```
+
+## Subsetting Data Frames
+
+The first thing to remember is that a data frame is two-dimensional (rows and columns). Therefore, to select a specific value we will will once again use [] (bracket) notation, but we will specify more than one value (except in some cases where we are taking a range).
+
+> ## Exercise: Subsetting a data frame
+>
+> **Try the following indices and functions and try to figure out what they return:**
+>
+> a.  `pregnant_lactate_sample[1,1]`
+>
+> b.  `pregnant_lactate_sample[2,4]`
+>
+> c.  `pregnant_lactate_sample[1000,9]`
+>
+> d.  `pregnant_lactate_sample[2, ]`
+>
+> e.  `head(pregnant_lactate_sample[-1, ])`
+>
+> f.  `pregnant_lactate_sample[1:4,1]`
+>
+> g.  `pregnant_lactate_sample[,c("P.Value")]`
+>
+> h.  `head(pregnant_lactate_sample)`
+>
+> i.  `tail(pregnant_lactate_sample)`
+>
+> j.  `pregnant_lactate_sample$SYMBOL`
+>
+> k.  `pregnant_lactate_sample[pregnant_lactate_sample$SYMBOL == "Agbl3",]`
+>
+> > ## Solution
+> >
+> > a.  
+> >
+> > ```{r, echo=FALSE}
+> > pregnant_lactate_sample[1,1]
+> > ```
+> >
+> > b.  
+> >
+> > ```{r, echo=FALSE}
+> > pregnant_lactate_sample[2,4]
+> > ```
+> >
+> > c.  
+> >
+> > ```{r, echo=FALSE}
+> > pregnant_lactate_sample[1000,9]
+> > ```
+> >
+> > d.  
+> >
+> > ```{r, echo=FALSE}
+> > pregnant_lactate_sample[2, ]
+> > ```
+> >
+> > e.  
+> >
+> > ```{r, echo=FALSE,eval=TRUE}
+> > head(pregnant_lactate_sample[-1, ])
+> > ```
+> >
+> > f.  
+> >
+> > ```{r, echo=FALSE}
+> > pregnant_lactate_sample[1:4,1]
+> > ```
+> >
+> > g.  
+> >
+> > ```{r, echo=FALSE, eval = TRUE}
+> > head(pregnant_lactate_sample[,c("P.Value")])
+> > ```
+> >
+> > h.  
+> >
+> > ```{r, echo=FALSE}
+> > head(variants)
+> > ```
+> >
+> > i.  
+> >
+> > ```{r, echo=FALSE}
+> > tail(variants)
+> > ```
+> >
+> > j.  
+> >
+> > ```{r, echo = TRUE, echo=FALSE}
+> > head(pregnant_lactate_sample$SYMBOL)
+> > ```
+> >
+> > k.  
+> >
+> > ```{r, echo = FALSE, eval = TRUE}
+> > pregnant_lactate_sample[pregnant_lactate_sample$SYMBOL == "Agbl3",]
+> > ```
+> >
+> {: .solution} 
+{: .challenge}
+
+
+
+**The subsetting notation is very similar to what we learned for
+vectors. The key differences include:**
+
+-   Typically provide two values separated by commas: data.frame[row,
+    column]
+-   In cases where you are taking a continuous range of numbers use a
+    colon between the numbers (start:stop, inclusive)
+-   For a non continuous set of numbers, pass a vector using `c()`
+-   Index using the name of a column(s) by passing them as vectors using
+    `c()`
+
+**Finally, in all of the subsetting exercises above, we printed values
+to the screen. You can create a new data frame object by assigning them
+to a new object name:**
+
+Create a new data frame containing only those genes with an adjusted
+P-value less than or equal to 0.05:
+
+```{r, purl = FALSE}
+# Notice that we need to refer to the correct variable using the `$` operator.
+# And also that we use the "," to say that we are selecting ROWS instead of columns. The condition would go AFTER the column for selecting rows. 
+pregnant_lactate_sample_filt <- pregnant_lactate_sample[pregnant_lactate_sample$adj.P.Val <= 0.05,]
+
+# check the dimension of the data frame
+
+dim(pregnant_lactate_sample_filt)
+
+# get a summary of the data frame
+
+summary(pregnant_lactate_sample_filt)
+#We can see that 353 of the 1000 genes in this table are significant at the P=0.05 level!
+```
+
+## Comparing data sets in R
+
+**One of the really powerful uses of R is being able to really quickly
+compare data frames without much manual work on your end. Try the
+following on your own to create a data frame we can compare with the
+`pregnant_lactate_sample_filt` data set:**
+
+1.  Import the `virgin_pregnant_sample.csv` into R, creating a
+    `data frame` called `virgin_pregnant_sample`.
+2.  Filter this data frame so that it includes only genes an adjusted
+    P-value less than or equal to 0.05, creating a dataframe called
+    `virgin_pregnant_sample_filt`.
+3.  Report a summary of this new data frame.
+
+> ## Solution
+>
+> Use the following commands:
+>
+> ```{r, eval=FALSE}
+> virgin_pregnant_sample <- read.csv("virgin_pregnant_sample.csv", sep="\t")
+> virgin_pregnant_sample_filt <- virgin_pregnant_sample[virgin_pregnant_sample$adj.P.Val <= 0.05,]
+> summary(virgin_pregnant_sample_filt)
+> ```
+>
+> You should see that this table contains 269 rows of data.
+>
+{: .solution}
+
+**Now, let's try to answer a question that I am sure you are very curious about: How many significant genes do these two data sets have in common?**
+
+Base R has a few very useful set operations built in for answering this
+sort of question. We are going to use the `intersect()`function to creat
+a vector of the genes that have in common:
+
+```{r}
+overlap <- intersect(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt$ENTREZID)
+## Let's see how big the overlap is 
+length(overlap) #They share 10 differentially expressed genes
+```
+
+We can also perform other set operations, such as `union()`, which
+creates a list of all elements in either list, and `setdiff()` which
+computes the list of elements in one list but not in the other:
+
+```{r}
+# We can nest the union() function inside the length() function to cut out an intermediate step
+length(union(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt$ENTREZID))
+
+# Note that reversing the arguments on setdiff() produces different results: 
+length(setdiff(pregnant_lactate_sample_filt$ENTREZID,virgin_pregnant_sample_filt$ENTREZID))
+length(setdiff(virgin_pregnant_sample_filt$ENTREZID,pregnant_lactate_sample_filt$ENTREZID))
+```
+
+Now, let's say that we want to not only get the list of the overlap
+between the significant genes, but also extract the rows from each data
+frame that correspond to those overlapping genes.
+
+We can do this with the `%in%` operator:
+
+```{r}
+# select the rows in the pregnant_lactate_sample_filt data frame that correspond to those 10 shared genes 
+preg_lac_overlap <- pregnant_lactate_sample_filt[pregnant_lactate_sample_filt$ENTREZID %in% overlap,]
+summary(preg_lac_overlap)
+
+# select the rows in the virgin_pregnant_sample_filt data frame that correspond to those 10 shared genes
+virg_preg_overlap <- virgin_pregnant_sample_filt[virgin_pregnant_sample_filt$ENTREZID %in% overlap,]
+summary(virg_preg_overlap)
+```
+
+You can also cut out the step of creating the `overlap` vector by
+telling the %in% operator to compare the two columns of data directly,
+using a command like the one below:
+
+```{r, eval=FALSE}
+virg_preg_overlap <- virgin_pregnant_sample_filt[virgin_pregnant_sample_filt$ENTREZID %in% pregnant_lactate_sample_filt$ENTREZID,]
+```
+
+> ## Challenge: How many genes are shared between the two unfiltered sample data sets?
+>
+> This means we want to compare the `pregnant_lactate_sample` data sets
+> and the `virgin_pregnant_sample` data sets. You can do this multiple
+> ways. 1. Use the `interesect()` function on the \`ENTREZID columns,
+> and get the length of the resulting vector.\
+> 2. Create a new data frame of the rows sharing and use summarize(),
+> str(), or nrow() to see how many observations are in the resulting
+> data frame. 3. Sample the Either way, you should find that these data
+> sets share 
+{: .solution}
+
+## Brief Introduction to the `dplyr` package
+
+When you manipulate more complicated data sets, you may want to make use
+of the dplyr() package eventually. It streamlines a lot of the selecting
+and filtering steps and lets you chain together lots of commands to
+modify and manipulate big data frames. I will just be showing you a few
+commands that are equivalent to the ones above.
+
+According to the main tutorial for `dplyr`, it aims to provide a
+function for each basic verb of data manipulation. These verbs can be
+organised into three categories based on the component of the dataset
+that they work with:
+
+**Rows**: filter() chooses rows based on column values. slice() chooses
+rows based on location. arrange() changes the order of the rows.
+
+**Columns:** select() changes whether or not a column is included.
+rename() changes the name of columns. mutate() changes the values of
+columns and creates new columns. relocate() changes the order of the
+columns. Groups of rows: summarise() collapses a group into a single
+row.
+
+**The Pipe Operator** All of the dplyr functions take a data frame (or
+tibble) as the first argument. Rather than forcing the user to either
+save intermediate objects or nest functions, dplyr provides the `%>%`
+operator. `x %>% f(y)` turns into `f(x, y)` so the result from one step
+is then "piped" into the next step. You can use the pipe to rewrite
+multiple operations that you can read left-to-right, top-to-bottom
+(reading the pipe operator as "then").
+
+### Filtering Data in Dplyr
+
+`filter()` allows you to select a subset of rows in a data frame. Like
+all single verbs, the first argument is the tibble (or data frame). The
+second and subsequent arguments refer to variables within that data
+frame, selecting rows where the expression is TRUE. Let's use `dplyr` to
+quickly perform the same filtering operations we did before.
+
+```{r, eval=FALSE}
+library(dplyr) # Make sure the package is loaded into your environment
+```
+
+Creating the filtered data frames again:
+
+```{r}
+pregnant_lactate_sample_filt2 <- pregnant_lactate_sample %>% filter(adj.P.Val <= 0.05)
+virgin_pregnant_sample_filt2 <- virgin_pregnant_sample %>% filter(adj.P.Val <= 0.05)
+```
+
+Comparing the overlap between the datasets:
+
+```{r}
+preg_lac_overlap2 <- pregnant_lactate_sample_filt2 %>% filter(ENTREZID %in% virgin_pregnant_sample_filt2$ENTREZID)
+dim(preg_lac_overlap2) 
+```
+
+You could also chain together two of the commands together like below to
+get directly to the data frame of `pregnant_lactate_sample` rows where
+the adjusted P-value is \< 0.05 **AND** those rows can be found in the
+filtered `virgin_pregnant_sample_filt2` data frame:
+
+```{r}
+preg_lac_overlap3 <- pregnant_lactate_sample %>% filter(adj.P.Val <= 0.05) %>% filter(ENTREZID %in% virgin_pregnant_sample_filt2$ENTREZID)
+dim(preg_lac_overlap3)
+```
+
+And finally, you can combine this into an even shorter expression:
+
+```{r, eval=FALSE}
+preg_lac_overlap4 <- pregnant_lactate_sample %>% filter(adj.P.Val <= 0.05, ENTREZID %in% virgin_pregnant_sample_filt2$ENTREZID)
+dim(preg_lac_overlap4)
+```
+
+This is just a taste of the data manipulations you can do using dplyr().
+Here are some resources to help you get started if you think you'll be
+analyzing big dataframes in the future!
+
+-   **Official Dplyr Vignette**:
+    <https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html>
+-   **Main Dplyr and Tidyverse Website**:
+    <https://dplyr.tidyverse.org/index.html>
