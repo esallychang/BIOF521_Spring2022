@@ -25,13 +25,15 @@ The alignment produced a set of BAM files, where each file contains the read ali
 Reads that map to exons of genes are added together to obtain the count for each gene, with some care taken with reads that span exon-exon boundaries. The output is a count for each Entrez Gene ID, which are numbers such as `100008567`. For other species, users will need to read in a data frame in GTF format to define the genes and exons. Users can also specify a custom annotation file in SAF format. Doing so is a bit outside the scope of this course!
 <br/><br/>
 > ## Hands-on: Count reads mapped to genes with **featureCounts**
-> 1. Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> **featureCounts** </button> modifying the following parameters: 
+> 1. Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> **featureCounts** </button> Make sure that you have chosen the exact right version of this tool `2.0.1+galaxy1` using the version menu at the top of page.
+> <img src="{{ page.root }}/fig/FeatureCountsVesion.png" width="200" alt="Feature Counts Version">.
+> 2. Modify the following parameters to the following:
 > + *"Alignment file"*: `aligned reads (BAM)` (output of **HISAT2**). 
 > + *"Gene annotation file"*: `featureCounts built-in`. 
 > 	- *"Select built-in genome"*: `mm10`. 
 > 
-> 2. Applying the same logic as the last time we ran MultiQC, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the appropriate options for the output of **featureCounts**. 
-> 3. Add a tag `#featurecounts` to the Webpage output from MultiQC and inspect the webpage. 
+> 3. Applying the same logic as the last time we ran MultiQC, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the appropriate options for the output of **featureCounts**. 
+> 4. Add a tag `#featurecounts` to the Webpage output from MultiQC and inspect the webpage. 
 > 
 {: .challenge} 
 
