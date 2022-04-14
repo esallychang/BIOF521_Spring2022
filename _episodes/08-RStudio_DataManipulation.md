@@ -658,14 +658,47 @@ The first thing to remember is that a data frame is two-dimensional (rows and co
 > >
 > > 
 > > ```
-> > ## Error in head(variants): object 'variants' not found
+> > ##    ENTREZID  SYMBOL                                                    GENENAME
+> > ## 1 100503377    <NA>                                                        <NA>
+> > ## 2    269003  Sap130                                    Sin3A associated protein
+> > ## 3     66403   Asf1a                anti-silencing function 1A histone chaperone
+> > ## 4     76223   Agbl3                              ATP/GTP binding protein-like 3
+> > ## 5    108115 Slco4a1 solute carrier organic anion transporter family, member 4a1
+> > ## 6     26931 Ppp2r5c         protein phosphatase 2, regulatory subunit B', gamma
+> > ##        logFC  AveExpr          t     P.Value   adj.P.Val          B
+> > ## 1  0.9993922 2.047936  4.0939427 0.001149596 0.006166095 -0.9256651
+> > ## 2  0.1019730 5.905080  0.8570232 0.406219916 0.528719445 -7.0076414
+> > ## 3  0.2408268 3.250726  1.2740289 0.223907466 0.337646175 -6.1292921
+> > ## 4 -0.2718800 1.766450 -1.0148846 0.327804192 0.449286598 -6.0782607
+> > ## 5  0.4470426 2.915509  2.4128361 0.030510497 0.073790047 -4.2960219
+> > ## 6 -0.1748803 6.717637 -1.6226379 0.127515480 0.220685922 -6.1201187
 > > ```
 > >
 > > i.  
 > >
 > > 
 > > ```
-> > ## Error in tail(variants): object 'variants' not found
+> > ##      ENTREZID   SYMBOL
+> > ## 995     14163     Fgd1
+> > ## 996     20724 Serpinb5
+> > ## 997     30953   Schip1
+> > ## 998     22070     Tpt1
+> > ## 999     14866    Gstm5
+> > ## 1000   239114    Il17d
+> > ##                                                         GENENAME      logFC
+> > ## 995                      FYVE, RhoGEF and PH domain containing 1  0.1832380
+> > ## 996  serine (or cysteine) peptidase inhibitor, clade B, member 5 -1.0820353
+> > ## 997                            schwannomin interacting protein 1  1.2296693
+> > ## 998                  tumor protein, translationally-controlled 1  0.2674972
+> > ## 999                              glutathione S-transferase, mu 5  0.1829648
+> > ## 1000                                             interleukin 17D  0.1813840
+> > ##         AveExpr          t     P.Value  adj.P.Val         B
+> > ## 995   3.7791579  1.0934993 0.293087548 0.41410547 -6.450872
+> > ## 996   7.4122717 -3.5974661 0.017568884 0.04836408 -3.654365
+> > ## 997   0.6445189  3.6742186 0.002598556 0.01159664 -1.504938
+> > ## 998  10.5391414  2.0154644 0.063973884 0.13032704 -5.307836
+> > ## 999   5.7908138  1.5870589 0.135374337 0.23164344 -6.147016
+> > ## 1000  2.4664044  0.8417762 0.414410853 0.53642762 -6.398961
 > > ```
 > >
 > > j.  

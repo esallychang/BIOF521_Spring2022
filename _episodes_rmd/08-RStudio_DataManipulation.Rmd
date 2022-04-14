@@ -490,13 +490,13 @@ The first thing to remember is that a data frame is two-dimensional (rows and co
 > > h.  
 > >
 > > ```{r, echo=FALSE}
-> > head(variants)
+> > head(pregnant_lactate_sample)
 > > ```
 > >
 > > i.  
 > >
 > > ```{r, echo=FALSE}
-> > tail(variants)
+> > tail(pregnant_lactate_sample)
 > > ```
 > >
 > > j.  

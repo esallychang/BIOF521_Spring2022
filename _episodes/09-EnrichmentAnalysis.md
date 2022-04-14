@@ -14,6 +14,26 @@ objectives:
 
 
 
+## Preparing the environment
+
+1. **Load required packages:** These packages should already be installed in your environment, and some of them may already be loaded from previous tutorials. Still, we assume that all of these are in your environment to complete this tutorial: 
+
+~~~
+library(ggplot2) #graphics
+library(clusterProfiler) #package that does most of the actual GO term analyses
+library(enrichplot) #graphics for GO term enrichment
+library(ggridges) #graphics
+library(ggnewscale) #graphics
+library(europepmc) #lets us query the PMC publication database
+~~~
+{: .language-r}
+<br/><br/>
+2. **Load data file**: You should already have the `pregnant_lactate_limma` data frame in your environment, but if not: 
+
+~~~
+pregnant_lactate_limma <- read.csv("limma-voom_basalpregnant-basallactate.csv",header=TRUE)
+~~~
+
 ## Introduction to GO Term Enrichment Analysis
 
 When we have a large list of genes of interest, such as a list of differentially expressed genes obtained from an RNA-Seq experiment, how do we extract biological meaning from it?
