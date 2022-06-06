@@ -53,9 +53,14 @@ Because making sure our reads are high-quality is important but not the focus of
 > 2. Set **single or paired reads** to `Paired Collection`. 
 > 3. Make sure that you have selected the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Faster Download and Extract Reads in FASTQ </button> as the input.
 > 4. Press `Execute`. 
+> 5. To view the resultant HTML report, you may need to download the file onto your computer (see below). 
 {: .challenge}
 
 ## Examining the **fastp** results
+
+> ## Warning: Stop here and download the results!
+> Due to differences in the way that different browsers render HTML files, you may not be able to view the HTML file produced by <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> fastp - fast all-in-one preprocessing for FASTQ files </button> directly from the Galaxy interface itself. To get around this, you may need to download the `HTML` formatted report to your local computer first, and then click to open in your browser. 
+{: .callout} 
 
 The HTML reports from filtering these data sets are **FULL** of information about the quality of these sequencing data sets. 
 
