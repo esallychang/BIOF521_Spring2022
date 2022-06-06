@@ -27,13 +27,12 @@ Reads that map to exons of genes are added together to obtain the count for each
 > ## Hands-on: Count reads mapped to genes with **featureCounts**
 > 1. Run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> **featureCounts** </button> Make sure that you have chosen the exact right version of this tool `2.0.1+galaxy1` using the version menu at the top of page.
 > <img src="{{ page.root }}/fig/FeatureCountsVesion.png" width="200" alt="Feature Counts Version">.
-> 2. Modify the following parameters to the following:
-> + *"Alignment file"*: `aligned reads (BAM)` (output of **HISAT2**). 
-> + *"Gene annotation file"*: `featureCounts built-in`. 
-> 	- *"Select built-in genome"*: `mm10`. 
-> 
-> 3. Applying the same logic as the last time we ran MultiQC, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the appropriate options for the output of **featureCounts**. 
-> 4. Add a tag `#featurecounts` to the Webpage output from MultiQC and inspect the webpage. 
+> 2. Modify the following parameters to the following, IN THIS ORDER:
+> + Select `"featureCounts built-in"` for the *"Gene annotation file".*  This will appear to not do anything. 
+> + *"Alignment file"*: Choose the collection option, and it should by default choose the output of **HISAT2**. Select this output collection if it is not already selected. 
+> 3. At this point, under *"Gene annotation file"*: `featureCounts built-in`, *"Select built-in genome"* should be `mm10`. If not, `mm10` should at least be available to select. 
+> 4. Applying the same logic as the last time we ran MultiQC, run <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MultiQC </button> with the appropriate options for the output of **featureCounts**. 
+> 5. Add a tag `#featurecounts` to the Webpage output from MultiQC and inspect the webpage. 
 > 
 {: .challenge} 
 
