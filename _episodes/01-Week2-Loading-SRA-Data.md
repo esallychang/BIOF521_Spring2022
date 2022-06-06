@@ -86,12 +86,12 @@ We can see that the sample that was sequenced to become the SRA sequencing datas
 > {: .solution}
 > **Note:** If you ever want a smaller summary of the data, you can also click the name of of item in your history, which should produce something like this: 
 > 
-> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking the name of a data set in your in Galaxy History">
+> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" width="400" height="200" alt="Data summary produced by clicking the name of a data set in your in Galaxy History">
 {: .challenge}
 
 
 
-The Galaxy servers are powerful enough to process all 2,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in April and May of 2020, which I have chosen using the "Collection Date" information retrieved by as described above. 
+The Galaxy servers MIGHT powerful enough to process all 22,000+ datasets, but to make this tutorial bearable we need to selected a smaller, but still interesting, subset. In particular, we are interested in samples from early in the ongoing Covid-19 pandemic, so we will be choosing samples collected in April and May of 2020, which I have chosen using the "Collection Date" information retrieved by as described above. 
 
 **We are going to focus on the following two sequencing data sets:** 
 * Run Number `SRR12733957`: A sequencing run from a sample collected on April 6th, 2020.
