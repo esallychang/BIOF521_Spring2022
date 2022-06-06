@@ -86,7 +86,7 @@ We can see that the sample that was sequenced to become the SRA sequencing datas
 > {: .solution}
 > **Note:** If you ever want a smaller summary of the data, you can also click the name of of item in your history, which should produce something like this: 
 > 
-> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking the name of a data set in your in Galaxy History" height="50%" width="50%">
+> <img src="{{ page.root }}/fig/Galaxy_Pencil_Summary.png" alt="Data summary produced by clicking the name of a data set in your in Galaxy History" height="300">
 > 
 {: .challenge}
 
