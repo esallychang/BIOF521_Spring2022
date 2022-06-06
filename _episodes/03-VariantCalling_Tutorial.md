@@ -211,11 +211,11 @@ SRR11954102	NC_045512.2	84	C	T	7114.0	208	0.975962	0	0,1,102,105	MODIFIER	NONE	i
 SRR11954102	NC_045512.2	160	G	T	144.0	254	0.031496	14	166,77,10,0	MODIFIER	NONE	intergenic_region	CHR_START-ORF1ab	n.160G>T
 ~~~ 
 
-**The first six columns are standard for variant-call-format files (VCFs):** 
+**The first column, `Sample`, has been added by `SnpSift`. The rest of these first few columns, `CHROM - QUAL`, are standard for variant-call-format files (VCFs). `DP - DP4` which provide more information about the read information that supports the called variant, are also commonly found in the output of variant-calling software:** 
 
 | Column      | Description |
 | ----------- | ----------- |
-| Sample      | Sample Name      |
+| Sample      | Sample Name (added by SnpSift)      |
 | CHROM       | Chromosome of reference, not really applicable for viral genomes        |
 | POS         | Base pair position in reference genome  | 
 | REF         | The reference allele (what the reference genome has at this position) |
