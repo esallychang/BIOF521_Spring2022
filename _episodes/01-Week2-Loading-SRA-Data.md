@@ -38,7 +38,7 @@ As you can see, we now know we can find sequencing data related to this study un
 > 1. Go to NCBI’s SRA page by pointing your browser to `https://www.ncbi.nlm.nih.gov/sra`
 > 2. Perform a search using the Bioproject ID from the paper: `BioProject PRJNA622837`
 > <img src="{{ page.root }}/fig/SRA_Bioproject_Search.png" alt="SRA search toolbar filled in with Bioproject ID from above">
-> 3. The web page will show a large number of available SRA datasets related to project described in Lemieux et al. 2020 (at the time of writing there were 3,927). 
+> 3. The web page will show a large number of available SRA datasets related to project described in Lemieux et al. 2020 (at the time of writing there were 22,173). 
 > 4. Download metadata describing these datasets by:
 >   * clicking on **Send to**: dropdown
 >   * Selecting `File`
