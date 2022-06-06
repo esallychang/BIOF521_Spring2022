@@ -69,15 +69,15 @@ What percentage of reads were duplicated in the raw `SRR11954102`? What about in
 {: .solution}
 
 > ## Measuring duplication levels
-> Note that the levels of duplication  are inferred based on read sequence similarity alone because the short-read data had not been mapped to a reference genome yet. The following **Mark Duplicates** step will remove duplicate copies of reads while incorporating information about their mapped position on the reference genome.
+> Note that the levels of duplication  are inferred based on read sequence similarity alone because the short-read data had not been mapped to a reference genome yet. The following **MarkDuplicates** step will remove duplicate copies of reads while incorporating information about their mapped position on the reference genome.
 {: .callout}
 
 > ## Hands-On: Removing Duplicates
-> Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Mark Duplicates </button> tool. The full title should be something like `Mark Duplicates examine aligned records in BAM datasets to locate duplicate molecules`. 
+> Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MarkDuplicates </button> tool. The full title should be something like `Mark Duplicates examine aligned records in BAM datasets to locate duplicate molecules`. 
 >
 > Run this tool with the following modified parameters: 
 > + **Select SAM/BAM dataset or dataset collection**: Click the folder icon <span class="glyphicon glyphicon-folder-close"></span> and choose output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Map with BWA-MEM </button>. 
-> + **If true do not write duplicates to the output file instead of writing them with appropriate flags set** set to `Yes`. This switch tells **Mark Duplicates** to not only mark which short reads are duplicates of one another, but to also remove them from the output file.  
+> + **If true do not write duplicates to the output file instead of writing them with appropriate flags set** set to `Yes`. This switch tells **MarkDuplicates** to not only mark which short reads are duplicates of one another, but to also remove them from the output file.  
 {: .challenge}
 
 ## Process Mapping Results Step 2: Re-aligning Reads
@@ -86,7 +86,7 @@ Next, we will run tool that re-aligns read to the reference genome, while correc
 
 > ## Hands-On: Re-aligning Reads
 > Find the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Realign reads with LoFreq viterbi </button> tool. Run with the following parameters:
-> + <span class="glyphicon glyphicon-folder-close"></span> **Reads to re-align** should be set to the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> Mark Duplicates </button>. 
+> + <span class="glyphicon glyphicon-folder-close"></span> **Reads to re-align** should be set to the output of <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> MarkDuplicates </button>. 
 > + **Choose the source for the reference genome**: `History`, and the **Reference** should be the same input reference genome as for the <button type="button" class="btn btn-outline-tool" style="pointer-events: none"> BWA-MEM </button> step. 
 > + Check that **Advanced Options**: "_How to handle base qualities of 2?_" is set to `Keep Unchanged`. 
 {: .challenge}
